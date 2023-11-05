@@ -1,0 +1,32 @@
+:root {
+    --form-background: #13232f;
+    --body-bg: #c1bdba;
+    --white: #ffffff;
+
+    --main: #1ab188;
+    --main-light: #1ab189f2;
+    --main-dark: #179b78;
+
+    --gray: #ddd;
+    --gray-light: #a0b3b0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-bg);
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.form-container {
+    background-color: var(--form-background);
+}
+
+.d-hidden {
+    display: none;
+}
+
