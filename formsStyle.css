@@ -99,25 +99,11 @@ h1 {
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-top: 24px;
     position: relative;
 }
 
-.input-group > label {
-    color: var(--gray-light);
-    margin-bottom: 4px;
-    position: absolute;
-    transition: all 0.3s;
-}
-
-.label-in-input {
-    top: 22%;
-    left: 8px
-}
-
-.label-out-input {
-    top: -45%;
-    font-size: 0.8rem;
+.input-group:not(#no-margin){
+    margin-top: 24px;
 }
 
 .input-group input {
@@ -128,6 +114,10 @@ h1 {
     padding-left: 8px;
     color: var(--white);
     font-size: 1.2rem;
+}
+
+.input-group input::placeholder {
+    color: var(--gray-light);
 }
 
 .input-group input:focus {
