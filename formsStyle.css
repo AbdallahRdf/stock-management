@@ -9,6 +9,7 @@
 
     --gray: #ddd;
     --gray-light: #a0b3b0;
+    --gray-dark: #435259;
 }
 
 * {
@@ -20,11 +21,125 @@
 body {
     background-color: var(--body-bg);
     font-family: 'Titillium Web', sans-serif;
+    color: var(--white);
 }
 
 .form-container {
     background-color: var(--form-background);
+    width: 540px;
+    margin: 18vh auto;
+    padding: 50px 40px;
+    border-radius: 6px;
 }
+
+.control-btns {
+    width: 100%;
+    display: flex;
+}
+
+.control-btn,
+.submit-btn button {
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.control-btn {
+    width: 50%;
+    font-size: 1.1rem;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    transition: all .3s;
+}
+
+.submit-btn button {
+    font-size: 1.5rem;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 24px;
+    background-color: var(--main);
+    color: var(--white);
+    font-weight: bold;
+}
+
+.selected-control-btn{
+    background-color: var(--main);
+    color: var(--white);
+}
+
+.unselected-control-btn{
+    background-color: var(--gray-dark);
+    color: var(--gray-light);
+}
+
+.selected-control-btn:hover,
+.unselected-control-btn:hover {
+    background-color: var(--main-dark);
+    color: var(--white);
+}
+
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 100;
+}
+
+.input-group-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-group-group .input-group {
+    width: 48%
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    position: relative;
+}
+
+.input-group > label {
+    color: var(--gray-light);
+    margin-bottom: 4px;
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.label-in-input {
+    top: 22%;
+    left: 8px
+}
+
+.label-out-input {
+    top: -45%;
+    font-size: 0.8rem;
+}
+
+.input-group input {
+    background-color: transparent;
+    outline: none;
+    border: 1px solid var(--gray-light);
+    padding: 4px;
+    padding-left: 8px;
+    color: var(--white);
+    font-size: 1.2rem;
+}
+
+.input-group input:focus {
+    border: 1px solid var(--main-dark)
+}
+
+.submit-btn,
+.submit-btn button {
+    width: 100%
+}
+
+/** utility styles */
 
 .d-hidden {
     display: none;
