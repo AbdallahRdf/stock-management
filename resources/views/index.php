@@ -2,22 +2,35 @@
 
     include "../../util/functions.php";
 
+    session_start();
+
     //* placeholder for signup errors;
     $signup_errors = false;
     $firstName_error = "";
     $lastName_error = "";
-    $email_error = "";
-    $password_error = "";
+    $signup_email_error = "";
+    $signup_password_error = "";
     
     //* if there is signup errors, assign to each vartiable its error message;
-    if(!empty($_GET) && isset($_GET['signup_errors'])){
+    if(isset($_SESSION['signup_errors'])){
         $signup_errors = true;
-        $firstName_error = $_GET['firstName_error'];
-        $lastName_error = $_GET['lastName_error'];
-        $email_error = $_GET['email_error'];
-        $password_error = $_GET['password_error'];    
+        $firstName_error = $_SESSION["signup_errors"]['firstName_error'];
+        $lastName_error = $_SESSION["signup_errors"]['lastName_error'];
+        $signup_email_error = $_SESSION["signup_errors"]['email_error'];
+        $signup_password_error = $_SESSION["signup_errors"]['signup_password_error'];    
     }
-    
+
+    //* placeholder for signup errors;
+    $login_errors = false;
+    $login_email_error = "";
+    $login_password_error = "";
+
+    //* if there is signup errors, assign to each vartiable its error message;
+    if (!empty($_SESSION) && isset($_SESSION['login_errors'])) {
+        $login_errors = true;
+        $login_email_error = $_SESSION['login_errors']['email_error'];
+        $login_password_error = $_SESSION['login_errors']['login_password_error'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -38,22 +51,32 @@
         <!-- Log in part -->
         <div id="loginPart" class="<?= $signup_errors ? "d-hidden" : "" ?>">
             <h1>Welcome Back!</h1>
-            <form action="" method="post">
+            <form action="../../Controllers/AuthentificationController.php" method="post">
+
+                <input type="hidden" name="login" value="login">
+
                 <div class="input-group">
                     <input class="login-input" type="email" name="email" id="email" placeholder="E-Mail Address">
+                    <small><?= $login_email_error ?></small>
                 </div>
+
                 <div class="input-group">
                     <input class="login-input" type="password" name="password" id="password" placeholder="Password">
+                    <small><?= $login_password_error ?></small>
                 </div>
+
                 <div class="submit-btn">
                     <button type="submit">Log In</button>
                 </div>
             </form>
         </div>
+
         <!-- Sign up part -->
         <div id="signupPart" class="<?= $signup_errors ? "" : "d-hidden" ?>">
             <h1>Create Account</h1>
-            <form action="../../Controllers/SignupController.php" method="post">
+            <form action="../../Controllers/AuthentificationController.php" method="post">
+
+                <input type="hidden" name="signup" value="signup">
 
                 <div class="input-group-group">
 
@@ -74,13 +97,13 @@
                 <div class="input-group">
                     <input class="signup-input" type="email" name="email" id="email"  placeholder="E-Mail Address">
 
-                    <small><?= $email_error ?></small>
+                    <small><?= $signup_email_error ?></small>
                 </div>
 
                 <div class="input-group">
                     <input class="signup-input" type="password" name="password" id="password" placeholder="Password">
 
-                <small><?= $password_error ?></small>                    
+                <small><?= $signup_password_error ?></small>                    
                 </div>
 
                 <div class="submit-btn">
