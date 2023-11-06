@@ -1,4 +1,4 @@
 <?php
-include "util/functions.php";
+include "app/util/functions.php";
 
 view("index");
