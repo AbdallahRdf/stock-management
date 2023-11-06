@@ -23,6 +23,6 @@ spl_autoload_register(function ($class){
    
    if(file_exists($full_path))
    {
-      require_once $path;
+      require_once $full_path;
    }
 });
