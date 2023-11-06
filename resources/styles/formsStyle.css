@@ -62,6 +62,10 @@ body {
     font-weight: bold;
 }
 
+.submit-btn button:hover {
+    background-color: var(--main-light);
+}
+
 .selected-control-btn{
     background-color: var(--main);
     color: var(--white);
@@ -127,6 +131,11 @@ h1 {
 .submit-btn,
 .submit-btn button {
     width: 100%
+}
+
+small {
+    color: red;
+    margin-top: 6px;;
 }
 
 /** utility styles */
