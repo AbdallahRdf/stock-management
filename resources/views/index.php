@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Management</title>
-    <link rel="stylesheet" href="formsStyle.css">
+    <link rel="stylesheet" href="../styles/formsStyle.css">
 </head>
 <body>
     <div class="form-container">
@@ -18,7 +18,7 @@
             <h1>Welcome Back!</h1>
             <form action="" method="post">
                 <div class="input-group">
-                    <input type="email" name="email" id="email" placeholder="E-Mail">
+                    <input type="email" name="email" id="email" placeholder="E-Mail Address">
                 </div>
                 <div class="input-group">
                     <input type="password" name="password" id="password" placeholder="Password">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <input type="email" name="email" id="email"  placeholder="E-Mail">
+                    <input type="email" name="email" id="email"  placeholder="E-Mail Address">
                 </div>
                 <div class="input-group">
                     <input type="password" name="password" id="password" placeholder="Password">
@@ -53,6 +53,6 @@
         </div>
     </div>
 
-    <script src="formsScript.js"></script>
+    <script src="../js/formsScript.js"></script>
 </body>
 </html>
