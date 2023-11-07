@@ -1,6 +1,6 @@
 <?php
 
-function dd($data)
+function dd($data) // die and dump
 {
     echo "<pre>";
     var_dump($data);

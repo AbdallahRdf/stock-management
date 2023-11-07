@@ -4,6 +4,9 @@
 require_once "../app/autoloader/autoloader.php";
 
 use App\Core\Validator;
+use Controllers\UserController;
+
+// include "UserController.php";
 
 require_once "../app/util/functions.php";
 
@@ -71,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             view("index");
             die();
         }
+        UserController::signup($firstName, $lastName, $email, $password);
         echo "all is correct";
         dd($ERRORS);
     }
