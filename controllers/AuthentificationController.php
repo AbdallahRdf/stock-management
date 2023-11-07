@@ -74,9 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             view("index");
             die();
         }
+        $password = password_hash($password, PASSWORD_DEFAULT);
         UserController::signup($firstName, $lastName, $email, $password);
-        echo "all is correct";
-        dd($ERRORS);
+        
     }
     // checking if we are in a login process
     else if(isset($login))
