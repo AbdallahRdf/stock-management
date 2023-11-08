@@ -26,6 +26,9 @@ class User
     //* create a new user
     public static function create_user($first_name, $last_name, $email, $password)
     {
+        // check if there is already a user with with that email, then return true; 
+        if(static::get_user($email)) return true;
+
         $sql = "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)";
 
         $params = [
@@ -35,6 +38,7 @@ class User
             ":password" => $password
         ];
         (new Database)->query($sql, $params);
+        return false;
     }
 
     public static function get_user($email)

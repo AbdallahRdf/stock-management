@@ -6,11 +6,37 @@ require_once "../app/autoloader/autoloader.php";
 use App\Core\Validator;
 use Controllers\UserController;
 
-// include "UserController.php";
-
 require_once "../app/util/functions.php";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+//* function that handles a login error;
+function handle_login_error($email)
+{
+    $_SESSION['old'] = $email; // send back the email;
+    $_SESSION['login_errors'] = true; // declare that there is a login error;
+
+    view("auth.index"); // go to the login page;
+    die();
+}
+
+//* function that handles a signup error
+function handle_signup_error($firstName, $lastName, $email, $ERRORS)
+{
+    $ERRORS["signup_errors"] = true; // declare that there is a signup error;
+
+    // send back the old inputs data
+    $OLD["firstName"] = $firstName;
+    $OLD["lastName"] = $lastName;
+    $OLD["email"] = $email;
+
+    $_SESSION['old'] = $OLD;
+    $_SESSION['signup_errors'] = $ERRORS;
+
+    view("auth.index"); // go bakc to signup page;
+    die();
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST")
+{
     //* unsetting the previous signup errors and login errors
     session_start();
     unset($_SESSION["signup_errors"]);
@@ -20,95 +46,77 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // extracting the variable;
     extract($_POST);
     
-    // array to hold error for login or singup
-    $ERRORS = [];
-    // will hold the old inputs value;
-    $OLD = [];
-    
     $email = trim($email);
     $password = trim($password);
-    
-    // checking if the email is valid
-    if (empty($email)) {
-        $ERRORS["email_error"] = "Email Address is required!";
-    } else if (!Validator::isEmailValid($email)) {
-        $ERRORS["email_error"] = "Invalid Email Address";
-    }
     
     // checking if we are in a signup process
     if(isset($signup))
     {
+        // array to hold error for singup
+        $ERRORS = [];
+        // will hold the old inputs value;
+        $OLD = [];
+
         $firstName = trim($firstName);
         $lastName = trim($lastName);
+
+        // checking if the email is valid
+        if (empty($email) || !Validator::isEmailValid($email))
+        {
+            $ERRORS["email_error"] = "Invalid Email Address";
+        }
     
         // checking if the first name is valid
-        if (empty($firstName)) {
-            $ERRORS["firstName_error"] = "First Name is required!";
-        }
-        else if (!Validator::isStrValid($firstName)) {
+        if (empty($firstName) || !Validator::isStrValid($firstName))
+        {
             $ERRORS["firstName_error"] = "Invalid First Name";
         } 
 
         // checking if the last name is valid
-        if (empty($lastName)) {
-            $ERRORS["lastName_error"] = "Last Name is required!";
-        }
-        else if (!Validator::isStrValid($lastName)) {
+        if (empty($lastName) || !Validator::isStrValid($lastName))
+        {
             $ERRORS["lastName_error"] = "Invalid Last Name";
         }
 
         // checking if the password is valid
         $isPasswordValid = Validator::isPasswordValid($password);
-        if ($isPasswordValid !== "valid") {
+        if ($isPasswordValid !== "valid")
+        {
             $ERRORS["signup_password_error"] = $isPasswordValid;
         }
     
-        if (!empty($ERRORS)) {
-            $ERRORS["signup_errors"] = true;
-
-            $OLD["firstName"] = $firstName;
-            $OLD["lastName"] = $lastName;
-            $OLD["email"] = $email;
-
-            $_SESSION['old'] = $OLD;
-            $_SESSION['signup_errors'] = $ERRORS;
-
-            view("auth.index");
-            die();
+        if (!empty($ERRORS)){
+            handle_signup_error($firstName, $lastName, $email, $ERRORS);
         }
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        UserController::signup($firstName, $lastName, $email, $password);
+
+        $password = password_hash($password, PASSWORD_DEFAULT); // encrypting the user
+
+        // $is_email_taken: if the email is alredy used by another user will contain false
+        $is_email_taken = UserController::signup($firstName, $lastName, $email, $password);
+
+        if ($is_email_taken) 
+        {
+            $ERRORS["email_error"] = "Email is invalid or already taken";
+            handle_signup_error($firstName, $lastName, $email, $ERRORS);
+        }
         echo "done";
     }
     // checking if we are in a login process
     else if(isset($login))
     {
-        if (!empty($ERRORS))
-        {   
-            $ERRORS["login_errors"] = true; // we have login errors
-            $OLD["email"] = $email; // send back the email typed by the user
-            
-            $_SESSION['old'] = $OLD; // put the old inputs on session
-            $_SESSION['login_errors'] = $ERRORS; // put the login errors messages on the session
-            
-            view("auth.index");
-            die();
+        // checking if the email is valid
+        if (empty($email) || !Validator::isEmailValid($email))
+        {
+            handle_login_error($email);
         }
 
         $should_user_be_logged = UserController::login($email, $password);
 
         if(!$should_user_be_logged)
         {
-            $ERRORS["login_errors"] = true; // we have login errors
-            $OLD["email"] = $email; // send back the email typed by the user
-
-            $_SESSION['old'] = $OLD; // put the old inputs on session
-            $_SESSION['login_errors'] = $ERRORS; // put the login errors messages on the session
-            $_SESSION['alert'] = true; // show an alert if the email is not in the database or the password is incorrect;
-
-            view("auth.index");
-            die();
+            handle_login_error($email);
         }
+
         echo "done";
     }
     
