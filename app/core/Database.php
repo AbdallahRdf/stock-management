@@ -26,19 +26,16 @@ class Database
     
 
     //* this method takes a query and an array of parameters, and executes it;
-    public function query($sql, $params = [])
+    public function query($sql, $params = null)
     {
         try {
             // prepare the query
             $query = $this->db->prepare( $sql );
+
             // execute the query
-            if(count($params) > 0){
-                $query->execute( $params );
-            }
-            else
-            {
-                $query->execute();
-            }
+            $query->execute( $params );
+
+            return $query->fetchAll( PDO::FETCH_ASSOC );
         }
         catch (PDOException $e) 
         {

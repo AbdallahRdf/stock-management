@@ -42,17 +42,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $lastName = trim($lastName);
     
         // checking if the first name is valid
-        if (!Validator::isStrValid($firstName)) {
-            $ERRORS["firstName_error"] = "Invalid First Name";
-        } else if (empty($firstName)) {
+        if (empty($firstName)) {
             $ERRORS["firstName_error"] = "First Name is required!";
         }
+        else if (!Validator::isStrValid($firstName)) {
+            $ERRORS["firstName_error"] = "Invalid First Name";
+        } 
 
         // checking if the last name is valid
-        if (!Validator::isStrValid($lastName)) {
-            $ERRORS["lastName_error"] = "Invalid Last Name";
-        } else if (empty($lastName)) {
+        if (empty($lastName)) {
             $ERRORS["lastName_error"] = "Last Name is required!";
+        }
+        else if (!Validator::isStrValid($lastName)) {
+            $ERRORS["lastName_error"] = "Invalid Last Name";
         }
 
         // checking if the password is valid
@@ -81,17 +83,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // checking if we are in a login process
     else if(isset($login))
     {
-        if (!empty($ERRORS)) {
-            $ERRORS["login_errors"] = true;
-            $OLD["email"] = $email;
-
-            $_SESSION['old'] = $OLD;
-            $_SESSION['login_errors'] = $ERRORS;
+        if (!empty($ERRORS))
+        {   
+            $ERRORS["login_errors"] = true; // we have login errors
+            $OLD["email"] = $email; // send back the email typed by the user
+            
+            $_SESSION['old'] = $OLD; // put the old inputs on session
+            $_SESSION['login_errors'] = $ERRORS; // put the login errors messages on the session
+            
             view("auth.index");
             die();
         }
-        echo "all is correct";
-        dd($ERRORS);
+
+        $should_user_be_logged = UserController::login($email, $password);
+
+        if(!$should_user_be_logged)
+        {
+            $ERRORS["login_errors"] = true; // we have login errors
+            $OLD["email"] = $email; // send back the email typed by the user
+
+            $_SESSION['old'] = $OLD; // put the old inputs on session
+            $_SESSION['login_errors'] = $ERRORS; // put the login errors messages on the session
+            $_SESSION['alert'] = true; // show an alert if the email is not in the database or the password is incorrect;
+
+            view("auth.index");
+            die();
+        }
+        echo "done";
     }
     
 } else {
