@@ -9,9 +9,13 @@ use App\Models\User;
 
 class UserController 
 {
-    public static function signup($firstName, $lastName, $email, $password)
+    public static function signup($first_name, $last_name, $email, $password)
     {
-        $user = new User($firstName, $lastName, $email, $password);
-        $user->save();
+        (new User($first_name, $last_name, $email, $password))->create_user();
+    }
+
+    public static function login($email, $password)
+    {
+
     }
 }

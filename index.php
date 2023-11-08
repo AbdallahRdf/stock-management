@@ -1,4 +1,5 @@
 <?php
-include "app/util/functions.php";
+
+require_once "app/util/functions.php";
 
 view("auth.index");

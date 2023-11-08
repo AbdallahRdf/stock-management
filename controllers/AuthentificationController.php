@@ -71,12 +71,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['old'] = $OLD;
             $_SESSION['signup_errors'] = $ERRORS;
 
-            view("index");
+            view("auth.index");
             die();
         }
         $password = password_hash($password, PASSWORD_DEFAULT);
         UserController::signup($firstName, $lastName, $email, $password);
-        
+        echo "done";
     }
     // checking if we are in a login process
     else if(isset($login))
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $_SESSION['old'] = $OLD;
             $_SESSION['login_errors'] = $ERRORS;
-            view("index");
+            view("auth.index");
             die();
         }
         echo "all is correct";
@@ -96,5 +96,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
 } else {
     //* redirect to login page;
-    view("index");
+    view("auth.index");
 }

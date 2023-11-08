@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-    include "../../util/functions.php";
+    include "../../../app/util/functions.php";
 
     session_start();
 
@@ -55,7 +55,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Management</title>
-    <link rel="stylesheet" href="../styles/formsStyle.css">
+    <link rel="stylesheet" href="../../styles/formsStyle.css">
 </head>
 <body>
     <div class="form-container">
@@ -67,7 +67,7 @@
         <!-- Log in part -->
         <div id="loginPart" class="<?= $signup_errors ? "d-hidden" : "" ?>">
             <h1>Welcome Back!</h1>
-            <form action="../../controllers/AuthentificationController.php" method="post">
+            <form action="../../../controllers/AuthentificationController.php" method="post">
 
                 <input type="hidden" name="login" value="login">
 
@@ -96,7 +96,7 @@
         <!-- Sign up part -->
         <div id="signupPart" class="<?= $signup_errors ? "" : "d-hidden" ?>">
             <h1>Create Account</h1>
-            <form action="../../controllers/AuthentificationController.php" method="post">
+            <form action="../../../controllers/AuthentificationController.php" method="post">
 
                 <input type="hidden" name="signup" value="signup">
 
@@ -153,6 +153,6 @@
         </div>
     </div>
 
-    <script src="../js/formsScript.js"></script>
+    <script src="../../js/formsScript.js"></script>
 </body>
 </html>

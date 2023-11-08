@@ -24,22 +24,21 @@ class User
     }
 
     //* create a new user
-    public function save()
+    public function create_user()
     {
-        try {
-            // get the connection
-            $db = (new Database)->getConnection();
-            // prepare the query
-            $query = $db->prepare("INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)");
-            // execute the query
-            $query->execute([
-                ":firstName" => $this->first_name,
-                ":lastName" => $this->last_name,
-                ":email" => $this->email,
-                ":password" => $this->password
-            ]);
-        } catch(PDOException $e) {
-            echo "Error occured while signin up: {$e->getMessage()}";
-        }
+        $sql = "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)";
+
+        $params = [
+            ":firstName" => $this->first_name,
+            ":lastName" => $this->last_name,
+            ":email" => $this->email,
+            ":password" => $this->password
+        ];
+        (new Database)->query($sql, $params);
+    }
+
+    public static function get_user($email, $password)
+    {
+
     }
 }

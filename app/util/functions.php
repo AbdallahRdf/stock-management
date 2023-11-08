@@ -18,8 +18,8 @@ function view($view_name)
 {
     //* replacing "." with "/";
     if(str_contains($view_name,".")){
-        str_replace(".","/", $view_name);
+        $path = str_replace(".","/", $view_name);
     }
     
-    header("location: /stock-management/resources/views/{$view_name}.php");
+    header("location: /stock-management/resources/views/{$path}.php");
 }
