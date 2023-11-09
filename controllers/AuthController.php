@@ -35,6 +35,14 @@ function handle_signup_error($firstName, $lastName, $email, $ERRORS)
     die();
 }
 
+//* function that put the user data in the $_SESSION
+function store_user_data_in_session($user)
+{
+    unset($user["id"]);
+    unset($user["password"]);
+    $_SESSION['user'] = $user;
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
     //* unsetting the previous signup errors and login errors
@@ -52,10 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     // checking if we are in a signup process
     if(isset($signup))
     {
-        // array to hold error for singup
-        $ERRORS = [];
-        // will hold the old inputs value;
-        $OLD = [];
+        $ERRORS = []; // array to hold error for singup
+        $OLD = []; // will hold the old inputs value;
 
         $firstName = trim($firstName);
         $lastName = trim($lastName);
@@ -91,15 +97,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
         $password = password_hash($password, PASSWORD_DEFAULT); // encrypting the user
 
-        // $is_email_taken: if the email is alredy used by another user will contain false
-        $is_email_taken = UserController::signup($firstName, $lastName, $email, $password);
+        // $user: if the email is alredy used by another user will contain false
+        $user = UserController::signup($firstName, $lastName, $email, $password);
 
-        if ($is_email_taken) 
-        {
+        if (!$user){
             $ERRORS["email_error"] = "Email is invalid or already taken";
             handle_signup_error($firstName, $lastName, $email, $ERRORS);
         }
-        echo "done";
+        store_user_data_in_session($user);
     }
     // checking if we are in a login process
     else if(isset($login))
@@ -110,15 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             handle_login_error($email);
         }
 
-        $should_user_be_logged = UserController::login($email, $password);
+        $user = UserController::login($email, $password);
 
-        if(!$should_user_be_logged)
-        {
+        if(!$user){
             handle_login_error($email);
         }
-
-        echo "done";
+        store_user_data_in_session($user);
     }
+    view("home.dashboard");
     
 } else {
     //* redirect to login page;

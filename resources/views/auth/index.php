@@ -33,6 +33,8 @@
         $old_firstName = $_SESSION['old']['firstName'];
         $old_lastName = $_SESSION['old']['lastName'];
         $old_signup_email = $_SESSION['old']['email'];
+
+        unset($_SESSION['signup_errors']);
     }
     
     //* if there is login errors, assign to each variable its error message;
@@ -68,7 +70,7 @@
         <!-- Log in part -->
         <div id="loginPart" class="<?= $signup_errors ? "d-hidden" : "" ?>">
             <h1>Welcome Back!</h1>
-            <form action="../../../controllers/AuthentificationController.php" method="post">
+            <form action="../../../controllers/AuthController.php" method="post">
 
                 <input type="hidden" name="login" value="login">
 
@@ -97,7 +99,7 @@
         <!-- Sign up part -->
         <div id="signupPart" class="<?= $signup_errors ? "" : "d-hidden" ?>">
             <h1>Create Account</h1>
-            <form action="../../../controllers/AuthentificationController.php" method="post">
+            <form action="../../../controllers/AuthController.php" method="post">
 
                 <input type="hidden" name="signup" value="signup">
 
