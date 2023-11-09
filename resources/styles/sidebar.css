@@ -29,7 +29,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 16% 84%;
+    grid-template-columns: min-content 1fr;
     gap: 0px 0px;
 }
 
@@ -43,8 +43,45 @@ body {
     left: 0%;
 }
 
+.reduce {
+    animation: reduce .3s ease;
+}
+
+@keyframes reduce {
+    0% {
+        width: 230px
+    }
+
+    100% {
+        width: 62px
+    }
+}
+
+.expand {
+    animation: expand .3s ease;
+}
+
+@keyframes expand {
+    0% {
+        width: 62px
+    }
+
+    100% {
+        width: 230px
+    }
+}
+
 .sidebar h2 {
-    margin: 30px 0 20px 20px;
+    margin: 0px 40px 20px 20px;
+}
+
+.sidebar > button {
+    background-color: transparent;
+    border: none;
+    align-self: flex-end;
+    margin-top: 18px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .select-btns {
@@ -53,12 +90,16 @@ body {
     align-items: start;
 }
 
+.extra-top-margin {
+    margin-top: 48px
+}
+
 .select-btn {
     color: var(--white);
     text-decoration: none;
     font-size: 1.1rem;
     cursor: pointer;
-    padding: 14px 0 14px 20px;
+    padding: 14px 14px 14px 14px;
     width: 100%;
 }
 
@@ -86,7 +127,41 @@ body {
     border-top: 1px solid var(--gray-dark);
 }
 
+.show {
+    animation: show .5s ease-in-out;
+    display: block;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0%
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+.hide {
+    animation: hide .5s ease-in-out;
+    display: none;
+}
+
+@keyframes hide {
+    0% {
+        opacity: 100%
+    }
+
+    100% {
+        opacity: 0%;
+    }
+}
 
 .main {
     height: 200vh;
+}
+
+/* utility classes */
+
+.d-hidden {
+    display: none
 }
