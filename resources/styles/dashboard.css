@@ -1,0 +1,92 @@
+:root {
+    --blue-dark: #13232f;
+    --body-bg: #c1bdba;
+    --white: #ffffff;
+
+    --main: #1ab188;
+    --main-light: #1ab189f2;
+    --main-dark: #179b78;
+
+    --gray: #ddd;
+    --gray-light: #a0b3b0;
+    --gray-dark: #435259;
+
+    --red: #f44336;
+    --red-pale: #f4433643;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-bg);
+    font-family: 'Titillium Web', sans-serif;
+    color: var(--white);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 16% 84%;
+    gap: 0px 0px;
+}
+
+.sidebar {
+    background-color: var(--blue-dark);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: sticky;
+    top: 0%;
+    left: 0%;
+}
+
+.sidebar h2 {
+    margin: 30px 0 20px 20px;
+}
+
+.select-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.select-btn {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 14px 0 14px 20px;
+    width: 100%;
+}
+
+.select-btn:hover,
+.select-btn:focus {
+    background-color: var(--gray-dark);
+}
+
+.selected {
+    background-color: var(--main);
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+}
+
+.icon-btn img {
+    margin-right: 10px;
+}
+
+.logout-btn {
+    position: absolute;
+    bottom: 1%;
+    border-top: 1px solid var(--gray-dark);
+}
+
+
+.main {
+    height: 200vh;
+}

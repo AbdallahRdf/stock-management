@@ -124,7 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     }
     view("home.dashboard");
     
-} else {
-    //* redirect to login page;
-    view("auth.index");
 }
+//* redirect to login page;
+view("auth.index");

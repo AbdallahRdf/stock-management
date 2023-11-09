@@ -10,6 +10,9 @@
     --gray: #ddd;
     --gray-light: #a0b3b0;
     --gray-dark: #435259;
+
+    --red: #f44336;
+    --red-pale: #f4433643;
 }
 
 * {
@@ -134,14 +137,14 @@ h1 {
 }
 
 small {
-    color: red;
+    color: var(--red);
     margin-top: 6px;;
 }
 
 .alert {
     width: 100%;
-    background-color: #f4433643;
-    border: 1px solid #f44336;
+    background-color: var(--red-pale);
+    border: 1px solid var(--red);
     padding-top: 22px;
     padding-bottom: 22px;
     margin-bottom: 20px;
