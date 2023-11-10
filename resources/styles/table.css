@@ -1,0 +1,95 @@
+:root {
+    --blue-dark: #13232f;
+    --body-bg: #c1bdba;
+    --white: #ffffff;
+
+    --main: #1ab188;
+    --main-light: #1ab189f2;
+    --main-dark: #179b78;
+
+    --gray: #ddd;
+    --gray-light: #a0b3b0;
+    --gray-dark: #435259;
+
+    --red: #f44336;
+    --red-pale: #f4433643;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-bg);
+    font-family: 'Titillium Web', sans-serif;
+    color: var(--white);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    width: 80%;
+    margin: 8%;
+    border-collapse: collapse;
+    /* background-color: var(--gray-dark); */
+    /* background-color: #0000001e; */
+    background-color: #0003;
+    border-radius: 10px;
+}
+
+tr:hover {
+    background-color: #00000021;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th,
+td:not(.last) {
+    border-bottom: 1px solid var(--gray);
+}
+
+.delete-btn,
+.modify-btn {
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    color: var(--white);
+    cursor: pointer;
+    font-size: .9rem;
+}
+
+.delete-btn {
+    background-color: #ff665b;
+}
+
+.delete-btn:hover {
+    background-color: #f44336;
+}
+
+.modify-btn {
+    background-color: #22d5a5;
+}
+
+.modify-btn:hover {
+    background-color: #21c095;
+}
+
+/* utility classes */
+
+.d-hidden {
+    display: none
+}
+
+.py-20 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

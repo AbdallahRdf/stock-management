@@ -21,5 +21,5 @@ function view($view_name)
         $path = str_replace(".","/", $view_name);
     }
     
-    header("location: /stock-management/resources/views/{$path}.php");
+    header("location: ../../resources/views/{$path}.php");
 }
