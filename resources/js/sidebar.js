@@ -3,7 +3,6 @@
 const toggleBtn = document.querySelector("#toggle"); // toggle button;
 const toBeToggled = document.getElementsByClassName("toggled"); // elements to be hidden or shown in the sidebar;
 const sidebar = document.querySelector('.sidebar') // the sidebar;
-const selectBtnsContainer = document.querySelector('.select-btns') // the container of the buttons on the sidebar;
 
 // this function adds and removes specific classes to the toBeToggled elements
 const hideShowElemnts = (classToAdd, classToRemove) =>
@@ -16,30 +15,30 @@ const hideShowElemnts = (classToAdd, classToRemove) =>
     toBeToggled[toBeToggled.length - 1].classList.add(classToAdd);
 }
 
-// click event listener for the toggling button
 toggleBtn.addEventListener("click", () => {
-    if(toggleBtn.value === "hide")
+    if(toggleBtn.value === "visible") // if the sidebar is visible
     {
-        toggleBtn.value = "show";
-        toggleBtn.style.transform = "rotate(180deg)";
-        
-        hideShowElemnts("hide", "showe");
-        
+        toggleBtn.value = "hidden"; // change the toggle button value to hidden
+        toggleBtn.style.left = "8px"; // move the toggle button by 8px to the left
+        toggleBtn.style.transform = "rotate(180deg)"; // flip the icon of the toggle button
+
+        hideShowElemnts("hide", "show"); // hide the elements in the sidebar
+
+        // hide the sidebar
         sidebar.classList.add("reduce");
         sidebar.classList.remove("expand");
-
-        selectBtnsContainer.classList.add("extra-top-margin");
     } 
-    else
+    else // else if the sidebar is visible
     {
-        toggleBtn.value = "hide";
-        toggleBtn.style.transform = "rotate(0deg)";
+        toggleBtn.value = "visible"; // change the toggle button value to visible
+        toggleBtn.style.left = "170px"; // move the toggle button by 170px to the right
+        toggleBtn.style.transform = "rotate(0deg)"; // flip the icon of the toggle button
         
-        hideShowElemnts("show", "hide");
+        hideShowElemnts("show", "hide"); // show the elements in the sidebar
         
+        // show the sidebar
         sidebar.classList.remove("reduce");
         sidebar.classList.add("expand");
 
-        selectBtnsContainer.classList.remove("extra-top-margin");
     }
 })

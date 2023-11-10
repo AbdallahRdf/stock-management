@@ -30,7 +30,7 @@ body {
 .container {
     display: grid;
     grid-template-columns: min-content 1fr;
-    gap: 0px 0px;
+    /* gap: 0px 0px; */
 }
 
 .sidebar {
@@ -43,6 +43,7 @@ body {
     left: 0%;
 }
 
+/* class to hide the sidebar */
 .reduce {
     animation: reduce .3s ease;
 }
@@ -53,17 +54,18 @@ body {
     }
 
     100% {
-        width: 62px
+        width: 0px
     }
 }
 
+/* class to show the sidebar */
 .expand {
     animation: expand .3s ease;
 }
 
 @keyframes expand {
     0% {
-        width: 62px
+        width: 0px
     }
 
     100% {
@@ -72,26 +74,27 @@ body {
 }
 
 .sidebar h2 {
-    margin: 0px 40px 20px 20px;
+    margin: 70px 40px 20px 20px;
 }
 
-.sidebar > button {
+/* toggle button */
+.toggle {
     background-color: transparent;
     border: none;
     align-self: flex-end;
     margin-top: 18px;
     margin-right: 10px;
     cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 170px;
+    transition: all 0.3s;
 }
 
 .select-btns {
     display: flex;
     flex-direction: column;
     align-items: start;
-}
-
-.extra-top-margin {
-    margin-top: 48px
 }
 
 .select-btn {
@@ -118,7 +121,8 @@ body {
 }
 
 .icon-btn img {
-    margin-right: 10px;
+    margin-right: 14px;
+    margin-bottom: 4px;
 }
 
 .logout-btn {
@@ -127,6 +131,7 @@ body {
     border-top: 1px solid var(--gray-dark);
 }
 
+/* class to show the elements in the sidebar */
 .show {
     animation: show .5s ease-in-out;
     display: block;
@@ -141,6 +146,7 @@ body {
     }
 }
 
+/* class to hide the elements in the sidebar */
 .hide {
     animation: hide .5s ease-in-out;
     display: none;
@@ -154,10 +160,6 @@ body {
     100% {
         opacity: 0%;
     }
-}
-
-.main {
-    height: 200vh;
 }
 
 /* utility classes */
