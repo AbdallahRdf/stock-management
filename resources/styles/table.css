@@ -37,8 +37,6 @@ table {
     width: 80%;
     margin: 8%;
     border-collapse: collapse;
-    /* background-color: var(--gray-dark); */
-    /* background-color: #0000001e; */
     background-color: #0003;
     border-radius: 10px;
 }

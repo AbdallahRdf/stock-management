@@ -20,6 +20,5 @@ function view($view_name)
     if(str_contains($view_name,".")){
         $path = str_replace(".","/", $view_name);
     }
-    
-    header("location: ../../resources/views/{$path}.php");
+    header("location: ../resources/views/{$path}.php");
 }

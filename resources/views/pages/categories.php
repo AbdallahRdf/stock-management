@@ -6,6 +6,11 @@ if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
 {
     view('auth.index');
 }
+
+$items = $_SESSION["categories"];
+
+// the title of the <th> tags
+$table_header = ["Category Name", "Actions"];
 ?>
 
 <!DOCTYPE html>
@@ -24,80 +29,7 @@ if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
         <?php require_once "../components/sidebar.php"; ?>
 
         <main class="main">
-            <table>
-                <thead>
-                    <th class="py-20">Category Name</th>
-                    <th class="py-20">Actions</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>printers</td>
-                        <td>
-                            <button class="modify-btn">
-                                <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
-                            </button>
-                            <button class="delete-btn">
-                                <img src="../../img/delete.svg" alt="delete-icon">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Hard Discs</td>
-                        <td>
-                            <button class="modify-btn">
-                                <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
-                            </button>
-                            <button class="delete-btn">
-                                <img src="../../img/delete.svg" alt="delete-icon">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Laptops</td>
-                        <td>
-                            <button class="modify-btn">
-                                <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
-                            </button>
-                            <button class="delete-btn">
-                                <img src="../../img/delete.svg" alt="delete-icon">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Desktops</td>
-                        <td>
-                            <button class="modify-btn">
-                                <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
-                            </button>
-                            <button class="delete-btn">
-                                <img src="../../img/delete.svg" alt="delete-icon">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Laptops</td>
-                        <td>
-                            <button class="modify-btn">
-                                <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
-                            </button>
-                            <button class="delete-btn">
-                                <img src="../../img/delete.svg" alt="delete-icon">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="last">Desktops</td>
-                        <td class="actions-td last">
-                            <button class="modify-btn">
-                                <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
-                            </button>
-                            <button class="delete-btn">
-                                <img src="../../img/delete.svg" alt="delete-icon">
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <?php require_once "../components/table.php"; ?>
         </main>
     </div>
 

@@ -8,7 +8,7 @@
             <img src="../../img/home.svg" alt="dashboard icon" title="Dashboard">
             Dashboard
         </a>
-        <a href="../pages/categories.php" class="select-btn icon-btn toggled">
+        <a href="../../../controllers/CategoryController.php" class="select-btn icon-btn toggled">
             <img src="../../img/category.svg" alt="categories icon" title="Categories">
             Categories
         </a>
