@@ -12,4 +12,6 @@ $cateogies = Category::all();
 session_start();
 $_SESSION["categories"] = $cateogies;
 
-view("pages.categories");
+//* redirect to categories page;
+header("Location: ../resources/views/pages/categories.php");
+die();

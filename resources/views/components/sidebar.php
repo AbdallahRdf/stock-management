@@ -32,7 +32,7 @@
             <img src="../../img/supplier-orders.svg" alt="client icon" title="Supplier Orders">
             Supplier Orders
         </a>
-        <a href="#" class="select-btn icon-btn logout-btn toggled">
+        <a href="../../../controllers/AuthController.php" class="select-btn icon-btn logout-btn toggled">
             <img src="../../img/logout.svg" alt="logout icon" title="Log out">
             Log out
         </a>

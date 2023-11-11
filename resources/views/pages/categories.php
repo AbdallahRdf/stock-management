@@ -1,10 +1,8 @@
 <?php
-require_once "../../../app/util/functions.php";
-
 session_start();
 if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
 {
-    view('auth.index');
+    header('location: ../auth/index.php');
 }
 
 $items = $_SESSION["categories"];

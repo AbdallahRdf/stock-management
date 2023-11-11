@@ -1,5 +1,4 @@
 <?php
 
-require_once "app/util/functions.php";
-
-view("auth.index");
+header("Location: ./resources/views/auth/index.php");
+die();

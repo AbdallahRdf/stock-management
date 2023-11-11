@@ -8,14 +8,21 @@ use Controllers\UserController;
 
 require_once "../app/util/functions.php";
 
+// function send you back to login page
+function go_back_to_login()
+{
+    // go to the login page;
+    header("Location: ../resources/views/auth/index.php");
+    die();
+}
+
 //* function that handles a login error;
 function handle_login_error($email)
 {
     $_SESSION['old'] = $email; // send back the email;
     $_SESSION['login_errors'] = true; // declare that there is a login error;
 
-    view("auth.index"); // go to the login page;
-    die();
+    go_back_to_login();
 }
 
 //* function that handles a signup error
@@ -31,8 +38,7 @@ function handle_signup_error($firstName, $lastName, $email, $ERRORS)
     $_SESSION['old'] = $OLD;
     $_SESSION['signup_errors'] = $ERRORS;
 
-    view("auth.index"); // go bakc to signup page;
-    die();
+    go_back_to_login();
 }
 
 //* function that put the user data in the $_SESSION
@@ -43,10 +49,11 @@ function store_user_data_in_session($user)
     $_SESSION['user'] = $user;
 }
 
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
     //* unsetting the previous signup errors and login errors
-    session_start();
     unset($_SESSION["signup_errors"]);
     unset($_SESSION["login_errors"]);
     unset($_SESSION["old"]);
@@ -122,8 +129,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         }
         store_user_data_in_session($user);
     }
-    view("home.dashboard");
-    
+    header("Location: ../resources/views/pages/dashboard.php");
+    die();
+}
+// if we have a user in session, then logout
+if(isset($_SESSION['user']))
+{
+    unset($_SESSION);
+    session_destroy();
 }
 //* redirect to login page;
-view("auth.index");
+go_back_to_login();
