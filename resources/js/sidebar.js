@@ -42,3 +42,28 @@ toggleBtn.addEventListener("click", () => {
 
     }
 })
+
+
+// this code below handles showing an "are you sure" box when trying to logout;
+const logoutBtn = document.querySelector("#logout-toggle"); //logout button in the sidebar
+const logoutCancel = document.querySelector("#logout-cancel"); // cancel the logout in the card
+const logoutCard = document.querySelector("#logout-card"); // logout card or box
+const logoutOverlay = document.querySelector("#logout-overlay"); // overlay behind the logout box
+
+logoutBtn.addEventListener("click", () => 
+{
+    logoutCard.classList.remove("card-desappear");
+    logoutCard.classList.add("card-appear");
+
+    logoutOverlay.style.display = "block"
+})
+
+logoutCancel.addEventListener("click", () => 
+{  
+   logoutCard.classList.remove("card-appear");
+    logoutCard.classList.add("card-desappear");
+
+    setTimeout(() => {
+        logoutOverlay.style.display = "none";
+    }, 200);
+})

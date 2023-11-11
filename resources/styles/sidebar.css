@@ -159,6 +159,88 @@ body {
         opacity: 0%;
     }
 }
+/* logout card styles */
+
+.logout-overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000083;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.logout-card {
+    width: 300px;
+    background-color: rgb(228, 228, 228);
+    color: var(--blue-dark);
+    border-radius: 6px;
+    padding: 14px;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.card-desappear {
+    animation: card-desappear .2s ease-out;
+}
+
+.card-appear {
+    animation: card-appear .2s ease-out;
+}
+
+@keyframes card-appear {
+    0% {
+        opacity: 0;
+        top: 100%;
+        display: none;
+    }
+    100% {
+        opacity: 1;
+        top: 40%;
+        display: block;
+    }
+}
+
+@keyframes card-desappear {
+    0% {
+        opacity: 1;
+        top: 40%;
+        display: block;
+    }
+    
+    100% {
+        opacity: 0;
+        top: 100%;
+        display: none;
+    }
+}
+
+.logout-message {
+    margin: 16px 0;
+}
+
+.logout-cancel,
+.logout-logout {
+    text-decoration: none;
+    border: none;
+    font-size: .9rem;
+    border-radius: 6px;
+    color: var(--white);
+    cursor: pointer
+}
+
+.logout-cancel {
+    padding: 8px 12px;
+    background-color: var(--gray-dark);
+}
+
+.logout-logout {
+    padding: 10px 12px;
+    background-color: var(--red);
+}
 
 /* utility classes */
 

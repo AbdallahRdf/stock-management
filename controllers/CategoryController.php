@@ -13,5 +13,5 @@ session_start();
 $_SESSION["categories"] = $cateogies;
 
 //* redirect to categories page;
-header("Location: ../resources/views/pages/categories.php");
+header("Location: ../resources/views/pages/categories/index.php");
 die();

@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         }
         store_user_data_in_session($user);
     }
-    header("Location: ../resources/views/pages/dashboard.php");
+    header("Location: ../resources/views/pages/dashboard/index.php");
     die();
 }
 // if we have a user in session, then logout

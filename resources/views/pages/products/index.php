@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
 {
-    header('location: ../auth/index.php');
+    header('location: ../../auth/index.php');
 }
 ?>
 
@@ -13,19 +13,19 @@ if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InventoSync - Categories</title>
-    <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../../styles/sidebar.css">
 </head>
 
 <body>
     <div class="container">
-        <?php require_once "../components/sidebar.php"; ?>
+        <?php require_once "../../components/sidebar.php"; ?>
 
         <div class="main">
             products
         </div>
     </div>
 
-    <script src="../../js/sidebar.js"></script>
+    <script src="../../../js/sidebar.js"></script>
 </body>
 
 </html>
