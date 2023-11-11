@@ -1,6 +1,4 @@
-<?php
-    $last_element = end($items);
-?>
+<?php $last_element = end($items); ?> <!-- getting the last element in the array -->
 
 <table>
     <thead>
@@ -9,21 +7,22 @@
         <?php endforeach; ?>
     </thead>
     <tbody>
-        <?php foreach($items as $category): ?>
-            <?php
-                // if the current element in the loop is the last item in the array then add the last class;
-                $class = $last_element === $category ? "last" : "";  
-            ?>
+        <?php foreach($items as $item): ?>
+            <!-- if the current element in the loop is the last item in the array then add the last class; -->
+            <?php $class = $last_element === $item ? "last" : ""; ?>
             <tr>
+                <?php $indexed_item = array_values($item) ?> <!-- turn the assoc array into the indexed  array  -->
+                <?php for($i = 1; $i < count($indexed_item); $i++): ?>
+                    <td class="<?= $class?>">
+                        <?= $indexed_item[$i] ?>
+                    </td>
+                <?php endfor; ?>
                 <td class="<?= $class?>">
-                    <?= $category['name'] ?>
-                </td>
-                <td class="<?= $class?>">
-                    <button class="modify-btn" value="<?= $category['id'] ?>">
-                        <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
+                    <button class="modify-btn" value="<?= $item['id'] ?>">
+                        <img src="../../../img/write-svgrepo-com.svg" alt="modify icon">
                     </button>
-                    <button class="delete-btn" value="<?= $category['id'] ?>">
-                        <img src="../../img/delete.svg" alt="delete-icon">
+                    <button class="delete-btn" value="<?= $item['id'] ?>">
+                        <img src="../../../img/delete.svg" alt="delete-icon">
                     </button>
                 </td>
             </tr>

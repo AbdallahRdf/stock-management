@@ -12,7 +12,7 @@
             <img src="../../../img/category.svg" alt="categories icon" title="Categories">
             Categories
         </a>
-        <a href="../products/index.php" class="select-btn icon-btn toggled">
+        <a href="../../../../controllers/ProductController.php" class="select-btn icon-btn toggled">
             <img src="../../../img/product.svg" alt="products icon" title="Products">
             Products
         </a>

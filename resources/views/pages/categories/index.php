@@ -8,7 +8,7 @@ if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
 $items = $_SESSION["categories"];
 
 // the title of the <th> tags
-$table_header = ["Category Name", "Actions"];
+$table_header = ["Name", "Actions"];
 ?>
 
 <!DOCTYPE html>
