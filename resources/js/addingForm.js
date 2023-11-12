@@ -3,6 +3,7 @@ const addingBtn = document.querySelector("#add-btn"); // button to show the form
 const cancelBtn = document.querySelector("#cancel-btn"); // button to hide the form;
 const overlay = document.querySelector("#overlay");
 const form = document.querySelector("#form");
+const inputs = document.querySelectorAll("input"); // select all the inputs in the form
 
 addingBtn.addEventListener("click", () => 
 {
@@ -20,4 +21,11 @@ cancelBtn.addEventListener("click", () =>
     setTimeout(() => {
         overlay.style.display = "none";
     }, 200);
+
+    // clearing all the input when clicking the cancel button;
+    for(let i = 0; i < inputs.length; i++)
+    {
+        inputs[i].value = "";
+    }
+    inputs[inputs.length - 1].value = "";
 });

@@ -16,4 +16,14 @@ class Category
 
         return (new Database)->query($sql);
     }
+
+    // creates new category;
+    public static function create_category($name)
+    {
+        $sql = "INSERT INTO categories(name) VALUES (:name);";
+
+        $params = [":name" => $name];
+
+        return (new Database)->query($sql, $params);
+    }
 }

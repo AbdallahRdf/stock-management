@@ -9,6 +9,20 @@ $items = $_SESSION["categories"];
 
 // the title of the <th> tags
 $table_header = ["Name", "Actions"];
+
+$error_message = "";
+$old_input_value = "";
+$display_proprety = "none";
+if(isset($_SESSION["error_message"]))
+{
+    $error_message = $_SESSION["error_message"];
+    unset($_SESSION["error_message"]);
+
+    $old_input_value = $_SESSION['old'];
+    unset($_SESSION["old"]);
+
+    $display_proprety = "block";
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,12 +46,15 @@ $table_header = ["Name", "Actions"];
         </main>
     </div>
 
-    <div id="overlay" class="overlay">
+    <div id="overlay" class="overlay" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../../controllers/CategoryController.php" method="POST">
             <h3>Create New Category</h3>
-            <input type="text" name="name" placeholder="Category Name">
+            <div class="input-group">
+                <input type="text" name="name" placeholder="Category Name" value="<?= $old_input_value ?>">
+                <small><?= $error_message ?></small>
+            </div>
             <div class="btns">
-                <button id="cancel-btn" class="cancel-btn">Cancel</button>
+                <button id="cancel-btn" class="cancel-btn" type="button">Cancel</button>
                 <button class="submit-btn" type="submit">Save</button>
             </div>
         </form>

@@ -7,7 +7,7 @@ class Validator {
     //* checks if the string does not contain any special chars;
     public static function isStrValid($str)
     {
-        return preg_match("/^[a-zA-Z]*$/", $str);
+        return preg_match("/^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$/", $str) && !empty($str);
     }
 
     //* checks if the email is valid;

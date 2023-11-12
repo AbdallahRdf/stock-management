@@ -80,13 +80,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         }
     
         // checking if the first name is valid
-        if (empty($firstName) || !Validator::isStrValid($firstName))
+        if (!Validator::isStrValid($firstName))
         {
             $ERRORS["firstName_error"] = "Invalid First Name";
         } 
 
         // checking if the last name is valid
-        if (empty($lastName) || !Validator::isStrValid($lastName))
+        if (!Validator::isStrValid($lastName))
         {
             $ERRORS["lastName_error"] = "Invalid Last Name";
         }

@@ -35,7 +35,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    display: none;
+    /* display: none; */
 }
 
 .form {
@@ -43,7 +43,7 @@ body {
     background-color: var(--blue-dark);
     color: var(--white);
     border-radius: 6px;
-    padding: 30px 20px;
+    padding: 40px 20px;
     position: absolute;
     left: 50%;
     top: 40%;
@@ -52,9 +52,17 @@ body {
 
 .form h3 {
     text-align: center;
-    margin: 20px;
+    margin-bottom: 30px;
     font-weight: 200;
     font-size: 1.5rem
+}
+
+.form .input-group {
+    margin-bottom: 20px;
+}
+
+.input-group small {
+    color: var(--red)
 }
 
 .form input {
@@ -63,7 +71,6 @@ body {
     color: var(--white);
     width: 100%;
     padding: 8px 10px;
-    margin-bottom: 20px;
     font-size: 1.2rem;
 }
 
@@ -144,4 +151,12 @@ body {
         top: 100%;
         display: none;
     }
+}
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
 }
