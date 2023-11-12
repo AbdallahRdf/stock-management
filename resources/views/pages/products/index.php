@@ -27,9 +27,6 @@ $table_header = ["Name", "Discription", "Price", "Quantity", "Category", "Action
         <?php require_once "../../components/sidebar.php"; ?>
 
         <main class="main">
-            <button>
-                <img src="../../../img/plus-svgrepo-com.svg" alt="plus icon"> Add
-            </button>
             <?php require_once "../../components/table.php"; ?>
         </main>
     </div>

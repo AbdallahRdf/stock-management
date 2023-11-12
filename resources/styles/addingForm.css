@@ -1,0 +1,147 @@
+:root {
+    --blue-dark: #13232f;
+    --body-bg: #c1bdba;
+    --white: #ffffff;
+
+    --main: #1ab188;
+    --main-light: #1ab189f2;
+    --main-dark: #179b78;
+
+    --gray: #ddd;
+    --gray-light: #a0b3b0;
+    --gray-dark: #435259;
+
+    --red: #f44336;
+    --red-pale: #f4433643;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-bg);
+    font-family: 'Titillium Web', sans-serif;
+    color: var(--white);
+}
+
+
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000083;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.form {
+    width: 400px;
+    background-color: var(--blue-dark);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 30px 20px;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.form h3 {
+    text-align: center;
+    margin: 20px;
+    font-weight: 200;
+    font-size: 1.5rem
+}
+
+.form input {
+    background-color: transparent;
+    border: 1px solid var(--gray-light);
+    color: var(--white);
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.form input::placeholder {
+    color: var(--gray-light);
+    font-size: 1.2rem;
+}
+
+.form input:focus {
+    border-color: var(--main);
+    outline: none;
+}
+
+.form .btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-btn,
+.cancel-btn {
+    outline: none;
+    border: none;
+    padding: 8px 20px;
+    width: 49%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all .3s;
+}
+
+.submit-btn {
+    background-color: var(--main);
+    color: var(--white)
+}
+
+.cancel-btn {
+    background-color: var(--gray-dark);
+    color: var(--gray-light)
+}
+
+.submit-btn:hover,
+.cancel-btn:hover {
+    background-color: var(--main-dark);
+    color: var(--white)
+}
+
+/* animatin classes to show or hide the form */
+.form-desappear {
+    animation: form-desappear .2s ease-out;
+}
+
+.form-appear {
+    animation: form-appear .2s ease-out;
+}
+
+@keyframes form-appear {
+    0% {
+        opacity: 0;
+        top: 100%;
+        display: none;
+    }
+
+    100% {
+        opacity: 1;
+        top: 40%;
+        display: block;
+    }
+}
+
+@keyframes form-desappear {
+    0% {
+        opacity: 1;
+        top: 40%;
+        display: block;
+    }
+
+    100% {
+        opacity: 0;
+        top: 100%;
+        display: none;
+    }
+}
