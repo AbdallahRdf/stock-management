@@ -23,19 +23,35 @@ function handle_form_errors($category_name, $message)
 
 if($_SERVER['REQUEST_METHOD'] === "POST")
 {
-    $category_name = $_POST["name"];
-
-    if(!Validator::isStrValid($category_name))
+    if(isset($_POST["name"]))
     {
-        handle_form_errors($category_name, "Invalid Category Name");
+        $category_name = $_POST["name"];
+    
+        if(!Validator::isStrValid($category_name))
+        {
+            handle_form_errors($category_name, "Invalid Category Name");
+        }
+        // create the new category
+        $result = Category::create_category($category_name);
+    
+        // if the category already exists in db;
+        if($result === null)
+        {
+            handle_form_errors($category_name, "Category already exists");
+        }
     }
-    // create the new category
-    $result = Category::create_category($category_name);
-
-    // if the category already exists in db;
-    if($result === null)
+    else if(isset($_POST["category_id"]))
     {
-        handle_form_errors($category_name, "Category already exists");
+
+        $category_id = $_POST["category_id"];
+
+        $result = Category::delete_category($category_id);
+
+        if($result === null)
+        {
+            // TODO: send an alert
+        }
+        $_SESSION["deleting_success_alert"] = "Record deleted successfully!";
     }
 }
 

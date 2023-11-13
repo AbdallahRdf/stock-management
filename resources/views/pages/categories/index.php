@@ -5,15 +5,14 @@ if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
     header('location: ../../auth/index.php');
 }
 
-$items = $_SESSION["categories"];
+$items = $_SESSION["categories"]; // items to be shown in the table
 
-// the title of the <th> tags
-$table_header = ["Name", "Actions"];
+$table_header = ["Name", "Actions"]; // the title of the <th> tags
 
-$error_message = "";
-$old_input_value = "";
-$display_proprety = "none";
-if(isset($_SESSION["error_message"]))
+$error_message = ""; // for adding element form
+$old_input_value = ""; // for the category name input in the add element form
+$display_proprety = "none"; // if there is an error in the form then show the form again;
+if(isset($_SESSION["error_message"])) // if there is an error after creating new element;
 {
     $error_message = $_SESSION["error_message"];
     unset($_SESSION["error_message"]);
@@ -22,6 +21,16 @@ if(isset($_SESSION["error_message"]))
     unset($_SESSION["old"]);
 
     $display_proprety = "block";
+}
+$alert_message = ""; 
+$alert_color = ""; 
+$alert_display = "block";
+if(isset($_SESSION["deleting_success_alert"])) // if the element is deleted successfully then:
+{
+    $alert_message = $_SESSION["deleting_success_alert"];
+    unset($_SESSION["deleting_success_alert"]);
+    $alert_color = "red";
+    $alert_display = "block";
 }
 ?>
 
@@ -35,6 +44,8 @@ if(isset($_SESSION["error_message"]))
     <link rel="stylesheet" href="../../../styles/sidebar.css">
     <link rel="stylesheet" href="../../../styles/table.css">
     <link rel="stylesheet" href="../../../styles/addingForm.css">
+    <link rel="stylesheet" href="../../../styles/deleteForm.css">
+    <link rel="stylesheet" href="../../../styles/alert.css">
 </head>
 
 <body>
@@ -45,7 +56,7 @@ if(isset($_SESSION["error_message"]))
             <?php require_once "../../components/table.php"; ?>
         </main>
     </div>
-
+    <!-- Form to add -->
     <div id="overlay" class="overlay" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../../controllers/CategoryController.php" method="POST">
             <h3>Create New Category</h3>
@@ -59,9 +70,27 @@ if(isset($_SESSION["error_message"]))
             </div>
         </form>
     </div>
+     <!-- form for deleting an element -->
+    <div class="delete-overlay" id="delete-overlay">
+        <form action="../../../../controllers/CategoryController.php" method="post" id="delete-form" class="delete-form">
+            <p class="delete-message">Are you sure you want to delete it permanently?</p>
+            <input type="hidden" name="category_id" id="category-id" value="" >
+            <div>
+                <button type="button" id="delete-cancel" class="delete-cancel">Cancel</button>
+                <button type="submit" class="delete-delete">Delete</button>
+            </div>
+        </form>
+    </div>
+    <!-- alert -->
+    <div class="alert" style="display:<?= $alert_display ?>">
+        <!-- <h3><?= $alert_message ?></h3> -->
+        <p>Record deleted successfully!</p>
+        <button class="dismiss-alert">X</button>
+    </div>
 
     <script src="../../../js/sidebar.js"></script>
     <script src="../../../js/addingForm.js"></script>
+    <script src="../../../js/deleteForm.js"></script>
 </body>
 
 </html>

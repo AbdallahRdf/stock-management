@@ -27,7 +27,7 @@
                         <button class="modify-btn" value="<?= $item['id'] ?>" title="Modify">
                             <img src="../../../img/write-svgrepo-com.svg" alt="modify icon">
                         </button>
-                        <button class="delete-btn" value="<?= $item['id'] ?>" title="Delete">
+                        <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="Delete">
                             <img src="../../../img/delete.svg" alt="delete-icon">
                         </button>
                     </td>

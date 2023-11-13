@@ -26,4 +26,14 @@ class Category
 
         return (new Database)->query($sql, $params);
     }
+
+    // deletes a category from db;
+    public static function delete_category($id)
+    {
+        $sql = "DELETE FROM categories WHERE categories.id = :id";
+
+        $params = [":id" => $id];
+
+        return (new Database)->query($sql, $params);
+    }
 }
