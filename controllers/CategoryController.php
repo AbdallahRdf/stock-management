@@ -39,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         {
             handle_form_errors($category_name, "Category already exists");
         }
+        $_SESSION["created_successfully_alert"] = "Record Created successfully!";
     }
     else if(isset($_POST["category_id"]))
     {
@@ -50,8 +51,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         if($result === null)
         {
             // TODO: send an alert
+            $_SESSION["deleting_fails_alert"] = "Record deleted successfully!";
         }
-        $_SESSION["deleting_success_alert"] = "Record deleted successfully!";
+        $_SESSION["deleting_successfully_alert"] = "Record deleted successfully!";
     }
 }
 

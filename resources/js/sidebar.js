@@ -48,14 +48,16 @@ toggleBtn.addEventListener("click", () => {
 const logoutBtn = document.querySelector("#logout-toggle"); //logout button in the sidebar
 const logoutCancel = document.querySelector("#logout-cancel"); // cancel the logout in the card
 const logoutCard = document.querySelector("#logout-card"); // logout card or box
-const logoutOverlay = document.querySelector("#logout-overlay"); // overlay behind the logout box
+const logoutContainer = document.querySelector("#logout-card-container"); // overlay behind the logout box
+const overlayForLogout = document.querySelector("#overlay"); // overlay
 
 logoutBtn.addEventListener("click", () => 
 {
     logoutCard.classList.remove("card-desappear");
     logoutCard.classList.add("card-appear");
 
-    logoutOverlay.style.display = "block"
+    logoutContainer.style.display = "block"
+    overlayForLogout.style.display = "block";
 })
 
 logoutCancel.addEventListener("click", () => 
@@ -64,6 +66,7 @@ logoutCancel.addEventListener("click", () =>
     logoutCard.classList.add("card-desappear");
 
     setTimeout(() => {
-        logoutOverlay.style.display = "none";
+        logoutContainer.style.display = "none";
+        overlayForLogout.style.display = "none";
     }, 200);
 })

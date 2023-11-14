@@ -1,13 +1,15 @@
 // this handles showing and hiding the delete box;
 const deleteBtns = document.querySelectorAll("#delete-btn"); // buttons to show the delete box;
 const cancelDeleteBtn = document.querySelector("#delete-cancel"); // cancel button to hide the delete confirmation box;
-const deleteBoxOverlay = document.querySelector("#delete-overlay"); // the dark overlay behind the box
+const overlayForDelete = document.getElementById("overlay"); // the overlay
+const deleteBoxContainer = document.querySelector("#delete-form-container"); // the container of box
 const deleteForm = document.querySelector("#delete-form"); // the delete form
 const categoryIdInput = document.getElementById("category-id"); // the hidden input that holds the category id to be deleted;
 
 // function that handles clicking on the delete button;
 const handleDeleteClick = (categoryID) => {
-  deleteBoxOverlay.style.display = "block";
+  overlayForDelete.style.display = "block";
+  deleteBoxContainer.style.display = "block";
 
   deleteForm.classList.remove("form-desappear");
   deleteForm.classList.add("form-appear");
@@ -25,6 +27,7 @@ cancelDeleteBtn.addEventListener("click", () => {
   deleteForm.classList.add("form-desappear");
 
   setTimeout(() => {
-    deleteBoxOverlay.style.display = "none";
+    deleteBoxContainer.style.display = "none";
+    overlayForDelete.style.display = "none";
   }, 200);
 });

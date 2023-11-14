@@ -40,7 +40,7 @@
 </div>
 
 <!-- logout confirmation box -->
-<div class="logout-overlay" id="logout-overlay">
+<div class="logout-card-container" id="logout-card-container">
     <div id="logout-card" class="logout-card">
         <p class="logout-message">Are you sure you want to log out?</p>
         <div>

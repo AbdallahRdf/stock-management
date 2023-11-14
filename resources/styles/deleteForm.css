@@ -1,10 +1,4 @@
-.delete-overlay {
-    width: 100vw;
-    height: 100vh;
-    background-color: #00000083;
-    position: absolute;
-    top: 0;
-    left: 0;
+.delete-form-container {
     display: none;
 }
 
@@ -14,9 +8,10 @@
     color: var(--blue-dark);
     border-radius: 6px;
     padding: 14px;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 40%;
+    z-index: 801;
     transform: translate(-50%, -50%);
 }
 

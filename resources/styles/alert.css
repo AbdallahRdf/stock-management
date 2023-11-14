@@ -1,43 +1,68 @@
 :root {
-    --form-background: #13232f;
-    --body-bg: #c1bdba;
-    --white: #ffffff;
+    --bg-info: #EBF8FFbb;
+    --text-info: #2B6CB0;
 
-    --main: #1ab188;
-    --main-light: #1ab189f2;
-    --main-dark: #179b78;
-
-    --gray: #ddd;
-    --gray-light: #a0b3b0;
-    --gray-dark: #435259;
-
-    --red: #f44336;
-    --red-pale: #ff7480bb;
-
-    --bg-danger: #FFF5F5;
+    --bg-danger: #fff5f5bb;
     --text-danger: #C53434;
+
+    --bg-success: #E6FFFAbb;
+    --text-success: #234E52;
 }
 
 .alert {
     width: 500px;
+    padding: 18px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    position: sticky;
+    top: 2%;
+    left: 64%;
+    animation: show-alert .5s ease-in-out;
+}
+
+.red-alert {
     background-color: var(--bg-danger);
     color: var(--text-danger);
-    padding: 14px;
-    border-radius: 4px;
-    position: sticky;
-    top: 0%;
-    left: 0%;
+    border: 1px solid var(--text-danger);
+}
+
+.green-alert{
+    background-color: var(--bg-success);
+    color: var(--text-success);
+    border: 1px solid var(--text-info);
+}
+
+.blue-alert {
+    background-color: var(--bg-info);
+    color: var(--text-info);
+    border: 1px solid var(--text-info);
 }
 
 .dismiss-alert {
-    color: var(--text-danger);
+    color: inherit;
     font-size: 1.1rem;
     background-color: transparent;
     border: none;
     outline: none;
-    position: absolute;
-    top: 50%;
-    right: 2%;
-    transform: translateY(-50%);
     cursor: pointer;
+}
+
+/* animations */
+
+@keyframes show-alert {
+    0% {
+        opacity: 0;
+        left: 100%;
+        width: 0px;
+        overflow: hidden;
+    }
+    100% {
+        opacity: 1;
+        left: 64%;
+        width: 500px
+    }
 }

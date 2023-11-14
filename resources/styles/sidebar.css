@@ -160,15 +160,10 @@ body {
     }
 }
 /* logout card styles */
-
-.logout-overlay {
-    width: 100vw;
-    height: 100vh;
-    background-color: #00000083;
-    position: absolute;
-    top: 0;
-    left: 0;
+.logout-card-container {
     display: none;
+    position: fixed;
+    z-index: 803;
 }
 
 .logout-card {
@@ -177,7 +172,7 @@ body {
     color: var(--blue-dark);
     border-radius: 6px;
     padding: 14px;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
