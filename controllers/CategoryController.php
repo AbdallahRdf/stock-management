@@ -30,7 +30,7 @@ function create_alert_session_variable($variable_name, $message)
 
 if($_SERVER['REQUEST_METHOD'] === "POST")
 {
-    if(isset($_POST["name"]))
+    if(isset($_POST["name"])) // if we are trying to create a new category
     {
         $category_name = $_POST["name"];
     
@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         }
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
     }
-    else if(isset($_POST["category_id"]))
+    else if(isset($_POST["category_id"])) // if we are trying to delete a category
     {
 
         $category_id = $_POST["category_id"];

@@ -2,7 +2,7 @@
     <button id="toggle" class="toggle" value="visible">
         <img src="../../../img/left-arrow-circle-svgrepo-com.svg" alt="left arrow">
     </button>
-    <h2 class="toggled">InventoSync</h2>
+    <img class="logo toggled" src="../../../img/logo.svg" alt="">
     <div class="select-btns">
         <a href="../dashboard/index.php" class="select-btn icon-btn selected toggled">
             <img src="../../../img/home.svg" alt="dashboard icon" title="Dashboard">
