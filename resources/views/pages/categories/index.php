@@ -26,18 +26,26 @@ if (isset($_SESSION["error_message"])) // if there is an error after creating ne
 $alert_message = "";
 $alert_color_class = "";
 $alert_display = "none";
-if (isset($_SESSION["deleting_success_alert"])) // if the element is deleted successfully then:
+if(isset($_SESSION["alert"])) // if there is an alert then:
 {
-    $alert_message = $_SESSION["deleting_success_alert"];
-    unset($_SESSION["deleting_success_alert"]);
-    $alert_color_class = "red-alert";
-    $alert_display = "flex";
-}
-else if (isset($_SESSION["created_successfully_alert"]))
-{
-    $alert_message = $_SESSION["created_successfully_alert"];
-    unset($_SESSION["created_successfully_alert"]);
-    $alert_color_class = "green-alert";
+    if (isset($_SESSION["deleting_successfully_alert"])) // if the element is deleted successfully then:
+    {
+        $alert_message = $_SESSION["deleting_successfully_alert"];
+        unset($_SESSION["deleting_successfully_alert"]);
+        $alert_color_class = "red-alert";
+    }
+    else if (isset($_SESSION["created_successfully_alert"])) // if the element is created successfully then:
+    {
+        $alert_message = $_SESSION["created_successfully_alert"];
+        unset($_SESSION["created_successfully_alert"]);
+        $alert_color_class = "green-alert";
+    } 
+    else if (isset($_SESSION["deleting_fails_alert"])) // if the element can't be deleted, because of foreign key constarint
+    {
+        $alert_message = $_SESSION["deleting_fails_alert"];
+        unset($_SESSION["deleting_fails_alert"]);
+        $alert_color_class = "blue-alert";
+    }
     $alert_display = "flex";
 }
 ?>

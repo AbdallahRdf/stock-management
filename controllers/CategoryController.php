@@ -21,6 +21,13 @@ function handle_form_errors($category_name, $message)
     die();
 }
 
+// this function creates an alert session varaible 
+function create_alert_session_variable($variable_name, $message)
+{
+    $_SESSION["alert"] = true;
+    $_SESSION[$variable_name] = $message;
+}
+
 if($_SERVER['REQUEST_METHOD'] === "POST")
 {
     if(isset($_POST["name"]))
@@ -39,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         {
             handle_form_errors($category_name, "Category already exists");
         }
-        $_SESSION["created_successfully_alert"] = "Record Created successfully!";
+        create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
     }
     else if(isset($_POST["category_id"]))
     {
@@ -48,16 +55,18 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
         $result = Category::delete_category($category_id);
 
-        if($result === null)
+        if($result === null) // if ther is products that are under this category then do not delete it;
         {
-            // TODO: send an alert
-            $_SESSION["deleting_fails_alert"] = "Record deleted successfully!";
+            create_alert_session_variable("deleting_fails_alert", "Can't delete this record");
         }
-        $_SESSION["deleting_successfully_alert"] = "Record deleted successfully!";
+        else
+        {
+            create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
+        }
     }
 }
 
-$_SESSION["categories"] = Category::all();
+$_SESSION["categories"] = Category::all(); // get all the categories;
 
 //* redirect to categories page;
 header("Location: ../resources/views/pages/categories/index.php");
