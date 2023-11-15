@@ -39,4 +39,14 @@ class Product
 
         return (new Database)->query($sql, $params);
     }
+
+    // delete a product
+    public static function delete($id)
+    {
+        $sql = "DELETE FROM products WHERE id=:id";
+
+        $params = [":id" => $id];
+
+        return (new Database)->query($sql, $params);
+    }
 }

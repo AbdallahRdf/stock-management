@@ -15,39 +15,6 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
     unset($_SESSION["error_message"]);
     unset($_SESSION["old"]);
 }
-
-$alert_message = "";
-$alert_color_class = "";
-$alert_display = "none";
-if(isset($_SESSION["alert"])) // if there is an alert then:
-{
-    if (isset($_SESSION["deleting_successfully_alert"])) // if the element is deleted successfully then:
-    {
-        $alert_message = $_SESSION["deleting_successfully_alert"];
-        unset($_SESSION["deleting_successfully_alert"]);
-        $alert_color_class = "red-alert";
-    }
-    else if (isset($_SESSION["created_successfully_alert"])) // if the element is created successfully then:
-    {
-        $alert_message = $_SESSION["created_successfully_alert"];
-        unset($_SESSION["created_successfully_alert"]);
-        $alert_color_class = "green-alert";
-    } 
-    else if (isset($_SESSION["deleting_fails_alert"])) // if the element can't be deleted, because of foreign key constarint
-    {
-        $alert_message = $_SESSION["deleting_fails_alert"];
-        unset($_SESSION["deleting_fails_alert"]);
-        $alert_color_class = "blue-alert";
-    }
-    else if (isset($_SESSION["updated_successfully_alert"])) // if the element is created successfully then:
-    {
-        $alert_message = $_SESSION["updated_successfully_alert"];
-        unset($_SESSION["updated_successfully_alert"]);
-        $alert_color_class = "green-alert";
-    } 
-    unset($_SESSION['alert']);
-    $alert_display = "flex";
-}
 ?>
 
 <!DOCTYPE html>
@@ -78,10 +45,7 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
         <main class="main">
 
             <!-- alert -->
-            <div id="alert" class="alert <?= $alert_color_class ?>" style="display:<?= $alert_display ?>">
-                <?= $alert_message ?>
-                <button id="dismiss-alert" class="dismiss-alert">X</button>
-            </div>
+            <?php require_once "../components/alert.php"; ?>
 
             <!-- table -->
             <?php require_once "../components/table.php"; ?>
@@ -110,8 +74,8 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
     <div id="delete-form-container" class="delete-form-container">
         <form action="../../../controllers/CategoryController.php" method="post" id="delete-form"
             class="delete-form">
-            <p class="delete-message">Are you sure you want to delete it permanently?</p>
-            <input type="hidden" name="category_id" id="category-id" value="">
+            <p class="delete-message">Are you sure you want to delete this record permanently?</p>
+            <input type="hidden" name="category_id" id="id" value="">
             <div>
                 <button type="button" id="delete-cancel" class="delete-cancel">Cancel</button>
                 <button type="submit" class="delete-delete">Delete</button>

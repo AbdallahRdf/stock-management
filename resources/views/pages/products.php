@@ -29,7 +29,6 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
     unset($_SESSION["errors"]);
     unset($_SESSION["old"]);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -60,10 +59,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
         <main class="main">
 
             <!-- alert -->
-            <div id="alert" class="alert <?= $alert_color_class ?>" style="display:<?= $alert_display ?>">
-                <?= $alert_message ?>
-                <button id="dismiss-alert" class="dismiss-alert">X</button>
-            </div>
+            <?php require_once "../components/alert.php"; ?>
 
             <!-- table -->
             <?php require_once "../components/table.php"; ?>
@@ -84,7 +80,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
             </div>
 
             <div class="input-group">
-                <textarea name="description" class="form-input" cols="30" rows="5" placeholder="Product Description"><?= $old_description ?></textarea>
+                <textarea name="description" class="form-input" cols="30" rows="4" placeholder="Product Description"><?= $old_description ?></textarea>
                 <small>
                     <?= $description_error_message ?>
                 </small>
@@ -109,7 +105,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
                 <div class="custom-select">
                     <select name="category" id="category">
                         <?php foreach($categories as $category): ?>
-                            <option value="<?= $category["id"] ?>" selected="<?= $category["id"]===$old_category ? 'true' : 'false' ?>"><?= $category["name"] ?></option>
+                            <option value="<?= $category["id"] ?>" <?= (string)$category["id"]===(string)$old_category ? 'selected' : '' ?>><?= $category["name"] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -124,10 +120,10 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/CategoryController.php" method="post" id="delete-form"
+        <form action="../../../controllers/ProductController.php" method="post" id="delete-form"
             class="delete-form">
-            <p class="delete-message">Are you sure you want to delete it permanently?</p>
-            <input type="hidden" name="category_id" id="category-id" value="">
+            <p class="delete-message">Are you sure you want to delete this record permanently?</p>
+            <input type="hidden" name="product_id" id="id" value="">
             <div>
                 <button type="button" id="delete-cancel" class="delete-cancel">Cancel</button>
                 <button type="submit" class="delete-delete">Delete</button>

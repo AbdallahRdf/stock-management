@@ -4,7 +4,7 @@ const cancelDeleteBtn = document.querySelector("#delete-cancel"); // cancel butt
 const overlayForDelete = document.getElementById("overlay"); // the overlay
 const deleteBoxContainer = document.querySelector("#delete-form-container"); // the container of box
 const deleteForm = document.querySelector("#delete-form"); // the delete form
-const categoryIdInput = document.getElementById("category-id"); // the hidden input that holds the category id to be deleted;
+const IdInput = document.getElementById("id"); // the hidden input that holds the category id to be deleted;
 
 // function that handles clicking on the delete button;
 const handleDeleteClick = (categoryID) => {
@@ -14,7 +14,7 @@ const handleDeleteClick = (categoryID) => {
   deleteForm.classList.remove("form-desappear");
   deleteForm.classList.add("form-appear");
 
-  categoryIdInput.value = categoryID;
+  IdInput.value = categoryID;
 };
 // adding event listener to each delete button;
 for(let i = 0; i < deleteBtns.length; i++)

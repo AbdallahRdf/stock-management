@@ -17,8 +17,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $ERRORS = [];
         $OLD = [];
 
-        $name = $_POST["name"];
-        $description = $_POST["description"];
+        $name = trim($_POST["name"]);
+        $description = trim($_POST["description"]);
         $price = $_POST["price"];
         $quantity = $_POST["quantity"];
         $category = $_POST["category"];
@@ -31,11 +31,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $ERRORS["description_error"] = "Invalid Product Description";
         }
-        if(!is_float((float)$price))
+        if(!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $price))
         {
-            $ERRORS["price_error"] = "Invalid Product Price";
+            $ERRORS["price_error"] = "Invalid Product Price, If you include a decimal point, ensure there is at least one digit after it (e.g., 10, 10.99)";
         }
-        if(!is_int($quantity))
+        if(!preg_match("/^[1-9]+[0-9]+$/", $quantity))
         {
             $ERRORS["quantity_error"] = "Invalid Product Quantity";
         }
@@ -56,6 +56,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             die();
         }
         $result = Product::create($name, $description, $price, $quantity, $category);
+    }
+    else if (!isset($_POST["name"]) && $_POST["product_id"] != "")
+    {
+        $result = Product::delete($_POST["product_id"]);
     }
 }
 
