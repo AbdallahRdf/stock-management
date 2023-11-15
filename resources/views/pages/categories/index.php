@@ -46,6 +46,12 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
         unset($_SESSION["deleting_fails_alert"]);
         $alert_color_class = "blue-alert";
     }
+    else if (isset($_SESSION["updated_successfully_alert"])) // if the element is created successfully then:
+    {
+        $alert_message = $_SESSION["updated_successfully_alert"];
+        unset($_SESSION["updated_successfully_alert"]);
+        $alert_color_class = "green-alert";
+    } 
     unset($_SESSION['alert']);
     $alert_display = "flex";
 }
@@ -94,7 +100,8 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
         <form id="form" class="form" action="../../../../controllers/CategoryController.php" method="POST">
             <h3>Create New Category</h3>
             <div class="input-group">
-                <input type="text" name="name" placeholder="Category Name" value="<?= $old_input_value ?>">
+                <input type="hidden" name="category_id" class="form-input">
+                <input class="form-input" type="text" name="name" placeholder="Category Name" value="<?= $old_input_value ?>">
                 <small>
                     <?= $error_message ?>
                 </small>
@@ -120,7 +127,7 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
     </div>
 
     <script src="../../../js/sidebar.js"></script>
-    <script src="../../../js/addingForm.js"></script>
+    <script src="../../../js/addUpdateForm.js"></script>
     <script src="../../../js/deleteForm.js"></script>
     <script src="../../../js/alert.js"></script>
 </body>

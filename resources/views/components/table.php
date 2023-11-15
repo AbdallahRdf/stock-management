@@ -20,11 +20,11 @@
                     <?php $indexed_item = array_values($item) ?> <!-- turn the assoc array into the indexed  array  -->
                     <?php for ($i = 1; $i < count($indexed_item); $i++): ?>
                         <td class="<?= $class ?>">
-                            <?= htmlspecialchars($indexed_item[$i]) ?>
+                            <p><?= htmlspecialchars($indexed_item[$i]) ?></p>
                         </td>
                     <?php endfor; ?>
                     <td class="<?= $class ?>">
-                        <button class="modify-btn" value="<?= $item['id'] ?>" title="Modify">
+                        <button class="modify-btn" id="modify-btn" value="<?= $item['id'] ?>" title="Modify">
                             <img src="../../../img/write-svgrepo-com.svg" alt="modify icon">
                         </button>
                         <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="Delete">

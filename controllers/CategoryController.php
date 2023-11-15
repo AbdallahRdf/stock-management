@@ -30,7 +30,7 @@ function create_alert_session_variable($variable_name, $message)
 
 if($_SERVER['REQUEST_METHOD'] === "POST")
 {
-    if(isset($_POST["name"])) // if we are trying to create a new category
+    if(isset($_POST["name"]) && $_POST["category_id"]==="") // create an element:
     {
         $category_name = $_POST["name"];
     
@@ -48,7 +48,23 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         }
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
     }
-    else if(isset($_POST["category_id"])) // if we are trying to delete a category
+    else if(isset($_POST["category_id"]) && isset($_POST["name"])) // update an element:
+    {
+        $category_name = $_POST["name"];
+        $category_id = $_POST["category_id"];
+
+        if (!Validator::isStrValid($category_name)) {
+            handle_form_errors($category_name, "Invalid Category Name");
+        }
+        $result = Category::update_category($category_id, $category_name);
+
+        // if the category already exists in db;
+        if ($result === null) {
+            handle_form_errors($category_name, "Category already exists");
+        }
+        create_alert_session_variable("updated_successfully_alert", "Record Updated Successfully!");
+    }
+    else if(isset($_POST["category_id"])) // delete an element:
     {
 
         $category_id = $_POST["category_id"];

@@ -27,6 +27,19 @@ class Category
         return (new Database)->query($sql, $params);
     }
 
+    // creates new category;
+    public static function update_category($id, $name)
+    {
+        $sql = "UPDATE categories SET name = :name WHERE id = :id";
+
+        $params = [
+            ":name" => $name,
+            ":id" => $id
+        ];
+
+        return (new Database)->query($sql, $params);
+    }
+
     // deletes a category from db;
     public static function delete_category($id)
     {
