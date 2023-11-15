@@ -23,4 +23,20 @@ class Product
 
         return (new Database)->query($sql);
     }
+
+    // create a product
+    public static function create($name, $description, $price, $quantity, $category)
+    {
+        $sql = "INSERT INTO products (name, description, price, stock_quantity, category_id) VALUES (:name, :description, :price, :quantity, :category);";
+
+        $params = [
+            ":name" => $name,
+            ":description" => $description,
+            ":price"=> $price,
+            ":quantity"=> $quantity,
+            ":category"=> $category
+        ];
+
+        return (new Database)->query($sql, $params);
+    }
 }

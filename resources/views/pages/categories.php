@@ -1,26 +1,19 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
-{
-    header('location: ../../auth/index.php');
-}
 
-$items = $_SESSION["categories"]; // items to be shown in the table
+require_once "../components/session_start.php"; // if not logged in redirect back to login page;
+
+$items = $_SESSION["categories"]; // items to be shown in the table;
 
 $table_header = ["Name", "Actions"]; // the title of the <th> tags
 
-$error_message = ""; // for adding element form
-$old_input_value = ""; // for the category name input in the add element form
-$display_proprety = "none"; // if there is an error in the form then show the form again;
-if (isset($_SESSION["error_message"])) // if there is an error after creating new element;
+$error_message = $_SESSION["error_message"] ?? ""; 
+$old_input_value = $_SESSION['old'] ?? ""; 
+$display_proprety = isset($_SESSION["error_message"]) ? "block" : "none"; // if there is an error in the form then show the form again;
+
+if (isset($_SESSION["error_message"])) // if there is a session variable then unset it;
 {
-    $error_message = $_SESSION["error_message"];
     unset($_SESSION["error_message"]);
-
-    $old_input_value = $_SESSION['old'];
     unset($_SESSION["old"]);
-
-    $display_proprety = "block";
 }
 
 $alert_message = "";
@@ -63,15 +56,15 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../../../../favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon">
     <title>InventoSync</title>
-    <link rel="stylesheet" href="../../../styles/sidebar.css">
-    <link rel="stylesheet" href="../../../styles/overlay.css">
-    <link rel="stylesheet" href="../../../styles/table.css">
-    <link rel="stylesheet" href="../../../styles/addingForm.css">
-    <link rel="stylesheet" href="../../../styles/deleteForm.css">
-    <link rel="stylesheet" href="../../../styles/alert.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/overlay.css">
+    <link rel="stylesheet" href="../../styles/table.css">
+    <link rel="stylesheet" href="../../styles/addingForm.css">
+    <link rel="stylesheet" href="../../styles/deleteForm.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
 </head>
 
 <body>
@@ -80,7 +73,7 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
 
     <div class="container">
         <!-- sidebar -->
-        <?php require_once "../../components/sidebar.php"; ?>
+        <?php require_once "../components/sidebar.php"; ?>
 
         <main class="main">
 
@@ -91,13 +84,13 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
             </div>
 
             <!-- table -->
-            <?php require_once "../../components/table.php"; ?>
+            <?php require_once "../components/table.php"; ?>
         </main>
     </div>
 
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
-        <form id="form" class="form" action="../../../../controllers/CategoryController.php" method="POST">
+        <form id="form" class="form" action="../../../controllers/CategoryController.php" method="POST">
             <h3>Create New Category</h3>
             <div class="input-group">
                 <input type="hidden" name="category_id" class="form-input">
@@ -115,7 +108,7 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../../controllers/CategoryController.php" method="post" id="delete-form"
+        <form action="../../../controllers/CategoryController.php" method="post" id="delete-form"
             class="delete-form">
             <p class="delete-message">Are you sure you want to delete it permanently?</p>
             <input type="hidden" name="category_id" id="category-id" value="">
@@ -126,10 +119,10 @@ if(isset($_SESSION["alert"])) // if there is an alert then:
         </form>
     </div>
 
-    <script src="../../../js/sidebar.js"></script>
-    <script src="../../../js/addUpdateForm.js"></script>
-    <script src="../../../js/deleteForm.js"></script>
-    <script src="../../../js/alert.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script src="../../js/addUpdateForm.js"></script>
+    <script src="../../js/deleteForm.js"></script>
+    <script src="../../js/alert.js"></script>
 </body>
 
 </html>

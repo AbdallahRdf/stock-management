@@ -2,7 +2,7 @@
 
 <div class="table-container">
     <button id="add-btn" class="add-btn">
-        <img src="../../../img/plus-svgrepo-com.svg" alt="plus icon"> Add
+        <img src="../../img/plus-svgrepo-com.svg" alt="plus icon"> Add
     </button>
     <table>
         <thead>
@@ -25,10 +25,10 @@
                     <?php endfor; ?>
                     <td class="<?= $class ?>">
                         <button class="modify-btn" id="modify-btn" value="<?= $item['id'] ?>" title="Modify">
-                            <img src="../../../img/write-svgrepo-com.svg" alt="modify icon">
+                            <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
                         </button>
                         <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="Delete">
-                            <img src="../../../img/delete.svg" alt="delete-icon">
+                            <img src="../../img/delete.svg" alt="delete-icon">
                         </button>
                     </td>
                 </tr>

@@ -18,7 +18,7 @@ class Category
     }
 
     // creates new category;
-    public static function create_category($name)
+    public static function create($name)
     {
         $sql = "INSERT INTO categories(name) VALUES (:name);";
 
@@ -28,7 +28,7 @@ class Category
     }
 
     // creates new category;
-    public static function update_category($id, $name)
+    public static function update($id, $name)
     {
         $sql = "UPDATE categories SET name = :name WHERE id = :id";
 
@@ -41,7 +41,7 @@ class Category
     }
 
     // deletes a category from db;
-    public static function delete_category($id)
+    public static function delete($id)
     {
         $sql = "DELETE FROM categories WHERE categories.id = :id";
 

@@ -17,7 +17,7 @@ function handle_form_errors($category_name, $message)
     $_SESSION["old"] = $category_name;
 
     //* redirect to categories page;
-    header("Location: ../resources/views/pages/categories/index.php");
+    header("Location: ../resources/views/pages/categories.php");
     die();
 }
 
@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
             handle_form_errors($category_name, "Invalid Category Name");
         }
         // create the new category
-        $result = Category::create_category($category_name);
+        $result = Category::create($category_name);
     
         // if the category already exists in db;
         if($result === null)
@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         if (!Validator::isStrValid($category_name)) {
             handle_form_errors($category_name, "Invalid Category Name");
         }
-        $result = Category::update_category($category_id, $category_name);
+        $result = Category::update($category_id, $category_name);
 
         // if the category already exists in db;
         if ($result === null) {
@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
         $category_id = $_POST["category_id"];
 
-        $result = Category::delete_category($category_id);
+        $result = Category::delete($category_id);
 
         if($result === null) // if ther is products that are under this category then do not delete it;
         {
@@ -85,5 +85,5 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 $_SESSION["categories"] = Category::all(); // get all the categories;
 
 //* redirect to categories page;
-header("Location: ../resources/views/pages/categories/index.php");
+header("Location: ../resources/views/pages/categories.php");
 die();
