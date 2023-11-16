@@ -49,4 +49,21 @@ class Product
 
         return (new Database)->query($sql, $params);
     }
+
+    // update a product
+    public static function update($id, $name, $description, $price, $quantity, $category_id)
+    {
+        $sql = "UPDATE products SET name=:name, description=:description, price=:price, stock_quantity=:quantity, category_id=:category_id WHERE id=:id";
+
+        $params = [
+            ":name" => $name,
+            ":description"=> $description,
+            ":price"=> $price,
+            ":quantity" => $quantity,
+            ":category_id"=> $category_id,
+            ":id" => $id
+        ];
+
+        return (new Database)->query($sql, $params);
+    }
 }
