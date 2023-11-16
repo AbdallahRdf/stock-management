@@ -10,7 +10,7 @@
     padding: 14px;
     position: fixed;
     left: 50%;
-    top: 40%;
+    top: 50%;
     z-index: 801;
     transform: translate(-50%, -50%);
 }

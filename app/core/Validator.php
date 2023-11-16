@@ -10,6 +10,13 @@ class Validator {
         return preg_match("/^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$/", $str) && !empty($str);
     }
 
+    //* checks if the string contains only alphbets and numbers (alphanumeric)
+    public static function isAlphaNum($str)
+    {
+        return preg_match("/^[a-zA-Z0-9]+(?:\\s[a-zA-Z0-9]+)*$/", $str) && !empty($str);
+
+    }
+
     //* checks if the email is valid;
     public static function isEmailValid($email)
     {

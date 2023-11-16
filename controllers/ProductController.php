@@ -10,12 +10,27 @@ use App\Models\Product;
 
 session_start();
 
+// this function creates an alert session varaible 
+function create_alert_session_variable($variable_name, $message)
+{
+    $_SESSION["alert"] = true;
+    $_SESSION[$variable_name] = $message;
+}
+
+// this function redirects back to products page
+function goback()
+{
+    //* redirect to categories page;
+    header("Location: ../resources/views/pages/products.php");
+    die();
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
     if($_POST["product_id"] == "") // create a product:
     {
-        $ERRORS = [];
-        $OLD = [];
+        $ERRORS = []; // will hold error messages
+        $OLD = []; // will hold old inputs data when there is an error;
 
         $name = trim($_POST["name"]);
         $description = trim($_POST["description"]);
@@ -23,11 +38,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $quantity = $_POST["quantity"];
         $category = $_POST["category"];
 
-        if(!Validator::isStrValid($name))
+        if(!Validator::isAlphaNum($name))
         {
             $ERRORS["name_error"] = "Invalid Product Name";
         }
-        if(!Validator::isStrValid($description))
+        if(!Validator::isAlphaNum($description))
         {
             $ERRORS["description_error"] = "Invalid Product Description";
         }
@@ -40,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $ERRORS["quantity_error"] = "Invalid Product Quantity";
         }
 
-        if(!empty($ERRORS))
+        if(!empty($ERRORS)) // if there is errors
         {
             $OLD["old_name"] = $name;
             $OLD["old_description"] = $description;
@@ -51,21 +66,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $_SESSION["errors"] = $ERRORS;
             $_SESSION["old"] = $OLD;
 
-            //* redirect to categories page;
-            header("Location: ../resources/views/pages/products.php");
-            die();
+            goback();
         }
-        $result = Product::create($name, $description, $price, $quantity, $category);
+        Product::create($name, $description, $price, $quantity, $category);
+        create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
     }
     else if (!isset($_POST["name"]) && $_POST["product_id"] != "")
     {
         $result = Product::delete($_POST["product_id"]);
+        create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
     }
 }
 
 $_SESSION["products"] = Product::all();
 $_SESSION["categories"] = Category::all(); // get all the categories;
-
-//* redirect to categories page;
-header("Location: ../resources/views/pages/products.php");
-die();
+goback();

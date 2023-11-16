@@ -58,7 +58,22 @@ const handleClick = (e) => {
         }
         else
         {
-            inputs[i].value = inputsValue[i-1];
+            if(inputs[i].tagName === "SELECT") // if it is a <select> then add selected attribute to the relevant <option>
+            {
+                const options = inputs[i].children; // getting the option tags inside the select tag
+                for(let j = 0; j < options.length; j++)
+                {
+                    if(options[j].textContent === inputsValue[i-1])
+                    {
+                        options[j].selected = true;
+                        break;
+                    }
+                }
+            }
+            else // if it is an <input>
+            {
+                inputs[i].value = inputsValue[i-1];
+            }
         }
     }
     showTheForm();
