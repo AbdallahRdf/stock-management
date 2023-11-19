@@ -10,13 +10,6 @@ use App\Models\Product;
 
 session_start();
 
-// this function creates an alert session varaible 
-function create_alert_session_variable($variable_name, $message)
-{
-    $_SESSION["alert"] = true;
-    $_SESSION[$variable_name] = $message;
-}
-
 // this function redirects back to products page
 function goback()
 {
@@ -70,7 +63,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $category = $_POST["category"];
 
         handle_inputs_validation($name, $description, $price, $quantity, $category);
-        Product::create($name, $description, $price, $quantity, $category);
+        
+        // creating an excerpt of the description to show it in the table;
+        $excerpt = substr($description, 0, 14)."...";
+
+        Product::create($name, $excerpt, $description, $price, $quantity, $category);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
     }
     else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
@@ -88,11 +85,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $category = $_POST["category"];
 
         handle_inputs_validation($name, $description, $price, $quantity, $category);
-        Product::update($product_id, $name, $description, $price, $quantity, $category);
+
+        // creating an excerpt of the description to show it in the table;
+        $excerpt = substr($description, 0, 14)."...";
+
+        Product::update($product_id, $name, $excerpt, $description, $price, $quantity, $category);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
 
-$_SESSION["products"] = Product::all();
+$_SESSION["products"] = Product::all(); // get all the products
 $_SESSION["categories"] = Category::all(); // get all the categories;
 goback();

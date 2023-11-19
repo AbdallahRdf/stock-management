@@ -48,6 +48,10 @@ const handleClick = (e) => {
     const inputsValue = []; // this array will hold all the data of the table row the user wants to update
     for(tableData of tds)
     {
+        if(tableData.style.display === "none") // if the display is none, then replace it with the previous added element to the "inputsValue" with the current one
+        {
+            inputsValue.pop();
+        }
         inputsValue.push(tableData.childNodes[1].textContent); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
     }
     inputsValue.pop(); // remove the last item in the array, because it is not a part of the table data, its the last column in the table (the actions column);
@@ -70,7 +74,7 @@ const handleClick = (e) => {
                     }
                 }
             }
-            else // if it is an <input>
+            else // if it is an <input> 
             {
                 inputs[i].value = inputsValue[i-1];
             }

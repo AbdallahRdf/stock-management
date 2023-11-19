@@ -15,6 +15,7 @@ class Product
         $sql = "SELECT 
             products.id, 
             products.name, 
+            products.excerpt,
             products.description, 
             products.price, 
             products.stock_quantity, 
@@ -25,12 +26,13 @@ class Product
     }
 
     // create a product
-    public static function create($name, $description, $price, $quantity, $category)
+    public static function create($name, $excerpt, $description, $price, $quantity, $category)
     {
-        $sql = "INSERT INTO products (name, description, price, stock_quantity, category_id) VALUES (:name, :description, :price, :quantity, :category);";
+        $sql = "INSERT INTO products (name, excerpt, description, price, stock_quantity, category_id) VALUES (:name, :excerpt, :description, :price, :quantity, :category);";
 
         $params = [
             ":name" => $name,
+            ":excerpt" => $excerpt,
             ":description" => $description,
             ":price"=> $price,
             ":quantity"=> $quantity,
@@ -51,12 +53,13 @@ class Product
     }
 
     // update a product
-    public static function update($id, $name, $description, $price, $quantity, $category_id)
+    public static function update($id, $name, $excerpt, $description, $price, $quantity, $category_id)
     {
-        $sql = "UPDATE products SET name=:name, description=:description, price=:price, stock_quantity=:quantity, category_id=:category_id WHERE id=:id";
+        $sql = "UPDATE products SET name=:name, excerpt=:excerpt, description=:description, price=:price, stock_quantity=:quantity, category_id=:category_id WHERE id=:id";
 
         $params = [
             ":name" => $name,
+            ":excerpt" => $excerpt,
             ":description"=> $description,
             ":price"=> $price,
             ":quantity" => $quantity,

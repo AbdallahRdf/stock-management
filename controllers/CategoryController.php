@@ -21,13 +21,6 @@ function handle_form_errors($category_name, $message)
     die();
 }
 
-// this function creates an alert session varaible 
-function create_alert_session_variable($variable_name, $message)
-{
-    $_SESSION["alert"] = true;
-    $_SESSION[$variable_name] = $message;
-}
-
 if($_SERVER['REQUEST_METHOD'] === "POST")
 {
     if(isset($_POST["name"]) && $_POST["category_id"]==="") // create an element:
