@@ -6,6 +6,11 @@ const addingFormContainer = document.querySelector("#adding-form-container"); //
 const form = document.querySelector("#form"); // the form
 const inputs = document.querySelectorAll(".form-input"); // select all the inputs in the form
 
+if(addingFormContainer.style.display === "block") // if the page loads and the form is visible, then show the overlay;
+{
+    overlay.style.display = "block";
+}
+
 // handles showing the form;
 const showTheForm = () => {
     overlay.style.display = "block";

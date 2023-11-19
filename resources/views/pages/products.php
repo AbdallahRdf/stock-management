@@ -11,15 +11,15 @@ $categories = $_SESSION['categories']; // getting all the categories, they will 
 
 // error messages for the form;
 $name_error_message = $_SESSION["errors"]["name_error"] ?? "";
-$description_error_message = $_SESSION["errors"]["description_error"] ?? "";
-$price_error_message = $_SESSION["errors"]["price_error"] ?? "";
-$quantity_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
+$email_error_message = $_SESSION["errors"]["description_error"] ?? "";
+$number_error_message = $_SESSION["errors"]["price_error"] ?? "";
+$date_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
 
 // old input values
 $old_name = $_SESSION["old"]["old_name"] ?? "";
-$old_description = $_SESSION["old"]["old_description"] ?? "";
-$old_price = $_SESSION["old"]["old_price"] ?? "";
-$old_quantity = $_SESSION["old"]["old_quantity"] ?? "";
+$old_email = $_SESSION["old"]["old_description"] ?? "";
+$old_number = $_SESSION["old"]["old_price"] ?? "";
+$old_date = $_SESSION["old"]["old_quantity"] ?? "";
 $old_category = $_SESSION["old"]["old_category"] ?? "";
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none"; // if there is an error in the form then show the form again;
@@ -73,30 +73,34 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 
             <div class="input-group">
                 <input type="hidden" name="product_id" class="form-input">
-                <input class="form-input" type="text" name="name" placeholder="Product Name" value="<?= $old_name ?>">
+                <label for="name">Product Name</label>
+                <input class="form-input" id="name" type="text" name="name" placeholder="Product Name" value="<?= $old_name ?>">
                 <small>
                     <?= $name_error_message ?>
                 </small>
             </div>
 
             <div class="input-group">
-                <textarea name="description" class="form-input" cols="30" rows="4" placeholder="Product Description"><?= $old_description ?></textarea>
+                <label for="description">Product Description</label>
+                <textarea name="description" id="description" class="form-input" cols="30" rows="4" placeholder="Product Description"><?= $old_email ?></textarea>
                 <small>
-                    <?= $description_error_message ?>
+                    <?= $email_error_message ?>
                 </small>
             </div>
 
             <div class="input-group">
-                <input class="form-input" type="text" name="price" placeholder="Product Price" value="<?= $old_price ?>">
+                <label for="price">Product Price</label>
+                <input class="form-input" type="text" name="price" placeholder="Product Price" value="<?= $old_number ?>">
                 <small>
-                    <?= $price_error_message ?>
+                    <?= $number_error_message ?>
                 </small>
             </div>
 
             <div class="input-group">
-                <input class="form-input" type="number" min="0" name="quantity" placeholder="Product Quantity" value="<?= $old_quantity ?>">
+                <label for="quantity">Product Quantity</label>
+                <input class="form-input" id="quantity" type="number" min="0" name="quantity" placeholder="Product Quantity" value="<?= $old_date ?>">
                 <small>
-                    <?= $quantity_error_message ?>
+                    <?= $date_error_message ?>
                 </small>
             </div>
             

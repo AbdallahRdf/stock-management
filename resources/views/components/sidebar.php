@@ -16,7 +16,7 @@
             <img src="../../img/product.svg" alt="products icon" title="Products">
             Products
         </a>
-        <a href="#" class="select-btn icon-btn toggled">
+        <a href="../../../controllers/ClientController.php" class="select-btn icon-btn toggled">
             <img src="../../img/client.svg" alt="client icon" title="Clients">
             Clients
         </a>
