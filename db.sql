@@ -41,9 +41,9 @@ CREATE TABLE `clients` (
   `full_name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `phone_num` varchar(11) NOT NULL,
-  `registration_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `registration_date` date NOT NULL DEFAULT curdate(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone_num` (`phone_num`)
-)
+);
