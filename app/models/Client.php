@@ -31,4 +31,30 @@ class Client
 
         return (new Database)->query($sql, $params);
     }
+
+    // delete a client
+    public static function delete($id)
+    {
+        $sql = "DELETE FROM clients WHERE id=:id";
+
+        $params = [":id" => $id];
+
+        return (new Database)->query($sql, $params);
+    }
+
+    // update a client 
+    public static function update($id, $name, $email, $phone_number, $date)
+    {
+        $sql = "UPDATE clients SET full_name=:name, email=:email, phone_num=:number, registration_date=:date WHERE id=:id";
+
+        $params = [
+            ":name"=> $name,
+            ":email"=> $email,
+            ":number" => $phone_number,
+            ":date"=> $date,
+            ":id"=> $id,
+        ];
+
+        return (new Database)->query($sql, $params);
+    }
 }

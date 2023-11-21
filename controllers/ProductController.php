@@ -45,6 +45,7 @@ function handle_inputs_validation($name, $description, $price, $quantity, $categ
         $OLD["old_quantity"] = $quantity;
         $OLD["old_category"] = $category;
 
+        // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
         $_SESSION["old"] = $OLD;
 
@@ -68,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $excerpt = substr($description, 0, 14)."...";
 
         Product::create($name, $excerpt, $description, $price, $quantity, $category);
-        create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
+        create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     }
     else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
     {

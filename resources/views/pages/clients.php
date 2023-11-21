@@ -67,8 +67,9 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
         <form id="form" class="form" action="../../../controllers/ClientController.php" method="POST">
             <h3>Add New Client</h3>
 
+            <input type="hidden" name="client_id" class="form-input">
+
             <div class="input-group">
-                <input type="hidden" name="client_id" class="form-input">
                 <label for="name">Full Name</label>
                 <input class="form-input" id="name" type="text" name="name" placeholder="Jhon Doe" value="<?= $old_name ?>">
                 <small>
@@ -106,9 +107,9 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/ProductController.php" method="post" id="delete-form" class="delete-form">
+        <form action="../../../controllers/ClientController.php" method="post" id="delete-form" class="delete-form">
             <p class="delete-message">Are you sure you want to delete this client permanently?</p>
-            <input type="hidden" name="product_id" id="id" value="">
+            <input type="hidden" name="client_id" id="id" value="">
             <div>
                 <button type="button" id="delete-cancel" class="delete-cancel">Cancel</button>
                 <button type="submit" class="delete-delete">Delete</button>
