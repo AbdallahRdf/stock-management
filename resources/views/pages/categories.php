@@ -6,8 +6,8 @@ $items = $_SESSION["categories"]; // items to be shown in the table;
 
 $table_header = ["Name", "Actions"]; // the title of the <th> tags
 
-$error_message = $_SESSION["error_message"] ?? ""; 
-$old_input_value = $_SESSION['old'] ?? ""; 
+$error_message = $_SESSION["error_message"] ?? "";
+$old_input_value = $_SESSION['old'] ?? "";
 $display_proprety = isset($_SESSION["error_message"]) ? "block" : "none"; // if there is an error in the form then show the form again;
 
 if (isset($_SESSION["error_message"])) // if there is a session variable then unset it;
@@ -20,37 +20,12 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon">
-    <title>InventoSync</title>
-    <link rel="stylesheet" href="../../styles/sidebar.css">
-    <link rel="stylesheet" href="../../styles/overlay.css">
-    <link rel="stylesheet" href="../../styles/table.css">
-    <link rel="stylesheet" href="../../styles/addingForm.css">
-    <link rel="stylesheet" href="../../styles/deleteForm.css">
-    <link rel="stylesheet" href="../../styles/alert.css">
-</head>
+<!-- requiring <head> tag -->
+<?php require_once "../commun/head.php"; ?>
 
 <body>
-    <!-- overlay -->
-    <div id="overlay" class="overlay"></div>
-
-    <div class="container">
-        <!-- sidebar -->
-        <?php require_once "../components/sidebar.php"; ?>
-
-        <main class="main">
-
-            <!-- alert -->
-            <?php require_once "../components/alert.php"; ?>
-
-            <!-- table -->
-            <?php require_once "../components/table.php"; ?>
-        </main>
-    </div>
+    <!-- main.php contains the overlay, the sidebar, the alert, the table -->
+    <?php require_once "../commun/main.php"; ?>
 
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
@@ -58,7 +33,8 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
             <h3>Create New Category</h3>
             <div class="input-group">
                 <input type="hidden" name="category_id" class="form-input">
-                <input class="form-input" type="text" name="name" placeholder="Category Name" value="<?= $old_input_value ?>">
+                <input class="form-input" type="text" name="name" placeholder="Category Name"
+                    value="<?= $old_input_value ?>">
                 <small>
                     <?= $error_message ?>
                 </small>
@@ -72,8 +48,7 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/CategoryController.php" method="post" id="delete-form"
-            class="delete-form">
+        <form action="../../../controllers/CategoryController.php" method="post" id="delete-form" class="delete-form">
             <p class="delete-message">Are you sure you want to delete this record permanently?</p>
             <input type="hidden" name="category_id" id="id" value="">
             <div>
@@ -83,10 +58,8 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
         </form>
     </div>
 
-    <script src="../../js/sidebar.js"></script>
-    <script src="../../js/addUpdateForm.js"></script>
-    <script src="../../js/deleteForm.js"></script>
-    <script src="../../js/alert.js"></script>
+    <!-- requiring the js script tags -->
+    <?php require_once "../commun/jsScripts.php"; ?>
 </body>
 
 </html>

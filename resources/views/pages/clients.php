@@ -30,37 +30,12 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon">
-    <title>InventoSync</title>
-    <link rel="stylesheet" href="../../styles/sidebar.css">
-    <link rel="stylesheet" href="../../styles/overlay.css">
-    <link rel="stylesheet" href="../../styles/table.css">
-    <link rel="stylesheet" href="../../styles/addingForm.css">
-    <link rel="stylesheet" href="../../styles/deleteForm.css">
-    <link rel="stylesheet" href="../../styles/alert.css">
-</head>
+<!-- requiring <head> tag -->
+<?php require_once "../commun/head.php"; ?>
 
 <body>
-    <!-- overlay -->
-    <div id="overlay" class="overlay"></div>
-
-    <div class="container">
-        <!-- sidebar -->
-        <?php require_once "../components/sidebar.php"; ?>
-
-        <main class="main">
-
-            <!-- alert -->
-            <?php require_once "../components/alert.php"; ?>
-
-            <!-- table -->
-            <?php require_once "../components/table.php"; ?>
-        </main>
-    </div>
+    <!-- main.php contains the overlay, the sidebar, the alert, the table -->
+    <?php require_once "../commun/main.php"; ?>
 
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
@@ -117,10 +92,8 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
         </form>
     </div>
 
-    <script src="../../js/sidebar.js"></script>
-    <script src="../../js/addUpdateForm.js"></script>
-    <script src="../../js/deleteForm.js"></script>
-    <script src="../../js/alert.js"></script>
+    <!-- requiring the js script tags -->
+    <?php require_once "../commun/jsScripts.php"; ?>
 </body>
 
 </html>
