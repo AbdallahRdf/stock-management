@@ -31,7 +31,7 @@ toggleBtn.addEventListener("click", () => {
     else // else if the sidebar is visible
     {
         toggleBtn.value = "visible"; // change the toggle button value to visible
-        toggleBtn.style.left = "170px"; // move the toggle button by 170px to the right
+        toggleBtn.style.left = "180px"; // move the toggle button by 170px to the right
         toggleBtn.style.transform = "rotate(0deg)"; // flip the icon of the toggle button
         
         hideShowElemnts("show", "hide"); // show the elements in the sidebar

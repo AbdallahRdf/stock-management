@@ -10,4 +10,5 @@
     <link rel="stylesheet" href="../../styles/addingForm.css">
     <link rel="stylesheet" href="../../styles/deleteForm.css">
     <link rel="stylesheet" href="../../styles/alert.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
 </head>
