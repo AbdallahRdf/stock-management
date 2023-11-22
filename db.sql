@@ -47,3 +47,16 @@ CREATE TABLE `clients` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone_num` (`phone_num`)
 );
+
+-- create the suppliers table;
+CREATE TABLE `suppliers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `phone_num` varchar(11) NOT NULL,
+  `registration_date` date NOT NULL DEFAULT curdate(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `full_name` (`full_name`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `phone_num` (`phone_num`)
+);

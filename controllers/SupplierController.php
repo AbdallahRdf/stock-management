@@ -6,7 +6,7 @@ require_once "../app/util/functions.php";
 require_once "../app/autoloader/autoloader.php";
 
 use App\Core\Validator;
-use App\Models\Client;
+use App\Models\Supplier;
 
 session_start();
 
@@ -14,7 +14,7 @@ session_start();
 function goback()
 {
     //* redirect to clients page;
-    header("Location: ../resources/views/pages/clients.php");
+    header("Location: ../resources/views/pages/suppliers.php");
     die();
 }
 
@@ -49,37 +49,37 @@ function handle_inputs_validation($name, $email, $phone_number, $date)
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") // did we get to this page through a post request
 {
-    if($_POST["client_id"] == "") // create a client:
+    if($_POST["supplier_id"] == "") // create a supplier:
     {
         $name = trim($_POST["name"]);
         $email = trim($_POST["email"]);
         $phone_number = trim($_POST["phoneNumber"]);
         $date = $_POST["date"];
 
-        $result = Client::create($name, $email, $phone_number, $date);
+        $result = Supplier::create($name, $email, $phone_number, $date);
 
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
     }
-    else if (!isset($_POST["name"]) && $_POST["client_id"] != "") // delete a client:
+    else if (!isset($_POST["name"]) && $_POST["supplier_id"] != "") // delete a supplier:
     {
-        $result = Client::delete($_POST["client_id"]);
+        $result = Supplier::delete($_POST["supplier_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
     }
-    else if (isset($_POST["name"]) && $_POST["client_id"] != "") // updating a client
+    else if (isset($_POST["name"]) && $_POST["supplier_id"] != "") // updating a supplier
     {
-        $client_id = $_POST["client_id"];
+        $supplier_id = $_POST["supplier_id"];
         $name = trim($_POST["name"]);
         $email = trim($_POST["email"]);
         $phone_number = trim($_POST["phoneNumber"]);
         $date = $_POST["date"];
 
-        $result = Client::update($client_id, $name, $email, $phone_number, $date);
+        $result = Supplier::update($supplier_id, $name, $email, $phone_number, $date);
 
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
 
-$_SESSION["clients"] = Client::all();
+$_SESSION["suppliers"] = Supplier::all();
 
 //* redirect to categories page;
 goback();

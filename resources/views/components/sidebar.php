@@ -24,7 +24,7 @@
             <img src="../../img/order.svg" alt="client icon" title="Orders">
             Orders
         </a>
-        <a href="#" class="select-btn icon-btn toggled">
+        <a href="../../../controllers/SupplierController.php" class="select-btn icon-btn toggled">
             <img src="../../img/supplier.svg" alt="supplier icon" title="Suppliers">
             Suppliers
         </a>
