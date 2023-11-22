@@ -106,13 +106,17 @@ body {
     width: 100%;
 }
 
-.select-btn:hover,
+.select-btn:not(.selected):hover,
 .select-btn:focus {
     background-color: var(--gray-dark);
 }
 
 .selected {
     background-color: var(--main);
+}
+
+.selected:hover {
+    background-color: var(--main-dark);
 }
 
 .icon-btn {
