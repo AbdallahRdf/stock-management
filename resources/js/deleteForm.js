@@ -8,6 +8,7 @@ const IdInput = document.getElementById("id"); // the hidden input that holds th
 
 // function that handles clicking on the delete button;
 const handleDeleteClick = (categoryID) => {
+  disable_tabbing();  // already defined in the sidebar.js
   overlayForDelete.style.display = "block";
   deleteBoxContainer.style.display = "block";
 
@@ -28,6 +29,7 @@ cancelDeleteBtn.addEventListener("click", () => {
 
   setTimeout(() => {
     deleteBoxContainer.style.display = "none";
+    disable_tabbing();  // already defined in the sidebar.js
     overlayForDelete.style.display = "none";
   }, 200);
 });

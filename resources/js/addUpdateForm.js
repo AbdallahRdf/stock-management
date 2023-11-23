@@ -8,11 +8,13 @@ const inputs = document.querySelectorAll(".form-input"); // select all the input
 
 if(addingFormContainer.style.display === "block") // if the page loads and the form is visible, then show the overlay;
 {
+    disable_tabbing(); // already defined in the sidebar.js
     overlay.style.display = "block";
 }
 
 // handles showing the form;
 const showTheForm = () => {
+    disable_tabbing();  // already defined in the sidebar.js
     overlay.style.display = "block";
     addingFormContainer.style.display = "block";
 
@@ -28,6 +30,7 @@ cancelBtn.addEventListener("click", () =>
     form.classList.add("form-desappear");
 
     setTimeout(() => {
+        disable_tabbing();  // already defined in the sidebar.js
         overlay.style.display = "none";
         addingFormContainer.style.display = "none";
     }, 200);

@@ -51,12 +51,20 @@ const logoutCard = document.querySelector("#logout-card"); // logout card or box
 const logoutContainer = document.querySelector("#logout-card-container"); // overlay behind the logout box
 const overlayForLogout = document.querySelector("#overlay"); // overlay
 
+// JavaScript to enable and disable tabbing (selecting an element using tab key) for all elements
+const disable_tabbing = () => {
+    document.querySelectorAll("button, a").forEach(element => {
+        element.tabIndex = (element.tabIndex === -1) ? 1 : -1;
+    })
+}
+
 logoutBtn.addEventListener("click", () => 
 {
     logoutCard.classList.remove("card-desappear");
     logoutCard.classList.add("card-appear");
 
     logoutContainer.style.display = "block"
+    disable_tabbing();
     overlayForLogout.style.display = "block";
 })
 
@@ -67,6 +75,7 @@ logoutCancel.addEventListener("click", () =>
 
     setTimeout(() => {
         logoutContainer.style.display = "none";
+        disable_tabbing();
         overlayForLogout.style.display = "none";
     }, 200);
 })
