@@ -1,8 +1,8 @@
 :root {
     --white: #ffffff;
 
-    --gray: #6d7078;
-    --gray-light: #4f6068;
+    --hr-color: #6d7078;
+    --dropdown-item-hover: #4f6068;
     --gray-dark: #435259;
 }
 
@@ -33,12 +33,12 @@
 .dropdown-item:hover,
 .dropdown-item:focus
 {
-    background-color: var(--gray-light);
+    background-color: var(--dropdown-item-hover);
 }
 
 hr
 {
-    color: var(--gray);
+    color: var(--hr-color);
 }
 
 /* animations */
