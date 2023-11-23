@@ -128,7 +128,7 @@ body {
     margin-right: 14px;
 }
 
-.logout-btn {
+.user-btn {
     position: absolute;
     bottom: 1%;
     border-top: 1px solid var(--gray-dark);
@@ -247,3 +247,5 @@ body {
 .d-hidden {
     display: none
 }
+
+

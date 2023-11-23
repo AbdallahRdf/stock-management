@@ -1,5 +1,5 @@
 <?php
-$current_page = end(explode("/",$_SERVER["PHP_SELF"]));  // getting the name of the current file
+$current_page = end(explode("/", $_SERVER["PHP_SELF"]));  // getting the name of the current file
 ?>
 
 <div class="sidebar">
@@ -8,19 +8,23 @@ $current_page = end(explode("/",$_SERVER["PHP_SELF"]));  // getting the name of 
     </button>
     <img class="logo toggled" src="../../img/logo.svg" alt="">
     <div class="select-btns">
-        <a href="./dashboard.php" class="select-btn icon-btn toggled <?= $current_page === "dashboard.php" ? 'selected' : '' ?>">
+        <a href="./dashboard.php"
+            class="select-btn icon-btn toggled <?= $current_page === "dashboard.php" ? 'selected' : '' ?>">
             <img src="../../img/home.svg" alt="dashboard icon" title="Dashboard">
             Dashboard
         </a>
-        <a href="../../../controllers/CategoryController.php" class="select-btn icon-btn toggled <?= $current_page === "categories.php" ? 'selected' : '' ?>">
+        <a href="../../../controllers/CategoryController.php"
+            class="select-btn icon-btn toggled <?= $current_page === "categories.php" ? 'selected' : '' ?>">
             <img src="../../img/category.svg" alt="categories icon" title="Categories">
             Categories
         </a>
-        <a href="../../../controllers/ProductController.php" class="select-btn icon-btn toggled <?= $current_page === "products.php" ? 'selected' : '' ?>">
+        <a href="../../../controllers/ProductController.php"
+            class="select-btn icon-btn toggled <?= $current_page === "products.php" ? 'selected' : '' ?>">
             <img src="../../img/product.svg" alt="products icon" title="Products">
             Products
         </a>
-        <a href="../../../controllers/ClientController.php" class="select-btn icon-btn toggled <?= $current_page === "clients.php" ? 'selected' : '' ?>">
+        <a href="../../../controllers/ClientController.php"
+            class="select-btn icon-btn toggled <?= $current_page === "clients.php" ? 'selected' : '' ?>">
             <img src="../../img/client.svg" alt="client icon" title="Clients">
             Clients
         </a>
@@ -28,7 +32,8 @@ $current_page = end(explode("/",$_SERVER["PHP_SELF"]));  // getting the name of 
             <img src="../../img/order.svg" alt="client icon" title="Orders">
             Orders
         </a>
-        <a href="../../../controllers/SupplierController.php" class="select-btn icon-btn toggled <?= $current_page === "suppliers.php" ? 'selected' : '' ?>">
+        <a href="../../../controllers/SupplierController.php"
+            class="select-btn icon-btn toggled <?= $current_page === "suppliers.php" ? 'selected' : '' ?>">
             <img src="../../img/supplier.svg" alt="supplier icon" title="Suppliers">
             Suppliers
         </a>
@@ -36,9 +41,9 @@ $current_page = end(explode("/",$_SERVER["PHP_SELF"]));  // getting the name of 
             <img src="../../img/supplier-orders.svg" alt="client icon" title="Supplier Orders">
             Supplier Orders
         </a>
-        <a id="logout-toggle" class="select-btn icon-btn logout-btn toggled">
-            <img src="../../img/logout.svg" alt="logout icon" title="Log out">
-            Log out
+        <a id="dropdown" class="select-btn icon-btn user-btn toggled">
+            <img src="../../img/user.svg" alt="logout icon" title="Log out">
+            <?= "{$_SESSION["user"]["firstName"]} {$_SESSION["user"]["lastName"]}" ?>
         </a>
     </div>
 </div>
