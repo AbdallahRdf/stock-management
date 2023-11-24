@@ -1,9 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
-{
-    header('location: ../auth/index.php');
-}
+require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +8,9 @@ if (!isset($_SESSION['user'])) // if not logged in redirect back to login page
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InventoSync - Dashboard</title>
+    <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon">
+    <title>InventoSync</title>
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/overlay.css">
     <link rel="stylesheet" href="../../styles/dropdown.css">

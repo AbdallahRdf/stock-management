@@ -7,3 +7,5 @@ use App\Core\Validator;
 use App\Models\User;
 
 require_once "../app/util/functions.php";
+session_start();
+dd($_SESSION['user']);

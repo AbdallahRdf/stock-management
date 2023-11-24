@@ -41,7 +41,7 @@ $current_page = end(explode("/", $_SERVER["PHP_SELF"]));  // getting the name of
             <img src="../../img/supplier-orders.svg" alt="client icon" title="Supplier Orders">
             Supplier Orders
         </a>
-        <a id="dropdown" class="select-btn icon-btn user-btn toggled">
+        <a id="dropdown" class="select-btn icon-btn user-btn toggled <?= $current_page === "settings.php" ? 'selected' : '' ?>">
             <img src="../../img/user.svg" alt="logout icon" title="Log out">
             <?= "{$_SESSION["user"]["firstName"]} {$_SESSION["user"]["lastName"]}" ?>
         </a>

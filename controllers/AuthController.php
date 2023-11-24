@@ -74,14 +74,6 @@ function handle_signup_error($firstName, $lastName, $email, $ERRORS)
     go_back_to_login();
 }
 
-//* function that put the user data in the $_SESSION
-function store_user_data_in_session($user)
-{
-    unset($user["id"]);
-    unset($user["password"]);
-    $_SESSION['user'] = $user;
-}
-
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
@@ -135,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
             $ERRORS["email_error"] = "Email is invalid or already taken";
             handle_signup_error($firstName, $lastName, $email, $ERRORS);
         }
-        store_user_data_in_session($user);
+        $_SESSION['user'] = $user;
     }
     // checking if we are in a login process
     else if (!isset($_POST["firstName"])) {
@@ -149,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
         if (!$user) {
             handle_login_error($email);
         }
-        store_user_data_in_session($user);
+        $_SESSION['user'] = $user;
     }
     header("Location: ../resources/views/pages/dashboard.php");
     die();

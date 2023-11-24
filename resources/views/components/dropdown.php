@@ -1,7 +1,7 @@
 <!-- dropdown -->
 <div id="dropdown-card" class="dropdown" style="display: none";>
     <div>
-        <a id="" class="dropdown-item icon-btn logout-btn toggled">
+        <a href="settings.php" class="dropdown-item icon-btn logout-btn toggled">
             <img src="../../img/settings.svg" alt="logout icon" title="Log out">
             Settings
         </a>
