@@ -4,9 +4,42 @@
 require_once "../app/autoloader/autoloader.php";
 
 use App\Core\Validator;
-use Controllers\UserController;
+use App\Models\User;
 
 require_once "../app/util/functions.php";
+
+/**
+ * signup(): creates a new user with the passed params;
+ * @return bool|array return false if the email is already used, and an array holding the user data if the user was created;
+ */
+function signup($first_name, $last_name, $email, $password)
+{
+    // check if there is already a user with with that email, then return false; 
+    if (User::get_user($email))
+        return false;
+
+    // create a new user
+    User::create_user($first_name, $last_name, $email, $password);
+
+    // return the new user data
+    return User::get_user($email)[0];
+}
+
+/**
+ * this function checks if there is a user whith the passed credentials then return true, else false;
+ * @return bool|array if there is a user with that email and tha password is true, return an array containing his data else return false;
+ */
+function login($email, $password)
+{
+    $user = User::get_user($email);
+
+    //* if there is a user and the password is correct return the user data, else false;
+    if (count($user) > 0 && password_verify($password, $user[0]["password"])) {
+        return $user[0];
+    }
+    return false;
+}
+
 
 // function send you back to login page
 function go_back_to_login()
@@ -51,22 +84,17 @@ function store_user_data_in_session($user)
 
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] === "POST")
+if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
 {
-    //* unsetting the previous signup errors and login errors
-    unset($_SESSION["signup_errors"]);
-    unset($_SESSION["login_errors"]);
-    unset($_SESSION["old"]);
-    
     // extracting the variable;
     extract($_POST);
-    
+
+    // remove space before and after email and password
     $email = trim($email);
     $password = trim($password);
-    
+
     // checking if we are in a signup process
-    if(isset($signup))
-    {
+    if (isset($_POST["firstName"])) {
         $ERRORS = []; // array to hold error for singup
         $OLD = []; // will hold the old inputs value;
 
@@ -74,57 +102,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         $lastName = trim($lastName);
 
         // checking if the email is valid
-        if (empty($email) || !Validator::isEmailValid($email))
-        {
+        if (empty($email) || !Validator::isEmailValid($email)) {
             $ERRORS["email_error"] = "Invalid Email Address";
         }
-    
+
         // checking if the first name is valid
-        if (!Validator::isStrValid($firstName))
-        {
+        if (!Validator::isStrValid($firstName)) {
             $ERRORS["firstName_error"] = "Invalid First Name";
-        } 
+        }
 
         // checking if the last name is valid
-        if (!Validator::isStrValid($lastName))
-        {
+        if (!Validator::isStrValid($lastName)) {
             $ERRORS["lastName_error"] = "Invalid Last Name";
         }
 
         // checking if the password is valid
         $isPasswordValid = Validator::isPasswordValid($password);
-        if ($isPasswordValid !== "valid")
-        {
+        if ($isPasswordValid !== "valid") {
             $ERRORS["signup_password_error"] = $isPasswordValid;
         }
-    
-        if (!empty($ERRORS)){
+
+        if (!empty($ERRORS)) {
             handle_signup_error($firstName, $lastName, $email, $ERRORS);
         }
 
         $password = password_hash($password, PASSWORD_DEFAULT); // encrypting the user
 
         // $user: if the email is alredy used by another user will contain false
-        $user = UserController::signup($firstName, $lastName, $email, $password);
+        $user = signup($firstName, $lastName, $email, $password);
 
-        if (!$user){
+        if (!$user) {
             $ERRORS["email_error"] = "Email is invalid or already taken";
             handle_signup_error($firstName, $lastName, $email, $ERRORS);
         }
         store_user_data_in_session($user);
     }
     // checking if we are in a login process
-    else if(isset($login))
-    {
+    else if (!isset($_POST["firstName"])) {
         // checking if the email is valid
-        if (empty($email) || !Validator::isEmailValid($email))
-        {
+        if (empty($email) || !Validator::isEmailValid($email)) {
             handle_login_error($email);
         }
 
-        $user = UserController::login($email, $password);
+        $user = login($email, $password);
 
-        if(!$user){
+        if (!$user) {
             handle_login_error($email);
         }
         store_user_data_in_session($user);
@@ -133,8 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     die();
 }
 // if we have a user in session, then logout
-if(isset($_SESSION['user']))
-{
+if (isset($_SESSION['user'])) {
     unset($_SESSION);
     session_destroy();
 }

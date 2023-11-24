@@ -74,8 +74,6 @@
             <h1>Welcome Back!</h1>
             <form action="../../../controllers/AuthController.php" method="post">
 
-                <input type="hidden" name="login" value="login">
-
                 <div class="input-group">
                     <input 
                         class="login-input" 
@@ -102,8 +100,6 @@
         <div id="signupPart" class="<?= $signup_errors ? "" : "d-hidden" ?>">
             <h1>Create Account</h1>
             <form action="../../../controllers/AuthController.php" method="post">
-
-                <input type="hidden" name="signup" value="signup">
 
                 <div class="input-group-group">
 
