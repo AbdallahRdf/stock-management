@@ -17,7 +17,7 @@ class Supplier
         return (new Database)->query($sql);
     }
 
-    // creates new client
+    // creates new supplier
     public static function create($name, $email, $phone_number, $date)
     {
         $sql = "INSERT INTO suppliers (full_name, email, phone_num, registration_date) VALUES (:name, :email, :phone, :date)";
@@ -32,7 +32,7 @@ class Supplier
         return (new Database)->query($sql, $params);
     }
 
-    // delete a client
+    // delete a supplier
     public static function delete($id)
     {
         $sql = "DELETE FROM suppliers WHERE id=:id";
@@ -42,7 +42,7 @@ class Supplier
         return (new Database)->query($sql, $params);
     }
 
-    // update a client 
+    // update a supplier 
     public static function update($id, $name, $email, $phone_number, $date)
     {
         $sql = "UPDATE suppliers SET full_name=:name, email=:email, phone_num=:number, registration_date=:date WHERE id=:id";

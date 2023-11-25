@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function ($class){
-
+   
    //* replace "\" with "/" and add ".php";
    $file = str_replace("\\", "/", $class).".php";
 
