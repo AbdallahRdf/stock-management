@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-//* requiring the autoloader
-require_once "../autoloader/autoloader.php";
-
 use App\Core\Database;
 
 class Category

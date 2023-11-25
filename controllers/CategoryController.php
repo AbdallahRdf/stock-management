@@ -15,7 +15,7 @@ function handle_form_errors($category_name, $message)
 {
     $_SESSION['error_message'] = $message;
     $_SESSION["old"] = $category_name;
-
+    
     //* redirect to categories page;
     header("Location: ../resources/views/pages/categories.php");
     die();
