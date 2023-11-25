@@ -90,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
         $ERRORS = []; // array to hold error for singup
         $OLD = []; // will hold the old inputs value;
 
-        $firstName = trim($firstName);
-        $lastName = trim($lastName);
+        $first_name = trim($first_name);
+        $last_name = trim($last_name);
 
         // checking if the email is valid
         if (empty($email) || !Validator::isEmailValid($email)) {
@@ -99,12 +99,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
         }
 
         // checking if the first name is valid
-        if (!Validator::isStrValid($firstName)) {
+        if (!Validator::isStrValid($first_name)) {
             $ERRORS["firstName_error"] = "Invalid First Name";
         }
 
         // checking if the last name is valid
-        if (!Validator::isStrValid($lastName)) {
+        if (!Validator::isStrValid($last_name)) {
             $ERRORS["lastName_error"] = "Invalid Last Name";
         }
 
@@ -115,17 +115,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
         }
 
         if (!empty($ERRORS)) {
-            handle_signup_error($firstName, $lastName, $email, $ERRORS);
+            handle_signup_error($first_name, $last_name, $email, $ERRORS);
         }
 
         $password = password_hash($password, PASSWORD_DEFAULT); // encrypting the user
 
         // $user: if the email is alredy used by another user will contain false
-        $user = signup($firstName, $lastName, $email, $password);
+        $user = signup($first_name, $last_name, $email, $password);
 
         if (!$user) {
             $ERRORS["email_error"] = "Email is invalid or already taken";
-            handle_signup_error($firstName, $lastName, $email, $ERRORS);
+            handle_signup_error($first_name, $last_name, $email, $ERRORS);
         }
         $_SESSION['user'] = $user;
     }

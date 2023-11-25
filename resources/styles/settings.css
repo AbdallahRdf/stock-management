@@ -9,6 +9,7 @@
 
 .settings-container h2 {
     margin-bottom: 20px;
+    font-weight: normal;
 }
 
 .input-grp {
@@ -26,11 +27,58 @@
     border-radius: 4px;
 }
 
+.input-grp input:focus {
+    outline: none;
+    border-color: #fff;
+}
+
 .input-grp input::placeholder {
     color: #fff;
 }
 
 .input-grp label {
     margin-bottom: 4px;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btns {
+    margin-top: 34px;
+}
+
+.settings-container a,
+.settings-container button {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    width: fit-content;
+    border: 1px solid #bdbdbd;
+    color:  #f2f2f2;
+}
+
+.settings-container a {
+    background-color: #21262d91;
+}
+
+.settings-container button {
+    background-color: #1ab188;
+}
+
+.settings-container a:hover,
+.settings-container a:focus {
+    background-color: #21262d71;
+    border-color: #fff; 
+}
+
+.settings-container button:hover,
+.settings-container button:focus {
+    background-color: #1dbd92;
+    border-color: #fff; 
+}
+
+.error-message {
+    margin-top: 2px;
+    color: #b10000;;
 }

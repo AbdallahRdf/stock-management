@@ -10,19 +10,6 @@ use PDOException;
 
 class User
 {
-    // private $first_name;
-    // private $last_name;
-    // private $email;
-    // private $password;
-
-    // public function __construct($first_name, $last_name, $email, $password)
-    // {
-    //     $this->first_name = $first_name;
-    //     $this->last_name = $last_name;
-    //     $this->email = $email;
-    //     $this->password = $password;
-    // }
-
     //* create a new user
     public static function create_user($first_name, $last_name, $email, $password)
     {
@@ -37,12 +24,27 @@ class User
         return (new Database)->query($sql, $params);
     }
 
+    // get a user using email
     public static function get_user($email)
     {
         $sql = "SELECT * FROM users WHERE email = :email";
 
         $params = [
             ":email" => $email
+        ];
+
+        return (new Database)->query($sql, $params);
+    }
+
+    // update the user
+    public static function update($id, $first_name, $last_name)
+    {
+        $sql = "UPDATE users SET firstName = :firstName, lastName = :lastName WHERE id = :id";
+
+        $params = [
+            ":firstName" => $first_name,
+            ":lastName"=> $last_name,
+            ":id"=> $id
         ];
 
         return (new Database)->query($sql, $params);
