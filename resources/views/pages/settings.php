@@ -15,9 +15,15 @@ require_once "../components/session_start.php"; // if not logged in redirect bac
     <?php require_once "../components/dropdown.php"; ?>
 
     <div class="container">
+        <!-- sidebar -->
         <?php require_once "../components/sidebar.php"; ?>
 
         <div class="main">
+
+            <!-- alert -->
+            <?php require_once "../components/alert.php"; ?>
+
+            <!-- card showing info -->
             <div class="settings-container">
                 <h2>Your information</h2>
 
@@ -55,7 +61,7 @@ require_once "../components/session_start.php"; // if not logged in redirect bac
                 </div>
                 <div class="btns">
                     <a href="updateSettings.php">Update information</a>
-                    <a href="updateSettings.php">Update Password</a>
+                    <a href="updatePassword.php">Update Password</a>
                 </div>
             </div>
 
@@ -63,6 +69,7 @@ require_once "../components/session_start.php"; // if not logged in redirect bac
     </div>
 
     <script src="../../js/sidebar.js"></script>
+    <script src="../../js/alert.js"></script>
     <script src="../../js/dropdown.js"></script>
 </body>
 

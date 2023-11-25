@@ -30,7 +30,7 @@ unset($_SESSION["old"]);
 
         <div class="main">
             <div class="settings-container">
-                <h2>Your information</h2>
+                <h2>Update information</h2>
                 <form action="../../../controllers/UserController.php" method="post">
 
                     <div class="input-group-group">
@@ -69,7 +69,7 @@ unset($_SESSION["old"]);
 
                     </div>
 
-                    <button type="submit">Update information</button>
+                    <button type="submit">Save</button>
                 </form>
             </div>
 

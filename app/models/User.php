@@ -49,4 +49,17 @@ class User
 
         return (new Database)->query($sql, $params);
     }
+
+    // update the user's password
+    public static function update_password($id, $password)
+    {
+        $sql = "UPDATE users SET password = :password WHERE id = :id";
+
+        $params = [
+            ":password" => $password,
+            ":id" => $id
+        ];
+
+        return (new Database)->query($sql, $params);
+    }
 }
