@@ -9,10 +9,9 @@ spl_autoload_register(function ($class){
    $folders_titles = explode("/", $file);
 
    //* turn the names of the folders to lowercase except the last one;
-   for ($i = 0; $i < count($folders_titles) - 1; $i++) {
-      if ($i !== count($folders_titles) - 1) {
-         $folders_titles[$i] = lcfirst($folders_titles[$i]);
-      }
+   for ($i = 0; $i < count($folders_titles) - 1; $i++)
+   {
+      $folders_titles[$i] = lcfirst($folders_titles[$i]);
    }
 
    //* join the array to get the path to the file

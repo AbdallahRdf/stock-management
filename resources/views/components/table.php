@@ -50,4 +50,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div>
+        <button id="previous"><</button>
+        <span id="page">1</span>
+        <button id="next">></button>
+    </div>
 </div>

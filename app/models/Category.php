@@ -3,7 +3,7 @@
 namespace App\Models;
 
 //* requiring the autoloader
-require_once "../app/autoloader/autoloader.php";
+require_once "../autoloader/autoloader.php";
 
 use App\Core\Database;
 
