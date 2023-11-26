@@ -145,3 +145,8 @@ td:not(.last) {
 .next:hover {
     background-color: #dcdcdc;
 }
+
+.disabled {
+    background-color: #dcdcdc;
+    cursor: default;
+}
