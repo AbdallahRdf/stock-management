@@ -11,8 +11,8 @@
 .dropdown {
     display: none;
     position: absolute;
-    left: 5px;
-    bottom: 70px;
+    left: 244px;
+    bottom: 11px;
     z-index: 999;
     background-color: var(--gray-dark);
     width: 232px;
