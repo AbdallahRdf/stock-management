@@ -50,9 +50,14 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div>
-        <button id="previous"><</button>
-        <span id="page">1</span>
-        <button id="next">></button>
+    <!-- pagination -->
+    <div class="pagination">
+        <button class="pagination-btn previous" id="previous">
+            <img src="../../img/less-than.svg" alt="previous icon">
+        </button>
+        <p class="pagination-btn" id="page">1</p>
+        <button class="pagination-btn next" id="next">
+            <img src="../../img/greater-than.svg" alt="next icon">
+        </button>
     </div>
 </div>

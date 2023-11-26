@@ -22,6 +22,22 @@ class Product
         return (new Database)->query($sql);
     }
 
+    // Retrieves a paginated set of results from the database table.
+    public static function paginate($offset = 0, $limit = 10)
+    {
+        $sql = "SELECT 
+            products.id, 
+            products.name, 
+            products.excerpt,
+            products.description, 
+            products.price, 
+            products.stock_quantity, 
+            categories.name as category_name 
+        FROM products JOIN categories WHERE products.category_id = categories.id LIMIT {$limit} OFFSET {$offset};";
+
+        return ((new Database)->query($sql));
+    }
+
     // create a product
     public static function create($name, $excerpt, $description, $price, $quantity, $category)
     {

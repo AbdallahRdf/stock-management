@@ -14,6 +14,14 @@ class Supplier
         return (new Database)->query($sql);
     }
 
+    // Retrieves a paginated set of results from the database table.
+    public static function paginate($offset = 0, $limit = 10)
+    {
+        $sql = "SELECT * FROM suppliers LIMIT {$limit} OFFSET {$offset};";
+        
+        return ((new Database)->query($sql));
+    }
+    
     // creates new supplier
     public static function create($name, $email, $phone_number, $date)
     {

@@ -116,3 +116,32 @@ td:not(.last) {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+.pagination {
+    display: flex;
+    margin-top: 20px;
+}
+
+.pagination-btn {
+    background-color: #e4e4e4;
+    padding: 8px 18px;
+    border: 1px solid #b2b2b2;
+    color: rgb(66, 66, 66);   
+}
+
+.previous {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    cursor: pointer;
+}
+
+.next {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    cursor: pointer;
+}
+
+.previous:hover,
+.next:hover {
+    background-color: #dcdcdc;
+}

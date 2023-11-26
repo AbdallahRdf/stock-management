@@ -14,6 +14,14 @@ class Category
         return (new Database)->query($sql);
     }
 
+    // Retrieves a paginated set of results from the database table.
+    public static function paginate($offset = 0, $limit = 10)
+    {
+        $sql = "SELECT * FROM categories LIMIT {$limit} OFFSET {$offset};";
+
+        return ((new Database)->query($sql));
+    }
+
     // creates new category;
     public static function create($name)
     {

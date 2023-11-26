@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // did we get to this page through a 
     }
 }
 
-$_SESSION["suppliers"] = Supplier::all();
+$_SESSION["suppliers"] = Supplier::paginate();
 
 //* redirect to clients page;
 header("Location: ../resources/views/pages/suppliers.php");

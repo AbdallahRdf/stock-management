@@ -75,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     }
 }
 
-$_SESSION["categories"] = Category::all(); // get all the categories;
+$_SESSION["categories"] = Category::paginate(); // get categories;
 
 //* redirect to categories page;
 header("Location: ../resources/views/pages/categories.php");

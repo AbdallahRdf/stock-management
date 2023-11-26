@@ -95,6 +95,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     }
 }
 
-$_SESSION["products"] = Product::all(); // get all the products
+$_SESSION["products"] = Product::paginate(); // get all the products
 $_SESSION["categories"] = Category::all(); // get all the categories;
 goback();

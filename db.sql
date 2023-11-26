@@ -17,6 +17,7 @@ CREATE TABLE `users` (
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 );
@@ -30,6 +31,7 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `stock_quantity` int(11) NOT NULL DEFAULT 0,
   `category_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
@@ -42,6 +44,7 @@ CREATE TABLE `clients` (
   `email` varchar(30) NOT NULL,
   `phone_num` varchar(11) NOT NULL,
   `registration_date` date NOT NULL DEFAULT curdate(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`),
   UNIQUE KEY `email` (`email`),
@@ -55,6 +58,7 @@ CREATE TABLE `suppliers` (
   `email` varchar(30) NOT NULL,
   `phone_num` varchar(11) NOT NULL,
   `registration_date` date NOT NULL DEFAULT curdate(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`),
   UNIQUE KEY `email` (`email`),
