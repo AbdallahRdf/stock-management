@@ -9,7 +9,7 @@ class Supplier
     // returns all the categories in the db;
     public static function all()
     {
-        $sql = "SELECT * FROM suppliers";
+        $sql = "SELECT id, full_name, email, phone_num, registration_date FROM suppliers";
 
         return (new Database)->query($sql);
     }
@@ -17,7 +17,7 @@ class Supplier
     // Retrieves a paginated set of results from the database table.
     public static function paginate($offset = 0, $limit = 10)
     {
-        $sql = "SELECT * FROM suppliers LIMIT {$limit} OFFSET {$offset};";
+        $sql = "SELECT id, full_name, email, phone_num, registration_date FROM suppliers LIMIT {$limit} OFFSET {$offset};";
         
         return ((new Database)->query($sql));
     }

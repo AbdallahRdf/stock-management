@@ -9,7 +9,7 @@ class Category
     // returns all the categories in the db;
     public static function all()
     {
-        $sql = "SELECT * FROM categories";
+        $sql = "SELECT id, name FROM categories";
 
         return (new Database)->query($sql);
     }
@@ -17,7 +17,7 @@ class Category
     // Retrieves a paginated set of results from the database table.
     public static function paginate($offset = 0, $limit = 10)
     {
-        $sql = "SELECT * FROM categories LIMIT {$limit} OFFSET {$offset};";
+        $sql = "SELECT id, name FROM categories LIMIT {$limit} OFFSET {$offset};";
 
         return ((new Database)->query($sql));
     }
