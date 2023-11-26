@@ -9,7 +9,7 @@ class Client
     // returns all the categories in the db;
     public static function all()
     {
-        $sql = "SELECT id, full_name, email, phone_num, registration_date FROM clients";
+        $sql = "SELECT id, full_name, email, phone_num, registration_date FROM clients ORDER BY created_at DESC;";
 
         return (new Database)->query($sql);
     }
@@ -17,7 +17,7 @@ class Client
     // Retrieves a paginated set of results from the database table.
     public static function paginate($offset = 0, $limit = 10)
     {
-        $sql = "SELECT id, full_name, email, phone_num, registration_date FROM clients LIMIT {$limit} OFFSET {$offset};";
+        $sql = "SELECT id, full_name, email, phone_num, registration_date FROM clients ORDER BY created_at DESC LIMIT {$limit} OFFSET {$offset};";
 
         return ((new Database)->query($sql));
     }

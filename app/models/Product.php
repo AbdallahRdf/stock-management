@@ -17,7 +17,9 @@ class Product
             products.price, 
             products.stock_quantity, 
             categories.name as category_name 
-        FROM products JOIN categories WHERE products.category_id = categories.id";
+        FROM products JOIN categories 
+        WHERE products.category_id = categories.id 
+        ORDER BY products.created_at DESC;";
 
         return (new Database)->query($sql);
     }
@@ -33,7 +35,10 @@ class Product
             products.price, 
             products.stock_quantity, 
             categories.name as category_name 
-        FROM products JOIN categories WHERE products.category_id = categories.id LIMIT {$limit} OFFSET {$offset};";
+        FROM products JOIN categories 
+        WHERE products.category_id = categories.id 
+        ORDER BY products.created_at DESC
+        LIMIT {$limit} OFFSET {$offset};";
 
         return ((new Database)->query($sql));
     }
