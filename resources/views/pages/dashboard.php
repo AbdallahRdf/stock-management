@@ -20,8 +20,6 @@ require_once "../components/session_start.php"; // if not logged in redirect bac
     <!-- overlay -->
     <div id="overlay" class="overlay"></div>
 
-    <?php require_once "../components/dropdown.php"; ?>
-
     <div class="container">
         <?php require_once "../components/sidebar.php"; ?>
 

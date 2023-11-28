@@ -1,8 +1,6 @@
 <!-- overlay -->
 <div id="overlay" class="overlay"></div>
 
-<?php require_once "../components/dropdown.php"; ?>
-
 <div class="container">
     <!-- sidebar -->
     <?php require_once "../components/sidebar.php"; ?>

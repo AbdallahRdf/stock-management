@@ -41,10 +41,28 @@ $current_page = end(explode("/", $_SERVER["PHP_SELF"]));  // getting the name of
             <img src="../../img/supplier-orders.svg" alt="client icon" title="Supplier Orders">
             Supplier Orders
         </a>
-        <a id="dropdown" class="select-btn icon-btn user-btn toggled <?= ($current_page === "settings.php" || $current_page === "updateSettings.php" || $current_page === "updatePassword.php") ? 'selected' : '' ?>">
+        <a id="dropdown"
+            class="select-btn icon-btn user-btn toggled <?= ($current_page === "settings.php" || $current_page === "updateSettings.php" || $current_page === "updatePassword.php") ? 'selected' : '' ?>">
             <img src="../../img/user.svg" alt="logout icon" title="Log out">
             <?= "{$_SESSION["user"]["firstName"]} {$_SESSION["user"]["lastName"]}" ?>
         </a>
+    </div>
+
+    <!-- dropdown -->
+    <div id="dropdown-card" class="dropdown" style="display: none" ;>
+        <div>
+            <a href="settings.php" class="dropdown-item icon-btn logout-btn toggled">
+                <img src="../../img/settings.svg" alt="logout icon" title="Log out">
+                Settings
+            </a>
+        </div>
+        <hr>
+        <div>
+            <a id="logout-toggle" class="dropdown-item icon-btn logout-btn toggled">
+                <img src="../../img/logout.svg" alt="logout icon" title="Log out">
+                Log out
+            </a>
+        </div>
     </div>
 </div>
 

@@ -22,9 +22,6 @@ unset($_SESSION["old"]);
     <!-- overlay -->
     <div id="overlay" class="overlay"></div>
 
-    <!-- requiring the dropdown that contains the settings and logout -->
-    <?php require_once "../components/dropdown.php"; ?>
-
     <div class="container">
         <?php require_once "../components/sidebar.php"; ?>
 
