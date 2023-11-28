@@ -4,46 +4,25 @@
 
     session_start();
 
-    //* placeholder for signup errors;
-    $signup_errors = false;
-    $firstName_error = "";
-    $lastName_error = "";
-    $signup_email_error = "";
-    $signup_password_error = "";
+    //* will hold error messages for the signup process;
+    $signup_errors = isset($_SESSION['signup_errors']);
+    $firstName_error = $_SESSION["signup_errors"]['firstName_error'] ?? "";
+    $lastName_error = $_SESSION["signup_errors"]['lastName_error'] ?? "";
+    $signup_email_error = $_SESSION["signup_errors"]['email_error'] ?? "";
+    $signup_password_error = $_SESSION["signup_errors"]['signup_password_error'] ?? "";
 
-    //* will hold the old values of the input
-    $old_firstName = "";
-    $old_lastName = "";
-    $old_signup_email = "";
+    //* will hold the old values of the signup inputs;
+    $old_firstName = $_SESSION['old']['firstName'] ?? "";
+    $old_lastName = $_SESSION['old']['lastName'] ?? "";
+    $old_signup_email = $_SESSION['old']['email'] ?? "";
+
+    unset($_SESSION['signup_errors']); // unset signup error session variables;
 
     //* will hold the old email of the login form
-    $old_login_email = "";
-    $show_alert = false; // show alert when there is a login error;
-    
-    //* if there is signup errors, assign to each variable its error message;
-    if(isset($_SESSION['signup_errors'])){
-        // errors
-        $signup_errors = true;
-        $firstName_error = $_SESSION["signup_errors"]['firstName_error'];
-        $lastName_error = $_SESSION["signup_errors"]['lastName_error'];
-        $signup_email_error = $_SESSION["signup_errors"]['email_error'];
-        $signup_password_error = $_SESSION["signup_errors"]['signup_password_error'];
+    $old_login_email = isset($_SESSION['login_errors']) ? $_SESSION['old'] : "";
+    $show_alert = isset($_SESSION['login_errors']); // show alert when there is a login error;
 
-        // old inputs value
-        $old_firstName = $_SESSION['old']['firstName'];
-        $old_lastName = $_SESSION['old']['lastName'];
-        $old_signup_email = $_SESSION['old']['email'];
-
-        unset($_SESSION['signup_errors']);
-    }
-    
-    //* if there is login errors, assign to each variable its error message;
-    if (isset($_SESSION['login_errors'])) {
-        // old inputs value
-        $old_login_email = $_SESSION['old'];
-        $show_alert = true;
-        unset($_SESSION['login_errors']);
-    }
+    unset($_SESSION['login_errors']); // unset signup error session variables;
 ?>
 
 <!DOCTYPE html>
