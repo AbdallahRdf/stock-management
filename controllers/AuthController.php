@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
     $password = trim($password);
 
     // checking if we are in a signup process
-    if (isset($_POST["firstName"])) {
+    if (isset($_POST["first_name"])) {
         $ERRORS = []; // array to hold error for singup
         $OLD = []; // will hold the old inputs value;
 
@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
         $_SESSION['user'] = $user;
     }
     // checking if we are in a login process
-    else if (!isset($_POST["firstName"])) {
+    else if (!isset($_POST["first_name"])) {
         // checking if the email is valid
         if (empty($email) || !Validator::isEmailValid($email)) {
             handle_login_error($email);

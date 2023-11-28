@@ -86,7 +86,7 @@
                         <input 
                             class="signup-input" 
                             type="text" 
-                            name="firstName" 
+                            name="first_name" 
                             placeholder="First Name"
                             value="<?= $old_firstName ?>" 
                         >
@@ -98,7 +98,7 @@
                         <input 
                             class="signup-input" 
                             type="text" 
-                            name="lastName" 
+                            name="last_name" 
                             placeholder="Last Name"
                             value="<?= $old_lastName ?>"     
                         >

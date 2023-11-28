@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     {
         $category_name = $_POST["name"];
     
-        if(!Validator::isStrValid($category_name))
+        if(!Validator::isAlphaNum($category_name))
         {
             handle_form_errors($category_name, "Invalid Category Name");
         }
@@ -46,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         $category_name = $_POST["name"];
         $category_id = $_POST["category_id"];
 
-        if (!Validator::isStrValid($category_name)) {
+        if (!Validator::isAlphaNum($category_name)) {
             handle_form_errors($category_name, "Invalid Category Name");
         }
         $result = Category::update($category_id, $category_name);
