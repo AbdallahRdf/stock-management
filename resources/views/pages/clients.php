@@ -40,7 +40,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../controllers/ClientController.php" method="POST">
-            <h3>Add New Client</h3>
+            <h3>Add New Record</h3>
 
             <input type="hidden" name="client_id" class="form-input">
 

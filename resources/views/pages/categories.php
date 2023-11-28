@@ -30,7 +30,7 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../controllers/CategoryController.php" method="POST">
-            <h3>Create New Category</h3>
+            <h3>Add New Record</h3>
             <div class="input-group">
                 <input type="hidden" name="category_id" class="form-input">
                 <input class="form-input" type="text" name="name" placeholder="Category Name"
