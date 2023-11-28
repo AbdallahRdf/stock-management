@@ -40,26 +40,28 @@ class Order
     }*/
 
     // create an order
-    public static function create($date, $client_id, $description, $price, $quantity, $category)
+    public static function create($date, $client_id,$product_id,$quantity)
     {
-        $sql = "INSERT INTO products (name, excerpt, description, price, stock_quantity, category_id) VALUES (:name, :excerpt, :description, :price, :quantity, :category);";
+        $sql = "INSERT INTO orders (date, client_id) VALUES (:date, :client_id);";
 
         $params = [
-            ":name" => $name,
-            ":excerpt" => $excerpt,
-            ":description" => $description,
-            ":price"=> $price,
-            ":quantity"=> $quantity,
-            ":category"=> $category
+            ":date" => $date,
+            ":client_id" => $client_id,
         ];
+        
+
 
         return (new Database)->query($sql, $params);
     }
-
+    // gets the last inserted item
+    public static function getLast(){
+        $sql="SELECT MAX(id) FROM orders";
+        return (new Database)->query($sql);
+    }
     // delete a product
     public static function delete($id)
     {
-        $sql = "DELETE FROM products WHERE id=:id";
+        $sql = "DELETE FROM orders WHERE id=:id";
 
         $params = [":id" => $id];
 
@@ -67,7 +69,7 @@ class Order
     }
 
     // update a product
-    public static function update($id, $name, $excerpt, $description, $price, $quantity, $category_id)
+    public static function update($id, $date, $client_id, $product_id, $quantity)
     {
         $sql = "UPDATE products SET name=:name, excerpt=:excerpt, description=:description, price=:price, stock_quantity=:quantity, category_id=:category_id WHERE id=:id";
 

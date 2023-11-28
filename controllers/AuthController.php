@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
     if (isset($_POST["first_name"])) {
         $ERRORS = []; // array to hold error for singup
         $OLD = []; // will hold the old inputs value;
-
+        
         $first_name = trim($first_name);
         $last_name = trim($last_name);
 
@@ -97,7 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
         if (empty($email) || !Validator::isEmailValid($email)) {
             $ERRORS["email_error"] = "Invalid Email Address";
         }
-
         // checking if the first name is valid
         if (!Validator::isStrValid($first_name)) {
             $ERRORS["firstName_error"] = "Invalid First Name";
