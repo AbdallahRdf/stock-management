@@ -41,6 +41,8 @@ cancelBtn.addEventListener("click", () =>
         inputs[i].value = "";
     }
     inputs[inputs.length - 1].value = "";
+
+    form.children[0].textContent = "Add New Record"; // update the title of the form
 });
 
 
@@ -88,6 +90,7 @@ const handleClick = (e) => {
             }
         }
     }
+    form.children[0].textContent = "Update This Record"; // update the title of the form
     showTheForm();
 }
 // adding event listener to each update button in the table;
