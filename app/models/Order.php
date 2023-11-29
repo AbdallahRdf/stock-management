@@ -19,7 +19,19 @@ class Order
 
         return (new Database)->query($sql);
     }
+    
+    public static function orderedProducts($order_id){
+        $sql = "SELECT 
+        orderedProducts.id, 
+        orderedProducts.quantity, 
+        products.name as product_name 
+    FROM orderedProducts JOIN products 
+    WHERE orderedProducts.product_id = products.id and orderedProducts.order_id=:order_id
+    ORDER BY orderedProducts.created_at DESC;";
+    $params=[':order_id'=> $order_id];
 
+    return (new Database)->query($sql);
+    }
     // Retrieves a paginated set of results from the database table.
     /*public static function paginate($offset = 0, $limit = 10)
     {
@@ -48,14 +60,21 @@ class Order
             ":date" => $date,
             ":client_id" => $client_id,
         ];
-        
-
-
-        return (new Database)->query($sql, $params);
+        $result=(new Database)->query($sql, $params);
+        if(!$result){
+            $sql1="INSERT INTO orderedProducts (order_id,product_id,quantity) values (:order_id, :product_id, :quantity);";
+            $params1 = [
+                ":order_id" => getLast(),
+                ":product_id" => $product_id,
+                ":quantity" => $quantity,
+            ];
+        }
+        return (new Database)->query($sql1, $params1);  
     }
     // gets the last inserted item
     public static function getLast(){
         $sql="SELECT MAX(id) FROM orders";
+        //$sql="SELECT * FROM orders ORDER BY DESC LIMIT 1";
         return (new Database)->query($sql);
     }
     // delete a product
@@ -69,21 +88,20 @@ class Order
     }
 
     // update a product
-    public static function update($id, $date, $client_id, $product_id, $quantity)
+    public static function update($id, $date, $client_id, $ordered_p_id ,$product_id, $quantity)
     {
-        $sql = "UPDATE products SET name=:name, excerpt=:excerpt, description=:description, price=:price, stock_quantity=:quantity, category_id=:category_id WHERE id=:id";
+        $sql = "UPDATE orders SET date=:date, client_id=:client_id  WHERE id=:id";
 
         $params = [
-            ":name" => $name,
-            ":excerpt" => $excerpt,
-            ":description"=> $description,
-            ":price"=> $price,
-            ":quantity" => $quantity,
-            ":category_id"=> $category_id,
+            ":date" => $date,
+            ":client_id" => $client_id,
             ":id" => $id
         ];
+        $result=(new Database)->query($sql, $params);
+        if(!$result){
+            $sql = "UPDATE orderedProducts SET product_id=:product_id, quantity=:quantity  WHERE id=:id";
 
-        return (new Database)->query($sql, $params);
+        }
     }
 }
 
