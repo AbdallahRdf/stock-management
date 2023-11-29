@@ -45,7 +45,7 @@
                             <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
                         </button>
                         <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="delete">
-                            <img src="../../img/delete.svg" alt="delete-icon">
+                            <img src="../../img/delete.svg" alt="delete icon">
                         </button>
                     </td>
                 </tr>

@@ -51,7 +51,6 @@ const updateBtns = document.querySelectorAll("#modify-btn");
 
 // the table structure is like this: <tr></tr> => multiple <td> | <td></td> => <p>textContent</p>
 const handleClick = (e) => {
-    console.log(e.target);
     if(
         (e.target && e.target.tagName === 'BUTTON' && e.target.id === "modify-btn") ||
         (e.target && e.target.tagName === 'IMG' && e.target.alt === "modify icon")

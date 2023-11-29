@@ -7,21 +7,31 @@ const deleteForm = document.querySelector("#delete-form"); // the delete form
 const IdInput = document.getElementById("id"); // the hidden input that holds the category id to be deleted;
 
 // function that handles clicking on the delete button;
-const handleDeleteClick = (categoryID) => {
-  disable_tabbing();  // already defined in the sidebar.js
-  overlayForDelete.style.display = "block";
-  deleteBoxContainer.style.display = "block";
+const handleDeleteClick = (e) => {
 
-  deleteForm.classList.remove("form-desappear");
-  deleteForm.classList.add("form-appear");
-
-  IdInput.value = categoryID;
+  if(
+      (e.target && e.target.tagName === 'BUTTON' && e.target.id === "delete-btn") ||
+      (e.target && e.target.tagName === 'IMG' && e.target.alt === "delete icon")
+  )
+  {
+    disable_tabbing();  // already defined in the sidebar.js
+    overlayForDelete.style.display = "block";
+    deleteBoxContainer.style.display = "block";
+  
+    deleteForm.classList.remove("form-desappear");
+    deleteForm.classList.add("form-appear");
+  
+    const button = e.target.tagName === 'BUTTON' ? e.target : e.target.parentNode;
+    IdInput.value = button.value;
+  }
 };
 // adding event listener to each delete button;
-for(let i = 0; i < deleteBtns.length; i++)
-{
-    deleteBtns[i].addEventListener("click", () => handleDeleteClick(deleteBtns[i].value));
-}
+// for(let i = 0; i < deleteBtns.length; i++)
+// {
+//     deleteBtns[i].addEventListener("click", () => handleDeleteClick(deleteBtns[i].value));
+// }
+document.getElementById("table").addEventListener("click", (e) => handleDeleteClick(e))
+
 // handles when cancel button is clicked
 cancelDeleteBtn.addEventListener("click", () => {
   deleteForm.classList.remove("form-appear");
