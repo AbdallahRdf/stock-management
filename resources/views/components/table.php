@@ -8,13 +8,15 @@
     <button id="add-btn" class="add-btn"> <!-- button to add new elements to the table -->
         <img src="../../img/plus-svgrepo-com.svg" alt="plus icon"> Add
     </button>
-    <table>
+    <table id="table">
         <thead>
-            <?php foreach ($table_header as $value): ?>
-                <th class="py-20">
-                    <?= $value ?>
-                </th>
-            <?php endforeach; ?>
+            <tr>
+                <?php foreach ($table_header as $value): ?>
+                    <th class="py-20">
+                        <?= $value ?>
+                    </th>
+                <?php endforeach; ?>
+            </tr>
         </thead>
         <tbody>
             <?php foreach ($items as $item): ?>
@@ -39,10 +41,10 @@
                         
                     <?php endfor; ?>
                     <td class="<?= $class ?>">
-                        <button class="modify-btn" id="modify-btn" value="<?= $item['id'] ?>" title="Modify">
+                        <button class="modify-btn" id="modify-btn" value="<?= $item['id'] ?>" title="modify">
                             <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
                         </button>
-                        <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="Delete">
+                        <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="delete">
                             <img src="../../img/delete.svg" alt="delete-icon">
                         </button>
                     </td>

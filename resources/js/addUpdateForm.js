@@ -51,50 +51,60 @@ const updateBtns = document.querySelectorAll("#modify-btn");
 
 // the table structure is like this: <tr></tr> => multiple <td> | <td></td> => <p>textContent</p>
 const handleClick = (e) => {
-    const updateBtn = e.currentTarget; // get the clicked update button;
-    const td = updateBtn.parentNode; // get the td (table data) that in which the button exist;
-    const tr = td.parentNode; // get the tr (table row) in which the td exist;
-    const tds = tr.children; // get all the td tags or children of the tr;
-    const inputsValue = []; // this array will hold all the data of the table row the user wants to update
-    for(tableData of tds)
+    console.log(e.target);
+    if(
+        (e.target && e.target.tagName === 'BUTTON' && e.target.id === "modify-btn") ||
+        (e.target && e.target.tagName === 'IMG' && e.target.alt === "modify icon")
+    )
     {
-        if(tableData.style.display === "none") // if the display is none, then replace it with the previous added element to the "inputsValue" with the current one
+        const updateBtn = e.target.tagName === 'BUTTON' ? e.target : e.target.parentNode; // get the clicked update button;
+        const td = updateBtn.parentNode; // get the td (table data) that in which the button exist;
+        const tr = td.parentNode; // get the tr (table row) in which the td exist;
+        const tds = tr.children; // get all the td tags or children of the tr;
+        const inputsValue = []; // this array will hold all the data of the table row the user wants to update
+        for(tableData of tds)
         {
-            inputsValue.pop();
-        }
-        inputsValue.push(tableData.childNodes[1].textContent); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
-    }
-    inputsValue.pop(); // remove the last item in the array, because it is not a part of the table data, its the last column in the table (the actions column);
-    for(let i = 0; i < inputs.length; i++){
-        if(i===0) // the first input is the hidden input that will hold the id
-        {
-            inputs[0].value = updateBtn.value;
-        }
-        else
-        {
-            if(inputs[i].tagName === "SELECT") // if it is a <select> then add selected attribute to the relevant <option>
+            if(tableData.style.display === "none") // if the display is none, then replace it with the previous added element to the "inputsValue" with the current one
             {
-                const options = inputs[i].children; // getting the option tags inside the select tag
-                for(let j = 0; j < options.length; j++)
+                inputsValue.pop();
+            }
+            const p = tableData.childNodes[1] ?? tableData.childNodes[0];
+            inputsValue.push(p.textContent); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
+        }
+        inputsValue.pop(); // remove the last item in the array, because it is not a part of the table data, its the last column in the table (the actions column);
+        for(let i = 0; i < inputs.length; i++){
+            if(i===0) // the first input is the hidden input that will hold the id
+            {
+                inputs[0].value = updateBtn.value;
+            }
+            else
+            {
+                if(inputs[i].tagName === "SELECT") // if it is a <select> then add selected attribute to the relevant <option>
                 {
-                    if(options[j].textContent === inputsValue[i-1])
+                    const options = inputs[i].children; // getting the option tags inside the select tag
+                    for(let j = 0; j < options.length; j++)
                     {
-                        options[j].selected = true;
-                        break;
+                        if(options[j].textContent === inputsValue[i-1])
+                        {
+                            options[j].selected = true;
+                            break;
+                        }
                     }
                 }
-            }
-            else // if it is an <input> 
-            {
-                inputs[i].value = inputsValue[i-1];
+                else // if it is an <input> 
+                {
+                    inputs[i].value = inputsValue[i-1];
+                }
             }
         }
+        form.children[0].textContent = "Update This Record"; // update the title of the form
+        showTheForm();
     }
-    form.children[0].textContent = "Update This Record"; // update the title of the form
-    showTheForm();
 }
 // adding event listener to each update button in the table;
-for(let i = 0; i < updateBtns.length; i++)
-{
-    updateBtns[i].addEventListener("click", (e) => handleClick(e));
-}
+// for(let i = 0; i < updateBtns.length; i++)
+// {
+//     updateBtns[i].addEventListener("click", (e) => handleClick(e));
+// }
+
+document.getElementById("table").addEventListener("click",(e) => handleClick(e))

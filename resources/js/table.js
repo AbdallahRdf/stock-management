@@ -1,7 +1,8 @@
-const nextBtn = document.getElementById("next"); // nex button 
+const nextBtn = document.getElementById("next"); // next button 
 const previousBtn = document.getElementById("previous"); // previous button
 const currentPage = document.getElementById("page"); // current page number
-const tableRows = document.getElementsByTagName("tr"); // table rows to update
+const tableHeader = document.querySelector("tr"); // table header
+const table = document.getElementById("table"); // table
 
 let pagesCount = 0; // number of pages to toggle between in the table;
 
@@ -30,6 +31,7 @@ const getViewName = () => {
     return viewName;
 }
 
+// fetches data;
 const fetchData = async (URL) => {
     try {
         const response = await fetch(URL);
@@ -56,7 +58,7 @@ const fetchData = async (URL) => {
     pagesCount = data / limit; // get the number of pages;
 })();
 
-// fetches the data
+// fetches the table data
 const getTableData = async (offset, limit) => {
 
     const viewName = getViewName();
@@ -69,29 +71,80 @@ const getTableData = async (offset, limit) => {
 // update the table content
 const updateTable = (data) => {
 
-    const tableRowsArray = [...tableRows]; // tableRows is an object, let turn it into an array
+    table.innerHTML = ""; // delete table's children, making it empty;
 
-    tableRowsArray.shift(); // remove the first row, which is the table header;
-        
-    for (let i = 0; i < tableRowsArray.length; i++) // looping trough table rows
+    table.appendChild(tableHeader); // append to the table the header;
+
+    for (let i = 0; i < data.length; i++) // creating rows depending on how many data records we have
     {
-        const tr = tableRowsArray[i]; // current row in table;
+        const tr = document.createElement("tr"); // create a table row;
 
         const id = data[i].shift(); // get the id of the element to make the value of the update and delete buttons
 
-        for(let j = 0; j <  tr.children.length - 1; j++) // looping trough <td> in each row, except the last td;
+        for(let j = 0; j < data[i].length; j++) // looping trough <td> in each row, except the last td;
         {
-            const td = tr.children[j]; // the table data <td>
-            const p = td.childNodes[1]; // the <p> inside the <td>
-            p.textContent = data[i][j]; // update the <p> content;
+            const td = document.createElement("td");
+            const p = document.createElement("p");
+            tr.appendChild(td);
+            td.appendChild(p);
+            p.textContent = data[i][j];
         }
-        const lastTd = tr.children[tr.children.length-1]; //last td in each row;
+        const td = document.createElement("td");
 
-        for(let k = 0; k < lastTd.children.length; k++) // looping through the action buttons in table, to update the id;
-        {
-            lastTd.children[k].value = id;
-        }
+        // creating update button
+        const updateButton = document.createElement("button");
+        updateButton.classList.add("modify-btn");
+        updateButton.setAttribute("id", "modify-btn");
+        updateButton.value = id;
+        updateButton.setAttribute("title", "modify");
+
+        // creating the image that will be in update button;
+        const updateIcon = document.createElement("img");
+        updateIcon.src = "../../img/write-svgrepo-com.svg";
+        updateIcon.alt = "modify icon";
+
+        updateButton.appendChild(updateIcon);
+
+        // creating update button
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-btn");
+        deleteButton.setAttribute("id", "delete-btn");
+        deleteButton.value = id;
+        deleteButton.setAttribute("title", "delete");
+
+        // creating the image that will be in update button;
+        const deleteIcon = document.createElement("img");
+        deleteIcon.src = "../../img/delete.svg";
+        deleteIcon.alt = "delete icon";
+
+        deleteButton.appendChild(deleteIcon);
+
+        td.appendChild(updateButton);
+        td.appendChild(deleteButton);
+        tr.appendChild(td);
+
+        table.appendChild(tr);
     }
+        
+    // for (let i = 0; i < tableRowsArray.length; i++) // looping trough table rows
+    // {
+    //     const tr = tableRowsArray[i]; // current row in table;
+
+    //     const id = data[i].shift(); // get the id of the element to make the value of the update and delete buttons
+
+    //     for(let j = 0; j <  tr.children.length - 1; j++) // looping trough <td> in each row, except the last td;
+    //     {
+    //         const td = tr.children[j]; // the table data <td>
+    //         const p = td.childNodes[1]; // the <p> inside the <td>
+    //         p.textContent = data[i][j]; // update the <p> content;
+    //     }
+    //     const lastTd = tr.children[tr.children.length-1]; //last td in each row;
+
+    //     for(let k = 0; k < lastTd.children.length; k++) // looping through the action buttons in table, to update the id;
+    //     {
+    //         lastTd.children[k].value = id;
+    //     }
+    // }
 }
 
 const handleNext = async () => {
