@@ -13,7 +13,7 @@ class Validator {
     //* checks if the string contains only alphbets and numbers (alphanumeric)
     public static function isAlphaNum($str)
     {
-        return preg_match("/^[a-zA-Z0-9,.&#;\/!?:_-]*$/", $str) && !empty($str);
+        return preg_match("/^[a-zA-Z0-9,.&#;\/!?:_\-\s]*$/", $str) && !empty($str);
 
     }
 

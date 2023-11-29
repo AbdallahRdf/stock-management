@@ -1,10 +1,26 @@
-const nextBtn = document.getElementById("next");
-const previousBtn = document.getElementById("previous");
-const currentPage = document.getElementById("page");
-const tableRows = document.getElementsByTagName("tr");
+const nextBtn = document.getElementById("next"); // nex button 
+const previousBtn = document.getElementById("previous"); // previous button
+const currentPage = document.getElementById("page"); // current page number
+const tableRows = document.getElementsByTagName("tr"); // table rows to update
+
+let pagesCount = 0; // number of pages to toggle between in the table;
+
+const APIEndpoint = "http://localhost/stock-management/app/api/data-service.php";
 
 let limit = 10; // the count of data records to get
 let offset = 0; // from where to start
+
+// if we are in the first page then make the previousBtn disabled;
+if (offset === 0) {
+  previousBtn.classList.add("disabled");
+}
+// after getting how many pages we have, if we only have one then make the next button disabled;
+setTimeout(() => {
+    if(pagesCount <= 1)
+    {
+        nextBtn.classList.add("disabled");
+    }
+}, 200);
 
 // returns the view name (for example: categories, products ...);
 const getViewName = () => {
@@ -14,13 +30,7 @@ const getViewName = () => {
     return viewName;
 }
 
-// fetches the data
-const fetchData = async (offset, limit) => {
-
-    const viewName = getViewName();
-
-    const URL = `http://localhost/stock-management/app/api/test.php?viewName=${viewName}&offset=${offset}&limit=${limit}`;
-
+const fetchData = async (URL) => {
     try {
         const response = await fetch(URL);
 
@@ -28,15 +38,32 @@ const fetchData = async (offset, limit) => {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json(); // Parse the response from JSON to a js object
-
-        // console.log("Data received:", data);
-
-        return data;
+        return await response.json(); // Parse the response from JSON to a js object 
 
     } catch (error) {
         console.error("Error:", error);
     }
+}
+
+// it get how many rows are there in a db table, and devide it on the limit, to get how much pages we have to to toggle between in the table;
+(async () => {
+    const viewName = getViewName(); // get the view name
+
+    const URL = APIEndpoint+`?viewName=${viewName}`; // the url;
+    
+    const data = await fetchData(URL); // fetching data (rows count);
+
+    pagesCount = data / limit; // get the number of pages;
+})();
+
+// fetches the data
+const getTableData = async (offset, limit) => {
+
+    const viewName = getViewName();
+
+    const URL = APIEndpoint+`?viewName=${viewName}&offset=${offset}&limit=${limit}`;
+
+    return await fetchData(URL);
 }
 
 // update the table content
@@ -69,54 +96,52 @@ const updateTable = (data) => {
 
 const handleNext = async () => {
 
-    if(!nextBtn.hasAttribute("disabled")) // if next button is not disabled
+    // if(!nextBtn.hasAttribute("disabled")) // if next button is not disabled
+    if(currentPage.textContent < pagesCount) // if next button is not disabled
     {
-        offset += limit;
+        currentPage.textContent++; // increment the current page;
+
+        offset += limit; // increment the offset;
     
-        const data = await fetchData(offset, limit); // data is an object containing other objects
+        const data = await getTableData(offset, limit); // data is an array containing other objects
 
-        if(data.length <= 0)
+        const arrayOfData = data.map((item) => Object.values(item)); // turning it into an array of arrays so that we can loop over it simultaneously with the table rows.
+
+        updateTable(arrayOfData); 
+
+        if(currentPage.textContent == pagesCount)
         {
-            nextBtn.setAttribute("disabled", "disabled");
-            nextBtn.classList.add("disabled") 
-        }
-        else
-        {
-            const dataArray = [...data]; // turning it to an array of objects
-
-            const arrayOfData = dataArray.map((item) => Object.values(item)); // turning it into an array of arrays so that we can loop over it simultaneously with the table rows.
-
-            updateTable(arrayOfData); 
+            nextBtn.classList.add("disabled");
         }
         if(previousBtn.classList.contains("disabled"))
-    {
-        previousBtn.classList.remove("disabled");
-    }
+        {
+            previousBtn.classList.remove("disabled");
+        }
     }
 }
 
 const handlePrevious = async () => {
 
-    if(offset > 0) 
+    if(currentPage.textContent > 1) 
     {
+        currentPage.textContent--; // decrement the current page;
+
         offset -= limit;
     
-        const data = await fetchData(offset, limit); // data is an object containing other objects
+        const data = await getTableData(offset, limit); // data is an array containing other objects
 
-        const dataArray = [...data]; // turning it to an array of objects
-
-        const arrayOfData = dataArray.map((item) => Object.values(item)); // turning it into an array of arrays so that we can loop over it simultaneously with the table rows.
+        const arrayOfData = data.map((item) => Object.values(item)); // turning it into an array of arrays so that we can loop over it simultaneously with the table rows.
 
         updateTable(arrayOfData); 
-    }
-    else
-    {
-        previousBtn.classList.add("disabled"); 
-    }
 
-    if(nextBtn.classList.contains("disabled"))
-    {
-        nextBtn.classList.remove("disabled");
+        if(currentPage.textContent == 1)
+        {
+            previousBtn.classList.add("disabled");
+        }
+        if(nextBtn.classList.contains("disabled"))
+        {
+            nextBtn.classList.remove("disabled");
+        }
     }
 }
 
