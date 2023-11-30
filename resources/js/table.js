@@ -3,18 +3,32 @@ const previousBtn = document.getElementById("previous"); // previous button
 const currentPage = document.getElementById("page"); // current page number
 const tableHeader = document.querySelector("tr"); // table header
 const table = document.getElementById("table"); // table
+const limitController = document.getElementById("limit"); // the select tag that controlls how many records to show in the table
 
 let pagesCount = 0; // number of pages to toggle between in the table;
 
 const APIEndpoint = "http://localhost/stock-management/app/api/data-service.php";
 
-let limit = 10; // the count of data records to get
+let limit = Number(limitController.value); // the count of data records to get
 let offset = 0; // from where to start
+let totalRownsCount = 0; // the total number of rows in the db table;
 
-// if we are in the first page then make the previousBtn disabled;
-if (offset === 0) {
-  previousBtn.classList.add("disabled");
+// checks which button should be disabled;
+const shouldBeDisabled = () => {
+    if (pagesCount <= 1 || currentPage.textContent >= pagesCount) {
+      nextBtn.classList.add("disabled");
+    } else {
+      nextBtn.classList.remove("disabled");
+    }
+
+    if (currentPage.textContent == 1 || offset === 0) {
+        previousBtn.classList.add("disabled");
+    } else {
+        previousBtn.classList.remove("disabled");
+    }
 }
+
+shouldBeDisabled();
 
 // returns the view name (for example: categories, products ...);
 const getViewName = () => {
@@ -46,14 +60,12 @@ const fetchData = async (URL) => {
 
     const URL = APIEndpoint+`?viewName=${viewName}`; // the url;
     
-    const data = await fetchData(URL); // fetching data (rows count);
+    totalRownsCount = await fetchData(URL); // fetching data (rows count);
 
-    pagesCount = data / limit; // get the number of pages;
+    pagesCount = totalRownsCount / limit; // get the number of pages;
 
     // after getting how many pages we have, if we only have one then make the next button disabled;
-    if (pagesCount <= 1) {
-      nextBtn.classList.add("disabled");
-    }
+    shouldBeDisabled();
 })();
 
 // fetches the table data
@@ -137,6 +149,19 @@ const updateTable = (data) => {
 // scrolls to top
 const scrollUp = () => window.scrollTo({top: 0, left: 0, behavior: "smooth"});
 
+const getTableDataAndUpdateIt = async (offset, limit) => {
+
+    const data = await getTableData(offset, limit); // data is an array containing other objects
+
+    const arrayOfData = data.map((item) => Object.values(item)); // turning it into an array of arrays so that we can loop over it simultaneously with the table rows.
+
+    updateTable(arrayOfData); 
+
+    shouldBeDisabled();
+
+    scrollUp(); // when table is updated, this function scrolls to the top of it;
+}
+
 const handleNext = async () => {
 
     if(currentPage.textContent < pagesCount) // if next button is not disabled
@@ -145,22 +170,12 @@ const handleNext = async () => {
 
         offset += limit; // increment the offset;
     
-        const data = await getTableData(offset, limit); // data is an array containing other objects
+        getTableDataAndUpdateIt(offset, limit); // getting table data, then updating it;
 
-        const arrayOfData = data.map((item) => Object.values(item)); // turning it into an array of arrays so that we can loop over it simultaneously with the table rows.
-
-        updateTable(arrayOfData); 
-
-        if(currentPage.textContent >= pagesCount)
-        {
-            nextBtn.classList.add("disabled");
-        }
         if(previousBtn.classList.contains("disabled"))
         {
             previousBtn.classList.remove("disabled");
         }
-        // when table is updated, this function scrolls to the top of it;
-        scrollUp();
     }
 }
 
@@ -172,25 +187,28 @@ const handlePrevious = async () => {
 
         offset -= limit;
     
-        const data = await getTableData(offset, limit); // data is an array containing other objects
+        getTableDataAndUpdateIt(offset, limit); // getting table data, then updating it;
 
-        const arrayOfData = data.map((item) => Object.values(item)); // turning it into an array of arrays so that we can loop over it simultaneously with the table rows.
-
-        updateTable(arrayOfData); 
-
-        if(currentPage.textContent == 1)
-        {
-            previousBtn.classList.add("disabled");
-        }
         if(nextBtn.classList.contains("disabled"))
         {
             nextBtn.classList.remove("disabled");
         }
-        // when table is updated, this function scrolls to the top of it;
-        scrollUp();
     }
+}
+
+const handleLimitChange = async () => {
+
+    limit = Number(limitController.value); // updating the limit of records to show
+    offset = 0; // making the offset to 0;
+    currentPage.textContent = 1; // updating the current page to be the first;
+
+    getTableDataAndUpdateIt(offset, limit); // getting table data, then updating it;
+
+    pagesCount = totalRownsCount / limit; // get the number of pages;
 }
 
 nextBtn.addEventListener("click", handleNext);
 
 previousBtn.addEventListener("click", handlePrevious);
+
+limitController.addEventListener("change", handleLimitChange);

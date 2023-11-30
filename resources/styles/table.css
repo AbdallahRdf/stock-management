@@ -38,6 +38,16 @@ body {
     margin: 100px auto;
 }
 
+.table-controllers {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#limit {
+    padding: 2px 4px;
+}
+
 .add-btn {
     display: flex;
     border: none;
