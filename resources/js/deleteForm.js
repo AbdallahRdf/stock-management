@@ -1,5 +1,5 @@
 // this handles showing and hiding the delete box;
-const deleteBtns = document.querySelectorAll("#delete-btn"); // buttons to show the delete box;
+// const deleteBtns = document.querySelectorAll("#delete-btn"); // buttons to show the delete box;
 const cancelDeleteBtn = document.querySelector("#delete-cancel"); // cancel button to hide the delete confirmation box;
 const overlayForDelete = document.getElementById("overlay"); // the overlay
 const deleteBoxContainer = document.querySelector("#delete-form-container"); // the container of box

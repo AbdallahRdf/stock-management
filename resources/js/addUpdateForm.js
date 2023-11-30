@@ -47,7 +47,7 @@ cancelBtn.addEventListener("click", () =>
 
 
 //* this handles showing and hiding the form that is responsible for updating new element (categories, products ..);
-const updateBtns = document.querySelectorAll("#modify-btn");
+// const updateBtns = document.querySelectorAll("#modify-btn");
 
 // the table structure is like this: <tr></tr> => multiple <td> | <td></td> => <p>textContent</p>
 const handleClick = (e) => {
@@ -61,12 +61,19 @@ const handleClick = (e) => {
         const tr = td.parentNode; // get the tr (table row) in which the td exist;
         const tds = tr.children; // get all the td tags or children of the tr;
         const inputsValue = []; // this array will hold all the data of the table row the user wants to update
+
+        // we have a hidden <td> that contains the description, followed by a <td> with the excerpt, the excerpt should not be pushed to the inputsValue array that will be affected to the inputs as their values;
+        let isPreviousTdHidden = false; // if we reach the hidden td tag, it becomes true;
+
         for(tableData of tds)
         {
-            if(tableData.style.display === "none") // if the display is none, then replace it with the previous added element to the "inputsValue" with the current one
+            if(isPreviousTdHidden) // if the previous td tag is hidden then it is the description one, the current one the excerpt, that's why we skip it;
             {
-                inputsValue.pop();
+                isPreviousTdHidden = false;
+                continue;
             }
+            isPreviousTdHidden = tableData.style.display === "none";// if the display is none, then make true
+            
             const p = tableData.childNodes[1] ?? tableData.childNodes[0];
             inputsValue.push(p.textContent); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
         }

@@ -12,8 +12,8 @@ class Product
         $sql = "SELECT 
             products.id, 
             products.name, 
-            products.excerpt,
             products.description, 
+            products.excerpt,
             products.price, 
             products.stock_quantity, 
             categories.name as category_name 
@@ -30,8 +30,8 @@ class Product
         $sql = "SELECT 
             products.id, 
             products.name, 
-            products.excerpt,
             products.description, 
+            products.excerpt,
             products.price, 
             products.stock_quantity, 
             categories.name as category_name 

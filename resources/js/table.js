@@ -15,13 +15,6 @@ let offset = 0; // from where to start
 if (offset === 0) {
   previousBtn.classList.add("disabled");
 }
-// after getting how many pages we have, if we only have one then make the next button disabled;
-setTimeout(() => {
-    if(pagesCount <= 1)
-    {
-        nextBtn.classList.add("disabled");
-    }
-}, 200);
 
 // returns the view name (for example: categories, products ...);
 const getViewName = () => {
@@ -56,6 +49,11 @@ const fetchData = async (URL) => {
     const data = await fetchData(URL); // fetching data (rows count);
 
     pagesCount = data / limit; // get the number of pages;
+
+    // after getting how many pages we have, if we only have one then make the next button disabled;
+    if (pagesCount <= 1) {
+      nextBtn.classList.add("disabled");
+    }
 })();
 
 // fetches the table data
@@ -68,18 +66,41 @@ const getTableData = async (offset, limit) => {
     return await fetchData(URL);
 }
 
-// update the table content
+// creates the action button like the update button, and delete button;
+const createActionButton = (btnClass, btnId, recordId, title, imgURL, imgAlt) => {
+    // creating action button
+    const button = document.createElement("button");
+    button.classList.add(btnClass);
+    button.setAttribute("id", btnId);
+    button.value = recordId;
+    button.setAttribute("title", title);
+
+    // creating the image that will be in action button;
+    const img = document.createElement("img");
+    img.src = imgURL;
+    img.alt = imgAlt;
+
+    button.appendChild(img);
+
+    return button;
+}
+
+// update the table content;
 const updateTable = (data) => {
 
     table.innerHTML = ""; // delete table's children, making it empty;
 
     table.appendChild(tableHeader); // append to the table the header;
 
-    for (let i = 0; i < data.length; i++) // creating rows depending on how many data records we have
+    const tableHeaderText = [...tableHeader.children].map(th => th.innerText); // get the text in the <td> tags;
+    
+    const indexOfDescription = tableHeaderText.indexOf("Description"); // get the index of the "Description" column;
+
+    for (let i = 0; i < data.length; i++) // creating rows depending on how many data records we have;
     {
         const tr = document.createElement("tr"); // create a table row;
 
-        const id = data[i].shift(); // get the id of the element to make the value of the update and delete buttons
+        const id = data[i].shift(); // get the id of the element to make the value of the update and delete buttons;
 
         for(let j = 0; j < data[i].length; j++) // looping trough <td> in each row, except the last td;
         {
@@ -88,68 +109,36 @@ const updateTable = (data) => {
             tr.appendChild(td);
             td.appendChild(p);
             p.textContent = data[i][j];
+            if(indexOfDescription === j) { // if this is the description column then make it hidden;
+                td.style.display = "none";
+            }
+            if (i === data.length - 1) { // if this is the last row in the table then add to each td tag a "last" class;
+              td.classList.add("last");
+            }
         }
         const td = document.createElement("td");
 
-        // creating update button
-        const updateButton = document.createElement("button");
-        updateButton.classList.add("modify-btn");
-        updateButton.setAttribute("id", "modify-btn");
-        updateButton.value = id;
-        updateButton.setAttribute("title", "modify");
+        const updateButton = createActionButton("modify-btn", "modify-btn", id, "modify", "../../img/write-svgrepo-com.svg", "modify icon");
 
-        // creating the image that will be in update button;
-        const updateIcon = document.createElement("img");
-        updateIcon.src = "../../img/write-svgrepo-com.svg";
-        updateIcon.alt = "modify icon";
-
-        updateButton.appendChild(updateIcon);
-
-        // creating update button
-        const deleteButton = document.createElement("button");
-        deleteButton.classList.add("delete-btn");
-        deleteButton.setAttribute("id", "delete-btn");
-        deleteButton.value = id;
-        deleteButton.setAttribute("title", "delete");
-
-        // creating the image that will be in update button;
-        const deleteIcon = document.createElement("img");
-        deleteIcon.src = "../../img/delete.svg";
-        deleteIcon.alt = "delete icon";
-
-        deleteButton.appendChild(deleteIcon);
+        const deleteButton = createActionButton("delete-btn", "delete-btn", id, "delete", "../../img/delete.svg", "delete icon");
 
         td.appendChild(updateButton);
         td.appendChild(deleteButton);
         tr.appendChild(td);
 
         table.appendChild(tr);
+
+        if(i === data.length - 1) { // if this is the last row in the table then add to each td tag a "last" class;
+            td.classList.add("last");
+        }
     }
-        
-    // for (let i = 0; i < tableRowsArray.length; i++) // looping trough table rows
-    // {
-    //     const tr = tableRowsArray[i]; // current row in table;
-
-    //     const id = data[i].shift(); // get the id of the element to make the value of the update and delete buttons
-
-    //     for(let j = 0; j <  tr.children.length - 1; j++) // looping trough <td> in each row, except the last td;
-    //     {
-    //         const td = tr.children[j]; // the table data <td>
-    //         const p = td.childNodes[1]; // the <p> inside the <td>
-    //         p.textContent = data[i][j]; // update the <p> content;
-    //     }
-    //     const lastTd = tr.children[tr.children.length-1]; //last td in each row;
-
-    //     for(let k = 0; k < lastTd.children.length; k++) // looping through the action buttons in table, to update the id;
-    //     {
-    //         lastTd.children[k].value = id;
-    //     }
-    // }
 }
+
+// scrolls to top
+const scrollUp = () => window.scrollTo({top: 0, left: 0, behavior: "smooth"});
 
 const handleNext = async () => {
 
-    // if(!nextBtn.hasAttribute("disabled")) // if next button is not disabled
     if(currentPage.textContent < pagesCount) // if next button is not disabled
     {
         currentPage.textContent++; // increment the current page;
@@ -162,7 +151,7 @@ const handleNext = async () => {
 
         updateTable(arrayOfData); 
 
-        if(currentPage.textContent == pagesCount)
+        if(currentPage.textContent >= pagesCount)
         {
             nextBtn.classList.add("disabled");
         }
@@ -170,6 +159,8 @@ const handleNext = async () => {
         {
             previousBtn.classList.remove("disabled");
         }
+        // when table is updated, this function scrolls to the top of it;
+        scrollUp();
     }
 }
 
@@ -195,6 +186,8 @@ const handlePrevious = async () => {
         {
             nextBtn.classList.remove("disabled");
         }
+        // when table is updated, this function scrolls to the top of it;
+        scrollUp();
     }
 }
 

@@ -26,8 +26,8 @@ CREATE TABLE `categories` (
 CREATE TABLE `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `excerpt` varchar(20) NOT NULL,
   `description` text DEFAULT NULL,
+  `excerpt` varchar(20) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock_quantity` int(11) NOT NULL DEFAULT 0,
   `category_id` int(11) DEFAULT NULL,
