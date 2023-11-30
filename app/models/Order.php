@@ -52,7 +52,7 @@ class Order
     }*/
 
     // create an order
-    public static function create($date, $client_id,$product_id,$quantity)
+    public static function create($date, $client_id)
     {
         $sql = "INSERT INTO orders (date, client_id) VALUES (:date, :client_id);";
 
@@ -60,24 +60,18 @@ class Order
             ":date" => $date,
             ":client_id" => $client_id,
         ];
-        $result=(new Database)->query($sql, $params);
-        if(!$result){
-            $sql1="INSERT INTO orderedProducts (order_id,product_id,quantity) values (:order_id, :product_id, :quantity);";
-            $params1 = [
-                ":order_id" => getLast(),
-                ":product_id" => $product_id,
-                ":quantity" => $quantity,
-            ];
-        }
-        return (new Database)->query($sql1, $params1);  
+        return (new Database)->query($sql, $params);
+        
     }
+    
     // gets the last inserted item
     public static function getLast(){
         $sql="SELECT MAX(id) FROM orders";
         //$sql="SELECT * FROM orders ORDER BY DESC LIMIT 1";
         return (new Database)->query($sql);
     }
-    // delete a product
+
+    // delete an order
     public static function delete($id)
     {
         $sql = "DELETE FROM orders WHERE id=:id";
@@ -87,8 +81,8 @@ class Order
         return (new Database)->query($sql, $params);
     }
 
-    // update a product
-    public static function update($id, $date, $client_id, $ordered_p_id ,$product_id, $quantity)
+    // update an order
+    public static function update($id, $date, $client_id)
     {
         $sql = "UPDATE orders SET date=:date, client_id=:client_id  WHERE id=:id";
 
@@ -97,11 +91,43 @@ class Order
             ":client_id" => $client_id,
             ":id" => $id
         ];
-        $result=(new Database)->query($sql, $params);
-        if(!$result){
-            $sql = "UPDATE orderedProducts SET product_id=:product_id, quantity=:quantity  WHERE id=:id";
+        return (new Database)->query($sql, $params);
+       
+    }
 
-        }
+    ////////////////////////////////////////:
+    /////////////////////////////////////////
+
+    //create an ordered product
+    public static function createOrderedProduct($product_id,$quantity,$order_id){
+        $sql1="INSERT INTO orderedProducts (order_id,product_id,quantity) values (:order_id, :product_id, :quantity);";
+            $params1 = [
+                ":order_id" => $order_id,
+                ":product_id" => $product_id,
+                ":quantity" => $quantity,
+            ];
+        
+        return (new Database)->query($sql1, $params1);  
+    }
+
+    // delete an ordered product
+    public static function deleteOrderedProduct($id){
+        $sql= "DELETE FROM orderedProducts WHERE id=:id";
+        $params=[":id"=>$id];
+        return (new Database)->query($sql,$params);
+    }
+
+    
+    // update an ordered product
+    public static function updateOrderedProduct($id ,$product_id, $quantity){
+        $sql = "UPDATE orderedProducts SET product_id=:product_id, quantity=:quantity  WHERE id=:id";
+
+        $params = [
+            ":product_id" => $product_id,
+            ":quantity" => $quantity,
+            ":id" => $id
+        ];
+        return (new Database)->query($sql, $params);
     }
 }
 
