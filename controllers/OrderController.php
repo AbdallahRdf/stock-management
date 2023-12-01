@@ -28,10 +28,7 @@ function handle_inputs_validation($date, $client)
     if (!strtotime($date)) {
         $ERRORS["date_error"] = "Invalid Date";
     }
-    //Client validation
-    if (!preg_match("/^[0-9]+$/", $client)) {
-        $ERRORS["client_error"] = "Invalid Client";
-    }
+
 
 
     if (!empty($ERRORS)) // if there is errors
