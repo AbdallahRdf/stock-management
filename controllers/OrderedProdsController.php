@@ -34,7 +34,7 @@ function handle_inputs_validation($product, $quantity)
     {
         $OLD["old_product"] = $product;
         $OLD["old_quantity"] = $quantity;
-        
+
 
         // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
@@ -44,37 +44,35 @@ function handle_inputs_validation($product, $quantity)
     }
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     if ($_POST["ordered_p_id"] == "") { //create an ordered product
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
-        $order_id=$_POST["orderId"];
-    
+        $order_id = $_POST["orderId"];
+
         handle_inputs_validation($product, $quantity);
-    
-        Order::createOrderedProduct($product,$quantity,$order_id);
-        
+
+        Order::createOrderedProduct($product, $quantity, $order_id);
+
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
 
 
-    }else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
-        {
-            $result = Order::deleteOrderedP($_POST["ordered_p_id"]);
-            create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-        }
-        else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
-        {
-            $ordered_p_id=$_POST["ordered_p_id"];
-            $product_id = $_POST["product_id"];
-            $quantity = $_POST["quantity"];
+    } else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
+    {
+        $result = Order::deleteOrderedProduct($_POST["ordered_p_id"]);
+        create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
+    } else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
+    {
+        $ordered_p_id = $_POST["ordered_p_id"];
+        $product_id = $_POST["product_id"];
+        $quantity = $_POST["quantity"];
 
         handle_inputs_validation($product_id, $quantity);
 
-        Order::update($ordered_p_id,$product_id, $quantity);
+        Order::updateOrderedProduct($ordered_p_id, $product_id, $quantity);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
-        }
+    }
 }
 
 $_SESSION["products"] = Product::all(); // get all the products

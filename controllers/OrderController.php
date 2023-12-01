@@ -28,9 +28,11 @@ function handle_inputs_validation($date, $client)
     if (!strtotime($date)) {
         $ERRORS["date_error"] = "Invalid Date";
     }
-    if (!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $client)) {
+    //Client validation
+    if (!preg_match("/^[0-9]+$/", $client)) {
         $ERRORS["client_error"] = "Invalid Client";
     }
+
 
     if (!empty($ERRORS)) // if there is errors
     {
@@ -44,31 +46,27 @@ function handle_inputs_validation($date, $client)
         goback();
     }
 }
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    if($_POST["order_id"] == "") // create an order:
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_POST["order_id"] == "") // create an order:
     {
         $date = $_POST["date"];
         $client = $_POST["client_id"];
-        handle_inputs_validation($date,$client);
-        Order::create($date,$client);
+        handle_inputs_validation($date, $client);
+        Order::create($date, $client);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    }
-    else if (!isset($_POST["date"]) && $_POST["order_id"] != "") // delete an order:
+    } else if (!isset($_POST["date"]) && $_POST["order_id"] != "") // delete an order:
     {
         $result = Order::delete($_POST["order_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    }
-    else if (isset($_POST["date"]) && $_POST["order_id"] != "") // updating an order
+    } else if (isset($_POST["date"]) && $_POST["order_id"] != "") // updating an order
     {
-        $id=$_POST["order_id"];
+        $id = $_POST["order_id"];
         $date = $_POST["date"];
         $client_id = $_POST["client_id"];
 
-        Order::update($id,$date, $client_id);
+        Order::update($id, $date, $client_id);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
-   
 }
 
 $_SESSION["clients"] = Client::all(); // get all the client;

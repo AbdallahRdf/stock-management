@@ -64,3 +64,27 @@ CREATE TABLE `suppliers` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone_num` (`phone_num`)
 );
+
+
+-- create the orders table
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+);
+
+-- create the ordered products table
+CREATE TABLE `orderedProducts` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_order_id`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `orders` (`id`)
+    ON DELETE CASCADE
+);
+
