@@ -24,7 +24,7 @@ function handle_inputs_validation($date, $client)
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
 
-    // Date validation
+    // Date validation                               
     if (!strtotime($date)) {
         $ERRORS["date_error"] = "Invalid Date";
     }
@@ -44,7 +44,7 @@ function handle_inputs_validation($date, $client)
         goback();
     }
 }
-if($_SERVER["REQUEST_METHOD"] == "POST")
+if($_SERVER["REQUEST_METHOD"] === "POST")
 {
     if($_POST["order_id"] == "") // create an order:
     {
@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 }
 
 $_SESSION["clients"] = Client::all(); // get all the client;
-$_SESSION["orders"] = Order::all(); // get all the client;
+$_SESSION["orders"] = Order::paginate(); // get all the client;
 
 
 //* redirect to clients page;

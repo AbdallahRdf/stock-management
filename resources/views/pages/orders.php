@@ -7,17 +7,21 @@ $items = $_SESSION['orders']; // items to be shown in the table;
 // the title of the <th> tags
 $table_header = ["Date", "Client", "Actions"];
 
-$clients = $_SESSION["clients"]; // getting all the categories, they will be shown in the select in the from;
+$clients = $_SESSION["clients"]; // getting all the clients, they will be shown in the select in the from;
 
 // error messages for the form;
 $client_error_message = $_SESSION["errors"]["client_error"] ?? "";
 $date_error_message = $_SESSION["errors"]["date_error"] ?? "";
 
-
 // old input values
 $old_date = $_SESSION["old"]["old_date"] ?? "";
 $old_client = $_SESSION["old"]["old_client"] ?? "";
 
+// empty the session variable
+if (isset($_SESSION["errors"])) {
+    unset($_SESSION["errors"]);
+    unset($_SESSION["old"]);
+}
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none";
 ?>
@@ -35,7 +39,7 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../controllers/OrderController.php" method="POST">
-            <h3>Add New Record</h3>
+            <h3>Add New Order</h3>
 
             <input type="hidden" name="order_id" class="form-input">
             <div class="input-group">
@@ -47,7 +51,7 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
             </div>
 
             <div class="input-group">
-                <label for="client">Select the order client</label>
+                <label for="client">Select the client who placed the order.</label>
                 <div class="custom-select">
                     <select name="client_id" class="form-input" id="client">
                         <option selected>...</option>
