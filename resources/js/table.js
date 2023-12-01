@@ -99,6 +99,33 @@ const createActionButton = (btnClass, btnId, recordId, title, imgURL, imgAlt) =>
     return button;
 }
 
+// when hover over a table row, we add some style to its action buttons;
+const handleRowHover = (e) => {
+    const actionsBtnTd = e.target.children[e.target.children.length-1];
+    for(btn of actionsBtnTd.children)
+    {
+        switch(btn.id)
+        {
+            case "delete-btn": btn.classList.toggle("danger"); break;
+            case "modify-btn": btn.classList.toggle("success"); break;
+            case "info-btn": btn.classList.toggle("info"); break;
+        }
+    }
+}
+
+// adding event listener to the table rows;
+const rowEventListener = () => {
+    const tableRows = table.children[1].children; // selecting table rows;
+
+    for(tr of tableRows) // adding event listener to table rows;
+    {
+        tr.addEventListener("mouseleave", (e) => handleRowHover(e));
+        tr.addEventListener("mouseenter", e => handleRowHover(e));
+    }
+}
+
+rowEventListener(); // invoking the function;
+
 // update the table content;
 const updateTable = (data) => {
 
@@ -109,6 +136,10 @@ const updateTable = (data) => {
     const tableHeaderText = [...tableHeader.children].map(th => th.innerText); // get the text in the <td> tags;
     
     const indexOfDescription = tableHeaderText.indexOf("Description"); // get the index of the "Description" column;
+
+    const tbody = document.createElement("tbody"); // creatig <tbody>
+
+    table.appendChild(tbody);
 
     for (let i = 0; i < data.length; i++) // creating rows depending on how many data records we have;
     {
@@ -136,16 +167,24 @@ const updateTable = (data) => {
 
         const deleteButton = createActionButton("delete-btn", "delete-btn", id, "delete", "../../img/delete.svg", "delete icon");
 
+         if(["products", "orders"].indexOf(getViewName()) !== -1)
+        {
+            const infoButton = createActionButton("info-btn", "info-btn", id, "info", "../../img/info.svg", "info icon");
+            td.appendChild(infoButton);
+        }
+
         td.appendChild(updateButton);
         td.appendChild(deleteButton);
+
         tr.appendChild(td);
 
-        table.appendChild(tr);
+        tbody.appendChild(tr);
 
         if(i === data.length - 1) { // if this is the last row in the table then add to each td tag a "last" class;
             td.classList.add("last");
         }
     }
+    rowEventListener(); //adding event listner to the table rows;
 }
 
 // scrolls to top

@@ -30,7 +30,7 @@ $current_page = get_current_view();  // getting the name of the current view
             Clients
         </a>
         <a href="../../../controllers/OrderController.php" 
-            class="select-btn icon-btn toggled <?= $current_page === "orders.php" ? 'selected' : '' ?>">
+            class="select-btn icon-btn toggled <?= $current_page === "orders" ? 'selected' : '' ?>">
             <img src="../../img/order.svg" alt="client icon" title="Orders">
             Orders
         </a>
@@ -44,7 +44,7 @@ $current_page = get_current_view();  // getting the name of the current view
             Supplier Orders
         </a>
         <a id="dropdown"
-            class="select-btn icon-btn user-btn toggled <?= ($current_page === "settings" || $current_page === "updateSettings" || $current_page === "updatePassword") ? 'selected' : '' ?>">
+            class="select-btn icon-btn user-btn toggled <?= in_array($current_page, ["settings", "updateSettings", "updatePassword"]) ? 'selected' : '' ?>">
             <img src="../../img/user.svg" alt="logout icon" title="Log out">
             <?= "{$_SESSION["user"]["firstName"]} {$_SESSION["user"]["lastName"]}" ?>
         </a>

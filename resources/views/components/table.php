@@ -61,7 +61,7 @@ $description_index = array_search("Description", $table_header); // get the posi
 
                     <?php endfor; ?>
                     <td class="<?= $class ?>">
-                        <?php if ($current_view === "products"): ?>
+                        <?php if (in_array($current_view, ["products", "orders"])): ?>
                             <button class="info-btn" id="info-btn" value="<?= $item['id'] ?>" title="info">
                                 <img src="../../img/info.svg" alt="info icon">
                             </button>

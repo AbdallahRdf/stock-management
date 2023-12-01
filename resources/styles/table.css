@@ -93,35 +93,39 @@ td:not(.last) {
 .delete-btn,
 .modify-btn,
 .info-btn {
-    border: none;
-    padding: 8px 14px;
+    border: 1px solid #b0b0b0;
+    padding: 4px 14px;
     border-radius: 6px;
     color: var(--white);
     cursor: pointer;
     font-size: .9rem;
+    background-color: transparent;
 }
 
-.delete-btn {
+.danger {
     background-color: #ff665b;
+    border-color: #ff665b;
 }
 
-.delete-btn:hover {
+.danger:hover {
     background-color: #f44336;
 }
 
-.modify-btn {
+.success {
     background-color: #22d5a5;
+    border-color: #22d5a5;
 }
 
-.modify-btn:hover {
+.success:hover {
     background-color: #21c095;
 }
 
-.info-btn {
+.info {
     background-color: #1dc5df;
+    border-color: #1dc5df;
 }
 
-.info-btn:hover {
+.info:hover {
     background-color: #17bdd6;
 }
 /* utility classes */
