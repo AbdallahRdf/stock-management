@@ -75,10 +75,12 @@ const handleClick = (e) => {
             isPreviousTdHidden = tableData.style.display === "none";// if the display is none, then make true
             
             const p = tableData.childNodes[1] ?? tableData.childNodes[0];
-            inputsValue.push(p.textContent); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
+            inputsValue.push(p.outerText); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
         }
+        
         inputsValue.pop(); // remove the last item in the array, because it is not a part of the table data, its the last column in the table (the actions column);
-        for(let i = 0; i < inputs.length; i++){
+        
+        for (let i = 0; i < inputs.length; i++){
             if(i===0) // the first input is the hidden input that will hold the id
             {
                 inputs[0].value = updateBtn.value;

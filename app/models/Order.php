@@ -30,32 +30,28 @@ class Order
     ORDER BY orderedProducts.created_at DESC;";
     $params=[':order_id'=> $order_id];
 
-    return (new Database)->query($sql);
+    return (new Database)->query($sql,$params);
     }
     // Retrieves a paginated set of results from the database table.
-    /*public static function paginate($offset = 0, $limit = 10)
+    public static function paginate($offset = 0, $limit = 10)
     {
         $sql = "SELECT 
-            products.id, 
-            products.name, 
-            products.excerpt,
-            products.description, 
-            products.price, 
-            products.stock_quantity, 
-            categories.name as category_name 
-        FROM products JOIN categories 
-        WHERE products.category_id = categories.id 
-        ORDER BY products.created_at DESC
+            orders.id, 
+            orders.date, 
+            clients.full_name as client_name 
+        FROM orders JOIN clients 
+        WHERE orders.client_id = clients.id 
+        ORDER BY orders.created_at DESC
         LIMIT {$limit} OFFSET {$offset};";
 
         return ((new Database)->query($sql));
-    }*/
+    }
 
     // create an order
     public static function create($date, $client_id)
     {
         $sql = "INSERT INTO orders (date, client_id) VALUES (:date, :client_id);";
-
+        
         $params = [
             ":date" => $date,
             ":client_id" => $client_id,

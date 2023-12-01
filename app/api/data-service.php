@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Client;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Order;
 
 header('Content-Type: application/json'); // specify the content-type header of the response;
 
@@ -28,6 +29,7 @@ if (isset($_GET["limit"]) && isset($_GET["offset"]))
         "products" => fn() => Product::paginate($offset, $limit),
         "clients" => fn() => Client::paginate($offset, $limit),
         "suppliers" => fn() => Supplier::paginate($offset, $limit),
+        "orders" => fn() => Order::paginate($offset, $limit),
     ];
 }
 else
@@ -38,6 +40,7 @@ else
         "products" => fn() => count(Product::all()),
         "clients" => fn() => count(Client::all()),
         "suppliers" => fn() => count(Supplier::all()),
+        "orders" => fn() => count(Order::all()),
     ];
 }
 echo json_encode($views_models[$view]());

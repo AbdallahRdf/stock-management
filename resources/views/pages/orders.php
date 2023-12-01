@@ -5,7 +5,7 @@ require_once "../components/session_start.php"; // if not logged in redirect bac
 $items = $_SESSION['orders']; // items to be shown in the table;
 
 // the title of the <th> tags
-$table_header = ["Date", "Client","Actions"];
+$table_header = ["Date", "Client", "Actions"];
 
 $clients = $_SESSION["clients"]; // getting all the categories, they will be shown in the select in the from;
 
@@ -19,7 +19,7 @@ $old_date = $_SESSION["old"]["old_date"] ?? "";
 $old_client = $_SESSION["old"]["old_client"] ?? "";
 
 
-$display_proprety = $_SESSION["errors"] ? "block" : "none"; 
+$display_proprety = $_SESSION["errors"] ? "block" : "none";
 ?>
 
 <!DOCTYPE html>
@@ -32,11 +32,12 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
     <!-- main.php contains the overlay, the sidebar, the alert, the table -->
     <?php require_once "../commun/main.php"; ?>
 
-   <!-- Form to add elements to the table -->
+    <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../controllers/OrderController.php" method="POST">
             <h3>Add New Record</h3>
 
+            <input type="hidden" name="order_id" class="form-input">
             <div class="input-group">
                 <label for="date">Order Date</label>
                 <input class="form-input" id="date" type="date" name="date" value="<?= $old_date ?>">
@@ -50,8 +51,8 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
                 <div class="custom-select">
                     <select name="client_id" class="form-input" id="client">
                         <option selected>...</option>
-                        <?php foreach($clients as $client): ?>
-                            <option value="<?= $client["id"] ?>" <?= (string)$client["id"]===(string)$old_client ? 'selected' : '' ?>><?= $client["full_name"] ?></option>
+                        <?php foreach ($clients as $client) : ?>
+                            <option value="<?= $client["id"] ?>" <?= (string)$client["id"] === (string)$old_client ? 'selected' : '' ?>><?= $client["full_name"] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -69,8 +70,7 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/OrderController.php" method="post" id="delete-form"
-            class="delete-form">
+        <form action="../../../controllers/OrderController.php" method="post" id="delete-form" class="delete-form">
             <p class="delete-message">Are you sure you want to delete this record permanently?</p>
             <input type="hidden" name="order_id" id="id" value="">
             <div>
