@@ -176,3 +176,8 @@ td:not(.last) {
     background-color: #fbfbfb;
     cursor: default;
 }
+
+.table-empty-td {
+    margin: 30px 0;
+    font-size: 1.2rem;
+}
