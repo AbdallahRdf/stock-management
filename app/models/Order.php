@@ -12,7 +12,7 @@ class Order
         $sql = "SELECT 
             orders.id, 
             orders.date, 
-            clients.name as client_name 
+            clients.full_name as client_name 
         FROM orders JOIN clients 
         WHERE orders.client_id = clients.id 
         ORDER BY orders.created_at DESC;";
