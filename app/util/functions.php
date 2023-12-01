@@ -31,3 +31,11 @@ function create_alert_session_variable($variable_name, $message)
     $_SESSION["alert"] = true;
     $_SESSION[$variable_name] = $message;
 }
+
+// return the current view name
+function get_current_view()
+{
+    $array = explode("/", $_SERVER["PHP_SELF"]);
+    $file_name = end($array);
+    return explode(".", $file_name)[0];
+}

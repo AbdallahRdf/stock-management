@@ -1,4 +1,8 @@
 <?php
+
+require_once "../../../app/util/functions.php";
+$current_view = get_current_view();  // getting the name of the current view
+
 $last_element = end($items); // getting the last element in the array;
 
 $description_index = array_search("Description", $table_header); // get the position (index) of the description
@@ -57,8 +61,13 @@ $description_index = array_search("Description", $table_header); // get the posi
 
                     <?php endfor; ?>
                     <td class="<?= $class ?>">
+                        <?php if ($current_view === "products"): ?>
+                            <button class="info-btn" id="info-btn" value="<?= $item['id'] ?>" title="info">
+                                <img src="../../img/info.svg" alt="info icon">
+                            </button>
+                        <?php endif; ?>
                         <button class="modify-btn" id="modify-btn" value="<?= $item['id'] ?>" title="modify">
-                            <img src="../../img/write-svgrepo-com.svg" alt="modify icon">
+                            <img src="../../img/update.svg" alt="modify icon">
                         </button>
                         <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="delete">
                             <img src="../../img/delete.svg" alt="delete icon">

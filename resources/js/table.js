@@ -86,6 +86,8 @@ const createActionButton = (btnClass, btnId, recordId, title, imgURL, imgAlt) =>
     button.setAttribute("id", btnId);
     button.value = recordId;
     button.setAttribute("title", title);
+    button.style.marginRight = "3px";
+    button.style.marginLeft = "3px";
 
     // creating the image that will be in action button;
     const img = document.createElement("img");
@@ -130,7 +132,7 @@ const updateTable = (data) => {
         }
         const td = document.createElement("td");
 
-        const updateButton = createActionButton("modify-btn", "modify-btn", id, "modify", "../../img/write-svgrepo-com.svg", "modify icon");
+        const updateButton = createActionButton("modify-btn", "modify-btn", id, "modify", "../../img/update.svg", "modify icon");
 
         const deleteButton = createActionButton("delete-btn", "delete-btn", id, "delete", "../../img/delete.svg", "delete icon");
 
