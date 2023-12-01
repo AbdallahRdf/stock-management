@@ -53,8 +53,8 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
             <div class="input-group">
                 <label for="client">Select the client who placed the order.</label>
                 <div class="custom-select">
-                    <select name="client_id" class="form-input" id="client">
-                        <option selected>...</option>
+                    <select name="client_id" class="form-input" id="client" required>
+                        <option value="" disabled selected>--Select an option--</option>
                         <?php foreach ($clients as $client) : ?>
                             <option value="<?= $client["id"] ?>" <?= (string)$client["id"] === (string)$old_client ? 'selected' : '' ?>><?= $client["full_name"] ?></option>
                         <?php endforeach; ?>

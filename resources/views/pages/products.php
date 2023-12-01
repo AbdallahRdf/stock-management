@@ -82,7 +82,8 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
             <div class="input-group">
                 <label for="category">Select the product category</label>
                 <div class="custom-select">
-                    <select name="category" class="form-input" id="category">
+                    <select name="category" class="form-input" id="category" required>
+                        <option value="" disabled selected>--Select an option--</option>
                         <?php foreach($categories as $category): ?>
                             <option value="<?= $category["id"] ?>" <?= (string)$category["id"]===(string)$old_category ? 'selected' : '' ?>><?= $category["name"] ?></option>
                         <?php endforeach; ?>
