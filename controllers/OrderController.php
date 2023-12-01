@@ -14,17 +14,43 @@ session_start();
 function goback()
 {
     //* redirect to categories page;
-    header("Location: ../resources/views/pages/products.php");
+    header("Location: ../resources/views/pages/orders.php");
     die();
 }
 
+// this function checks if the inputs are valid if not then send back an error message
+function handle_inputs_validation($date, $client)
+{
+    $ERRORS = []; // will hold error messages
+    $OLD = []; // will hold old inputs data when there is an error;
+
+    // Date validation
+    if (!strtotime($date)) {
+        $ERRORS["date_error"] = "Invalid Date";
+    }
+    if (!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $client)) {
+        $ERRORS["client_error"] = "Invalid Client";
+    }
+
+    if (!empty($ERRORS)) // if there is errors
+    {
+        $OLD["old_date"] = $date;
+        $OLD["old_client"] = $client;
+
+        // send back the error messages and the old input
+        $_SESSION["errors"] = $ERRORS;
+        $_SESSION["old"] = $OLD;
+
+        goback();
+    }
+}
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
     if($_POST["order_id"] == "") // create an order:
     {
         $date = $_POST["date"];
         $client = $_POST["client_id"];
-             
+        handle_inputs_validation($date,$client);
         Order::create($date,$client);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     }
@@ -49,4 +75,5 @@ $_SESSION["clients"] = Client::all(); // get all the client;
 $_SESSION["orders"] = Order::all(); // get all the client;
 
 
+//* redirect to clients page;
 goback();

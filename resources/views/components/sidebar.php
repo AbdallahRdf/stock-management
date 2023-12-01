@@ -28,7 +28,8 @@ $current_page = end(explode("/", $_SERVER["PHP_SELF"]));  // getting the name of
             <img src="../../img/client.svg" alt="client icon" title="Clients">
             Clients
         </a>
-        <a href="#" class="select-btn icon-btn toggled <?= $current_page === "" ? 'selected' : '' ?>">
+        <a href="../../../controllers/OrderController.php" 
+            class="select-btn icon-btn toggled <?= $current_page === "orders.php" ? 'selected' : '' ?>">
             <img src="../../img/order.svg" alt="client icon" title="Orders">
             Orders
         </a>
