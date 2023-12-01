@@ -88,7 +88,7 @@ const createActionButton = (btnClass, btnId, recordId, title, imgURL, imgAlt) =>
     button.setAttribute("title", title);
     button.style.marginRight = "3px";
     button.style.marginLeft = "3px";
-
+    
     // creating the image that will be in action button;
     const img = document.createElement("img");
     img.src = imgURL;
@@ -100,15 +100,29 @@ const createActionButton = (btnClass, btnId, recordId, title, imgURL, imgAlt) =>
 }
 
 // when hover over a table row, we add some style to its action buttons;
-const handleRowHover = (e) => {
+const handleMouseEnter = (e) => {
     const actionsBtnTd = e.target.children[e.target.children.length-1];
     for(btn of actionsBtnTd.children)
     {
         switch(btn.id)
         {
-            case "delete-btn": btn.classList.toggle("danger"); break;
-            case "modify-btn": btn.classList.toggle("success"); break;
-            case "info-btn": btn.classList.toggle("info"); break;
+            case "delete-btn": btn.classList.add("danger"); break;
+            case "modify-btn": btn.classList.add("success"); break;
+            case "info-btn": btn.classList.add("info"); break;
+        }
+    }
+}
+
+// when hover over a table row, we add some style to its action buttons;
+const handleMouseLeave = (e) => {
+    const actionsBtnTd = e.target.children[e.target.children.length-1];
+    for(btn of actionsBtnTd.children)
+    {
+        switch(btn.id)
+        {
+            case "delete-btn": btn.classList.remove("danger"); break;
+            case "modify-btn": btn.classList.remove("success"); break;
+            case "info-btn": btn.classList.remove("info"); break;
         }
     }
 }
@@ -119,8 +133,8 @@ const rowEventListener = () => {
 
     for(tr of tableRows) // adding event listener to table rows;
     {
-        tr.addEventListener("mouseleave", (e) => handleRowHover(e));
-        tr.addEventListener("mouseenter", e => handleRowHover(e));
+        tr.addEventListener("mouseleave", (e) => handleMouseLeave(e));
+        tr.addEventListener("mouseenter", e => handleMouseEnter(e));
     }
 }
 
