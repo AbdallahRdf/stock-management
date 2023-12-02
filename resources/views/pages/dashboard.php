@@ -70,8 +70,13 @@ $cards_data = [
             </div>
 
             <!-- orders chart -->
-            <div>
-                <canvas id="orders-chart"></canvas>
+            <div class="orders-chart">
+                <div class="orders-chart-title">
+                    Orders Overview
+                </div>
+                <div class="chart">
+                    <canvas id="orders-chart"></canvas>
+                </div>
             </div>
         </div>
     </div>
