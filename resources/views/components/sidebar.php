@@ -9,7 +9,7 @@ $current_page = get_current_view();  // getting the name of the current view
     </button>
     <img class="logo toggled" src="../../img/logo.svg" alt="">
     <div class="select-btns">
-        <a href="./dashboard.php"
+        <a href="../../../controllers/DashboardController.php"
             class="select-btn icon-btn toggled <?= $current_page === "dashboard" ? 'selected' : '' ?>">
             <img src="../../img/home.svg" alt="dashboard icon" title="Dashboard">
             Dashboard
