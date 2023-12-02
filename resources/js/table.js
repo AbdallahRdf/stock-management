@@ -187,7 +187,7 @@ const updateTable = (data) => {
         {
             const infoLink = document.createElement("a");
 
-            const controller = "products";
+            const controller = "ProductController";
 
             if (viewName === "orders") {
                 controller = "OrderController";
