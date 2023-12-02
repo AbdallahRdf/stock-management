@@ -3,6 +3,18 @@
 require_once "../../../app/util/functions.php";
 $current_view = get_current_view();  // getting the name of the current view
 
+$controller = null;
+
+if($current_view === "products"){
+    $controller = "ProductController";
+}
+else if($current_view === "orders"){
+    $controller = "OrderController";
+}
+else {
+    $controller = "OrderedProdsController";
+}
+
 $last_element = end($items); // getting the last element in the array;
 
 $description_index = array_search("Description", $table_header); // get the position (index) of the description
@@ -65,14 +77,17 @@ $description_index = array_search("Description", $table_header); // get the posi
 
                         <?php endfor; ?>
                         <td class="<?= $class ?>">
-                            <?php if (in_array($current_view, ["products", "orders"])): ?>
-                                <button class="info-btn" id="info-btn" value="<?= $item['id'] ?>" title="info">
+                            <!-- info button -->
+                            <?php if (in_array($current_view, ["products", "orders", "orderedProducts"])): ?>
+                                <a href="../../../controllers/<?= $controller ?>.php?info=<?= $item['id'] ?>" class="info-btn" id="info-btn" title="info">
                                     <img src="../../img/info.svg" alt="info icon">
-                                </button>
+                                </a>
                             <?php endif; ?>
+                            <!-- update button -->
                             <button class="modify-btn" id="modify-btn" value="<?= $item['id'] ?>" title="modify">
                                 <img src="../../img/update.svg" alt="modify icon">
                             </button>
+                            <!-- delete button -->
                             <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="delete">
                                 <img src="../../img/delete.svg" alt="delete icon">
                             </button>

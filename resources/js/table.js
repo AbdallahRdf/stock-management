@@ -181,10 +181,31 @@ const updateTable = (data) => {
 
         const deleteButton = createActionButton("delete-btn", "delete-btn", id, "delete", "../../img/delete.svg", "delete icon");
 
-         if(["products", "orders"].indexOf(getViewName()) !== -1)
+        const viewName = getViewName();
+
+        if(["products", "orders", "orderedProducts"].indexOf(viewName) !== -1)
         {
-            const infoButton = createActionButton("info-btn", "info-btn", id, "info", "../../img/info.svg", "info icon");
-            td.appendChild(infoButton);
+            const infoLink = document.createElement("a");
+
+            const controller = "products";
+
+            if (viewName === "orders") {
+                controller = "OrderController";
+            } else if (viewName === "orderedProducts") {
+                controller = "OrderedProdsController";
+            }
+            infoLink.href = `../../../controllers/${controller}.php?info=${id}`;
+            infoLink.classList.add("info-btn");
+            infoLink.setAttribute("id", "info-btn");
+            infoLink.title = "info";
+
+            // creating the image that will be in action button;
+            const img = document.createElement("img");
+            img.src = "../../img/info.svg";
+            img.alt = "info icon";
+
+            infoLink.appendChild(img);
+            td.appendChild(infoLink);
         }
 
         td.appendChild(updateButton);
