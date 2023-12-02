@@ -187,13 +187,8 @@ const updateTable = (data) => {
         {
             const infoLink = document.createElement("a");
 
-            const controller = "ProductController";
+            const controller = (viewName === "orders") ? "OrderedProdsController" : "ProductController";
 
-            if (viewName === "orders") {
-                controller = "OrderController";
-            } else if (viewName === "orderedProducts") {
-                controller = "OrderedProdsController";
-            }
             infoLink.href = `../../../controllers/${controller}.php?info=${id}`;
             infoLink.classList.add("info-btn");
             infoLink.setAttribute("id", "info-btn");
