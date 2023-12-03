@@ -4,21 +4,20 @@ require_once "../app/util/functions.php";
 //* requiring the autoloader
 require_once "../app/autoloader/autoloader.php";
 
-use App\Models\Client;
-use App\Models\Order;
+use App\Models\Supplier;
+use App\Models\SupplierOrder;
 
 session_start();
-
 // this function redirects back to products page
 function goback()
 {
     //* redirect to categories page;
-    header("Location: ../resources/views/pages/orders.php");
+    header("Location: ../resources/views/pages/supplierOrders.php");
     die();
 }
 
 // this function checks if the inputs are valid if not then send back an error message
-function handle_inputs_validation($date, $client)
+function handle_inputs_validation($date, $supplier)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -33,7 +32,7 @@ function handle_inputs_validation($date, $client)
     if (!empty($ERRORS)) // if there is errors
     {
         $OLD["old_date"] = $date;
-        $OLD["old_client"] = $client;
+        $OLD["old_supplier"] = $supplier;
 
         // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
@@ -43,30 +42,30 @@ function handle_inputs_validation($date, $client)
     }
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if ($_POST["order_id"] == "") // create an order:
+    if ($_POST["supplierOrder_id"] == "") // create an order:
     {
         $date = $_POST["date"];
-        $client = $_POST["client_id"];
-        handle_inputs_validation($date, $client);
-        Order::create($date, $client);
+        $supplier = $_POST["supplier_id"];
+        handle_inputs_validation($date, $supplier);
+        SupplierOrder::create($date, $supplier);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } else if (!isset($_POST["date"]) && $_POST["order_id"] != "") // delete an order:
+    } else if (!isset($_POST["date"]) && $_POST["supplierOrder_id"] != "") // delete an SupplierOrder:
     {
-        $result = Order::delete($_POST["order_id"]);
+        $result = SupplierOrder::delete($_POST["supplierOrder_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } else if (isset($_POST["date"]) && $_POST["order_id"] != "") // updating an order
+    } else if (isset($_POST["date"]) && $_POST["supplierOrder_id"] != "") // updating an order
     {
-        $id = $_POST["order_id"];
+        $id = $_POST["supplierOrder_id"];
         $date = $_POST["date"];
-        $client_id = $_POST["client_id"];
+        $supplier_id = $_POST["supplier_id"];
 
-        Order::update($id, $date, $client_id);
+        SupplierOrder::update($id, $date, $supplier_id);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
 
-$_SESSION["clients"] = Client::all(); // get all the client;
-$_SESSION["orders"] = Order::paginate(); // get all the client;
+$_SESSION["suppliers"] = Supplier::all(); // get all the suppliers;
+$_SESSION["supplierOrders"] = SupplierOrder::paginate(); // get all the supplier orders;
 
 
 //* redirect to clients page;

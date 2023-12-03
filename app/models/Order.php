@@ -19,8 +19,9 @@ class Order
 
         return (new Database)->query($sql);
     }
-    
-    public static function orderedProducts($order_id){
+
+    public static function orderedProducts($order_id)
+    {
         $sql = "SELECT 
         orderedProducts.id, 
         orderedProducts.quantity, 
@@ -28,9 +29,9 @@ class Order
     FROM orderedProducts JOIN products 
     WHERE orderedProducts.product_id = products.id and orderedProducts.order_id=:order_id
     ORDER BY orderedProducts.created_at DESC;";
-    $params=[':order_id'=> $order_id];
+        $params = [':order_id' => $order_id];
 
-    return (new Database)->query($sql,$params);
+        return (new Database)->query($sql, $params);
     }
 
     // Retrieves a paginated set of results from the database table.
