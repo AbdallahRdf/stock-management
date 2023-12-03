@@ -19,18 +19,19 @@ class Order
 
         return (new Database)->query($sql);
     }
-    
-    public static function orderedProducts($order_id){
+
+    public static function orderedProducts($order_id)
+    {
         $sql = "SELECT 
-        orderedProducts.id, 
-        orderedProducts.quantity, 
-        products.name as product_name 
+        orderedProducts.id,
+        products.name as product_name,
+        orderedProducts.quantity
     FROM orderedProducts JOIN products 
     WHERE orderedProducts.product_id = products.id and orderedProducts.order_id=:order_id
     ORDER BY orderedProducts.created_at DESC;";
-    $params=[':order_id'=> $order_id];
+        $params = [':order_id' => $order_id];
 
-    return (new Database)->query($sql,$params);
+        return (new Database)->query($sql, $params);
     }
     // Retrieves a paginated set of results from the database table.
     public static function paginate($offset = 0, $limit = 10)
@@ -51,18 +52,18 @@ class Order
     public static function create($date, $client_id)
     {
         $sql = "INSERT INTO orders (date, client_id) VALUES (:date, :client_id);";
-        
+
         $params = [
             ":date" => $date,
             ":client_id" => $client_id,
         ];
         return (new Database)->query($sql, $params);
-        
     }
-    
+
     // gets the last inserted item
-    public static function getLast(){
-        $sql="SELECT MAX(id) FROM orders";
+    public static function getLast()
+    {
+        $sql = "SELECT MAX(id) FROM orders";
         //$sql="SELECT * FROM orders ORDER BY DESC LIMIT 1";
         return (new Database)->query($sql);
     }
@@ -88,34 +89,36 @@ class Order
             ":id" => $id
         ];
         return (new Database)->query($sql, $params);
-       
     }
 
     ////////////////////////////////////////:
     /////////////////////////////////////////
 
     //create an ordered product
-    public static function createOrderedProduct($product_id,$quantity,$order_id){
-        $sql1="INSERT INTO orderedProducts (order_id,product_id,quantity) values (:order_id, :product_id, :quantity);";
-            $params1 = [
-                ":order_id" => $order_id,
-                ":product_id" => $product_id,
-                ":quantity" => $quantity,
-            ];
-        
-        return (new Database)->query($sql1, $params1);  
+    public static function createOrderedProduct($product_id, $quantity, $order_id)
+    {
+        $sql1 = "INSERT INTO orderedProducts (order_id,product_id,quantity) values (:order_id, :product_id, :quantity);";
+        $params1 = [
+            ":order_id" => $order_id,
+            ":product_id" => $product_id,
+            ":quantity" => $quantity,
+        ];
+
+        return (new Database)->query($sql1, $params1);
     }
 
     // delete an ordered product
-    public static function deleteOrderedProduct($id){
-        $sql= "DELETE FROM orderedProducts WHERE id=:id";
-        $params=[":id"=>$id];
-        return (new Database)->query($sql,$params);
+    public static function deleteOrderedProduct($id)
+    {
+        $sql = "DELETE FROM orderedProducts WHERE id=:id";
+        $params = [":id" => $id];
+        return (new Database)->query($sql, $params);
     }
 
-    
+
     // update an ordered product
-    public static function updateOrderedProduct($id ,$product_id, $quantity){
+    public static function updateOrderedProduct($id, $product_id, $quantity)
+    {
         $sql = "UPDATE orderedProducts SET product_id=:product_id, quantity=:quantity  WHERE id=:id";
 
         $params = [
@@ -126,5 +129,3 @@ class Order
         return (new Database)->query($sql, $params);
     }
 }
-
-?>

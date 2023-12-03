@@ -53,9 +53,8 @@ function handle_inputs_validation($name, $description, $price, $quantity, $categ
     }
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    if($_POST["product_id"] == "") // create a product:
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_POST["product_id"] == "") // create a product:
     {
         $name = trim($_POST["name"]);
         $description = trim($_POST["description"]);
@@ -64,19 +63,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $category = $_POST["category"];
 
         handle_inputs_validation($name, $description, $price, $quantity, $category);
-        
+
         // creating an excerpt of the description to show it in the table;
-        $excerpt = substr($description, 0, 14)."...";
+        $excerpt = substr($description, 0, 14) . "...";
 
         Product::create($name, $excerpt, $description, $price, $quantity, $category);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    }
-    else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
+    } else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
     {
         $result = Product::delete($_POST["product_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    }
-    else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
+    } else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
     {
         $product_id = $_POST["product_id"];
         $name = trim($_POST["name"]);
@@ -88,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         handle_inputs_validation($name, $description, $price, $quantity, $category);
 
         // creating an excerpt of the description to show it in the table;
-        $excerpt = substr($description, 0, 14)."...";
+        $excerpt = substr($description, 0, 14) . "...";
 
         Product::update($product_id, $name, $excerpt, $description, $price, $quantity, $category);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");

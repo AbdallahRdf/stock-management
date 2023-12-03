@@ -8,7 +8,6 @@ $items = $_SESSION['orders']; // items to be shown in the table;
 $table_header = ["Date", "Client", "Actions"];
 
 $clients = $_SESSION["clients"]; // getting all the clients, they will be shown in the select in the from;
-
 // error messages for the form;
 $date_error_message = $_SESSION["errors"]["date_error"] ?? "";
 

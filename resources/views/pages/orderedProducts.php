@@ -3,21 +3,16 @@ require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["orderId"])) {
-        $_SESSION['orderId'] = $_POST['orderId'];
-    }
-}
-$items = $_SESSION['orderedProducts']; // items to be shown in the table;
+
+$items = $_SESSION["orderedProducts"]; // items to be shown in the table;
 
 // the title of the <th> tags
 $table_header = ["Product", "Quantity", "Actions"];
 
-$clients = $_SESSION["products"]; // getting all the categories, they will be shown in the select in the from;
-
+$products = $_SESSION["products"]; // getting all the categories, they will be shown in the select in the from;
 // error messages for the form;
 $quantity_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
-
+$orderId = $_SESSION["orderId"];
 
 // old input values
 $old_quantity = $_SESSION["old"]["old_quantity"] ?? "";
@@ -43,8 +38,8 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
             <h3>Add New Record</h3>
 
             <input type="hidden" name="ordered_p_id" class="form-input">
-            <input type="hidden" name="orderId" class="form-input" value="<?= $_SESSION['orderId'] ?>">
 
+            <!--<input type="hidden" name="orderId" class="form-input" value="</*?= $orderId ?>">-->
             <div class="input-group">
                 <label for="product">Select the Ordered Product</label>
                 <div class="custom-select">

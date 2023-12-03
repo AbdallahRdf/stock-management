@@ -15,7 +15,7 @@ session_start();
 function goback()
 {
     //* redirect to categories page;
-    header("Location: ../../../resources/views/pages/");
+    header("Location: ../resources/views/pages/orderedProducts.php");
     die();
 }
 
@@ -43,18 +43,21 @@ function handle_inputs_validation($product, $quantity)
         goback();
     }
 }
-
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $_SESSION["orderId"] = $_GET['info'];
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($_POST["ordered_p_id"] == "") { //create an ordered product
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
-        $order_id = $_POST["orderId"];
+        //$order_id = $_POST["orderId"];
+        $order_id = $_SESSION["orderId"];
+        //dd(['quantity' => $quantity, 'ordered_id' => $order_id, "product_id" => $product]);
 
         handle_inputs_validation($product, $quantity);
 
         Order::createOrderedProduct($product, $quantity, $order_id);
-
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
 
 
@@ -67,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ordered_p_id = $_POST["ordered_p_id"];
         $product_id = $_POST["product_id"];
         $quantity = $_POST["quantity"];
+        //dd(['quantity' => $quantity, 'ordered_p_id' => $order_p_id, "product_id" => $product]);
 
         handle_inputs_validation($product_id, $quantity);
 
@@ -76,7 +80,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $_SESSION["products"] = Product::all(); // get all the products
-$_SESSION["orderedProducts"] = Order::orderedProducts($_SESSION["orderId"]); // get all the client;
-
-
+$_SESSION["orderedProducts"] = Order::orderedProducts($_SESSION["orderId"]); // gets all the ordered ;
 goback();

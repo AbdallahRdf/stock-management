@@ -76,15 +76,15 @@ CREATE TABLE `orders` (
 );
 
 -- create the ordered products table
+
 CREATE TABLE `orderedProducts` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_order_id`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `orders` (`id`)
-    ON DELETE CASCADE
+  KEY `fk_order_id` (`order_id`),
+  CONSTRAINT `fk_order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
 );
 
