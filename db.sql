@@ -72,19 +72,43 @@ CREATE TABLE `orders` (
   `date` date NOT NULL,
   `client_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`)
 );
 
 -- create the ordered products table
+
 CREATE TABLE `orderedProducts` (
-  `id` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_order_id`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `orders` (`id`)
-    ON DELETE CASCADE
+  CONSTRAINT `fk_order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 );
 
+-- create the supplier orders table
+
+CREATE TABLE `supplierOrders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_supplier_id` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
+);
+
+-- create the supplier ordered products table
+
+CREATE TABLE `supplierOrderedProducts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplierOrder_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_sup_order_id` FOREIGN KEY (`supplierOrder_id`) REFERENCES `supplierOrders` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fkk_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+);

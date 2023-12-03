@@ -2,21 +2,21 @@
 require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
-$items = $_SESSION['orders']; // items to be shown in the table;
+
+
+$items = $_SESSION["orderedProducts"]; // items to be shown in the table;
 
 // the title of the <th> tags
 $table_header = ["Product", "Quantity", "Actions"];
 
-$clients = $_SESSION["clients"]; // getting all the categories, they will be shown in the select in the from;
-
+$products = $_SESSION["products"]; // getting all the categories, they will be shown in the select in the from;
 // error messages for the form;
-$client_error_message = $_SESSION["errors"]["client_error"] ?? "";
-$date_error_message = $_SESSION["errors"]["date_error"] ?? "";
-
+$quantity_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
+$orderId = $_SESSION["orderId"];
 
 // old input values
-$old_date = $_SESSION["old"]["old_date"] ?? "";
-$old_client = $_SESSION["old"]["old_client"] ?? "";
+$old_quantity = $_SESSION["old"]["old_quantity"] ?? "";
+$old_product = $_SESSION["old"]["old_product"] ?? "";
 
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none";
@@ -34,30 +34,29 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
 
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
-        <form id="form" class="form" action="../../../controllers/OrderController.php" method="POST">
+        <form id="form" class="form" action="../../../controllers/OrderedProdsController.php" method="POST">
             <h3>Add New Record</h3>
 
-            <input type="hidden" name="order_id" class="form-input">
-            <div class="input-group">
-                <label for="date">Order Date</label>
-                <input class="form-input" id="date" type="date" name="date" value="<?= $old_date ?>">
-                <small>
-                    <?= $date_error_message ?>
-                </small>
-            </div>
+            <input type="hidden" name="ordered_p_id" class="form-input">
 
+            <!--<input type="hidden" name="orderId" class="form-input" value="</*?= $orderId ?>">-->
             <div class="input-group">
-                <label for="client">Select the order client</label>
+                <label for="product">Select the Ordered Product</label>
                 <div class="custom-select">
-                    <select name="client_id" class="form-input" id="client">
-                        <option selected>...</option>
-                        <?php foreach ($clients as $client) : ?>
-                            <option value="<?= $client["id"] ?>" <?= (string)$client["id"] === (string)$old_client ? 'selected' : '' ?>><?= $client["full_name"] ?></option>
+                    <select name="product_id" class="form-input" id="product" required>
+                        <option value="" disabled selected>--Select an option--</option>
+                        <?php foreach ($products as $product) : ?>
+                            <option value="<?= $product["id"] ?>" <?= (string)$product["id"] === (string)$old_product ? 'selected' : '' ?>><?= $product["name"] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
+
+            </div>
+            <div class="input-group">
+                <label for="quantity">Product Quantity</label>
+                <input class="form-input" id="quantity" type="quantity" name="quantity" value="<?= $old_quantity ?>">
                 <small>
-                    <?= $client_error_message ?>
+                    <?= $quantity_error_message ?>
                 </small>
             </div>
 
@@ -70,9 +69,9 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/OrderController.php" method="post" id="delete-form" class="delete-form">
+        <form action="../../../controllers/OrderedProdsController.php" method="post" id="delete-form" class="delete-form">
             <p class="delete-message">Are you sure you want to delete this record permanently?</p>
-            <input type="hidden" name="order_id" id="id" value="">
+            <input type="hidden" name="ordered_p_id" id="id" value="">
             <div>
                 <button type="button" id="delete-cancel" class="delete-cancel">Cancel</button>
                 <button type="submit" class="delete-delete">Delete</button>

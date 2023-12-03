@@ -33,8 +33,7 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
             <h3>Add New Record</h3>
             <div class="input-group">
                 <input type="hidden" name="category_id" class="form-input">
-                <input class="form-input" type="text" name="name" placeholder="Category Name"
-                    value="<?= $old_input_value ?>">
+                <input class="form-input" type="text" name="name" placeholder="Category Name" value="<?= $old_input_value ?>">
                 <small>
                     <?= $error_message ?>
                 </small>
