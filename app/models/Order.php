@@ -20,18 +20,20 @@ class Order
         return (new Database)->query($sql);
     }
     
+    // get the ordered products
     public static function orderedProducts($order_id){
         $sql = "SELECT 
-        orderedProducts.id, 
-        orderedProducts.quantity, 
-        products.name as product_name 
-    FROM orderedProducts JOIN products 
-    WHERE orderedProducts.product_id = products.id and orderedProducts.order_id=:order_id
-    ORDER BY orderedProducts.created_at DESC;";
-    $params=[':order_id'=> $order_id];
+            orderedProducts.id, 
+            orderedProducts.quantity, 
+            products.name as product_name 
+        FROM orderedProducts JOIN products 
+        WHERE orderedProducts.product_id = products.id and orderedProducts.order_id=:order_id
+        ORDER BY orderedProducts.created_at DESC;";
+        $params=[':order_id'=> $order_id];
 
-    return (new Database)->query($sql,$params);
+        return (new Database)->query($sql,$params);
     }
+
     // Retrieves a paginated set of results from the database table.
     public static function paginate($offset = 0, $limit = 10)
     {
@@ -42,9 +44,19 @@ class Order
         FROM orders JOIN clients 
         WHERE orders.client_id = clients.id 
         ORDER BY orders.created_at DESC
-        LIMIT {$limit} OFFSET {$offset};";
+        LIMIT $limit OFFSET $offset;";
 
-        return ((new Database)->query($sql));
+        return (new Database)->query($sql);
+    }
+
+    // get the quantity of orders in each month
+    public static function allGroupByMonth($year)
+    {
+        $sql = "select month(date), count(id) from orders where year(date) = :year group by month(date) order by month(date) asc;";
+
+        $params = [":year" => $year];
+
+        return (new Database)->query($sql, $params);
     }
 
     // create an order

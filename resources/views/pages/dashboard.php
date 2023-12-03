@@ -42,6 +42,7 @@ $cards_data = [
     <link rel="stylesheet" href="../../styles/overlay.css">
     <link rel="stylesheet" href="../../styles/dropdown.css">
     <link rel="stylesheet" href="../../styles/dashboard.css">
+    <script src="../../js/dashboard.js"></script>
 </head>
 
 <body>
@@ -56,11 +57,15 @@ $cards_data = [
 
             <!-- cards -->
             <div class="cards">
-                <?php foreach($cards_data as $card): ?>
+                <?php foreach ($cards_data as $card): ?>
                     <div class="card" style="border-left-color: <?= $card["color"] ?>">
                         <div class="card-text">
-                            <p style="color: <?= $card["color"] ?>"><?= $card["card_title"] ?></p>
-                            <h3><?= $card["card_count"] ?></h3>
+                            <p style="color: <?= $card["color"] ?>">
+                                <?= $card["card_title"] ?>
+                            </p>
+                            <h3>
+                                <?= $card["card_count"] ?>
+                            </h3>
                         </div>
                         <div>
                             <img src="../../img/<?= $card["card_icon"] ?>" alt="client icon">
