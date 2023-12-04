@@ -42,11 +42,26 @@ h2 {
     margin-left: 3%;
 }
 
+.orders-chart-header {
+    border-bottom: 1px solid rgb(225, 225, 225);
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .orders-chart-title {
     color: rgb(100, 100, 100);
-    border-bottom: 1px solid rgb(225, 225, 225);
-    padding: 14px;
     font-size: 0.8rem;
+}
+
+.orders-chart-year select {
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 2px 8px;
+    border: 1px solid rgb(172, 172, 172);
+    color: rgb(100, 100, 100);
 }
 
 .chart {

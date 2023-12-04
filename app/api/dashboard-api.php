@@ -20,16 +20,36 @@ $year = $_GET["year"];
 // if there is a month missing in the data array, we put instead a zero value;
 function formatData($data)
 {
-    $formattedData = [];
+    if(!empty($data))
+    {
+        $formattedData = []; // will hold number of repetion of each month;
 
-    for ($i = 0; $i < 12; $i++) {
-        if ($data[$i]["month(date)"] == $i + 1) {
-            array_push($formattedData, $data[$i]["count(id)"]);
-        } else {
-            array_push($formattedData, 0);
+        $i = 0; // index of iteration;
+        $month = 1; // number of month;
+        while (count($formattedData) < 12) // if array contains less that 12 elements (months count);
+        {
+            if(isset($data[$i]))
+            {
+                if ($data[$i]["month(date)"] == $month) // if the current element equals the current month
+                {
+                    array_push($formattedData, $data[$i]["count(id)"]); // then push it
+                    $i++; // increment the $i
+                } 
+                else {
+                    array_push($formattedData, 0); // if the current month is not in the array, then put 0 as its count
+                }
+                $month++; // increment the month
+            } else {
+                array_push($formattedData, 0);
+                $i++;
+            }
         }
+        return $formattedData;
     }
-    return $formattedData;
+    else
+    {
+        return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    }
 }
 
 $models = [

@@ -16,8 +16,8 @@ const fetchData = async (URL) => {
 };
 
 // get the orders count and supplier orders count through an api request then update the chart
-const getOrdersCount = async () => {
-  const URL = APIEndpoint + `?model=ordersChart&year=${new Date().getFullYear()}`;
+const getOrdersCount = async (year) => {
+  const URL = APIEndpoint + `?model=ordersChart&year=${year}`;
 
   const data = await fetchData(URL); // fetching data;
 
@@ -33,7 +33,7 @@ const getOrdersCount = async () => {
   ordersChart.update(); // update the chart;
 };
 
-
+// data object
 const data = {
   labels: [
     "Jan",
@@ -68,7 +68,7 @@ const data = {
     },
   ],
 };
-
+// config object
 const config = {
   type: "line",
   data,
@@ -83,8 +83,9 @@ const config = {
     },
   },
 };
-
+// create and render the chart
 const ordersChart = new Chart(document.getElementById("orders-chart"), config);
-
-getOrdersCount();
-getSupplierOrdersCount();
+// update the chart;
+getOrdersCount((new Date()).getFullYear());
+// add eent listener to the select year;
+document.getElementById("year-select").addEventListener("change", e => getOrdersCount(e.target.value));

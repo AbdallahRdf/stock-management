@@ -59,6 +59,12 @@ class Order
         return (new Database)->query($sql, $params);
     }
 
+    // returns an array containing all the years of supplier orders
+    public static function getAllYears()
+    {
+        return (new Database)->query("select distinct(year(date)) from orders order by year(date) desc");
+    }
+
     // create an order
     public static function create($date, $client_id)
     {

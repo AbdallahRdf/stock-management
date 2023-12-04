@@ -20,7 +20,6 @@ class SupplierOrder
         return (new Database)->query($sql);
     }
 
-<<<<<<< HEAD
     // get the quantity of orders in each month
     public static function allGroupByMonth($year)
     {
@@ -31,10 +30,13 @@ class SupplierOrder
         return (new Database)->query($sql, $params);
     }
 
-    public static function SupplierOrderedProducts($SupplierOrder_id)
-=======
+    // returns an array containing all the years of supplier orders
+    public static function getAllYears()
+    {
+        return (new Database)->query("select distinct(year(date)) from supplierOrders order by year(date) desc");
+    }
+
     public static function supplierOrderedProducts($SupplierOrder_id)
->>>>>>> 9ada7cb158cc14e4f75d7c8d2c6d2bda5bd216ba
     {
         $sql = "SELECT 
         supplierOrderedProducts.id, 

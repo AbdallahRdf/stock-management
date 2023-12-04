@@ -76,8 +76,17 @@ $cards_data = [
 
             <!-- orders chart -->
             <div class="orders-chart">
-                <div class="orders-chart-title">
-                    Orders Overview
+                <div class="orders-chart-header">
+                    <div class="orders-chart-title">
+                        Orders Overview
+                    </div>
+                    <div class="orders-chart-year">
+                        <select name="year" id="year-select">
+                            <?php foreach($_SESSION["years_arrray"] as $year): ?>
+                                <option value="<?= $year ?>"><?= $year ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="chart">
                     <canvas id="orders-chart"></canvas>
