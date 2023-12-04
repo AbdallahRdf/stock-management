@@ -1,13 +1,5 @@
 const APIEndpoint = "http://localhost/stock-management/app/api/dashboard-api.php";
 
-// returns the view name (for example: categories, products ...);
-const getViewName = () => {
-  const arr = document.URL.split("/"); // split the url
-  const fileName = arr[arr.length - 1]; // get the last element, which is the "file.php"
-  const viewName = fileName.split(".")[0]; // get the file/view name whithout the extension ".php";
-  return viewName;
-};
-
 // fetches data;
 const fetchData = async (URL) => {
   try {
@@ -23,29 +15,24 @@ const fetchData = async (URL) => {
   }
 };
 
-// if there is a month missing in the data array, we put instead a zero value;
-const formatDataset = (data) => {
-  const formatedData = [];
-
-  for (let i = 0; i < 12; i++) {
-    if (data[i]["month(date)"] == i + 1) {
-      formatedData.push(data[i]["count(id)"]);
-    } else {
-      formatedData.push(0);
-    }
-  }
-  return formatedData;
-};
-
-// get the orders count through an api request then update the chart
+// get the orders count and supplier orders count through an api request then update the chart
 const getOrdersCount = async () => {
-  const URL = APIEndpoint + `?viewName=orders&year=${new Date().getFullYear()}`;
+  const URL = APIEndpoint + `?model=ordersChart&year=${new Date().getFullYear()}`;
 
-  const data = await fetchData(URL);
+  const data = await fetchData(URL); // fetching data;
 
-  ordersChart.config.data.datasets[0].data = formatDataset(data);
-  ordersChart.update();
+  let max = 0; // will hold the maximum value of Y axis;
+
+  for(let i = 0; i < data.length; i++)
+  {
+    ordersChart.config.data.datasets[i].data = data[i]; // update data in chart
+
+    max = Math.max(...data[i]) > max ? Math.max(...data[i]) : max;
+  }
+  ordersChart.config.options.scales.y.suggestedMax = max + 2; // updated the max value of y axis;
+  ordersChart.update(); // update the chart;
 };
+
 
 const data = {
   labels: [
@@ -73,7 +60,7 @@ const data = {
     },
     {
       label: "Supplier Orders",
-      data: [1, 9, 13, 10, 2, 3, 12, 19, 3, 5, 2, 3],
+      data: [],
       borderWidth: 1,
       borderColor: "rgb(255, 99, 132)",
       tension: 0.4,
@@ -91,7 +78,7 @@ const config = {
     scales: {
       y: {
         beginAtZero: true,
-        suggestedMax: 30,
+        suggestedMax: 10,
       },
     },
   },
@@ -100,3 +87,4 @@ const config = {
 const ordersChart = new Chart(document.getElementById("orders-chart"), config);
 
 getOrdersCount();
+getSupplierOrdersCount();

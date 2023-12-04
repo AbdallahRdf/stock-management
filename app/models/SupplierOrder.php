@@ -20,6 +20,16 @@ class SupplierOrder
         return (new Database)->query($sql);
     }
 
+    // get the quantity of orders in each month
+    public static function allGroupByMonth($year)
+    {
+        $sql = "select month(date), count(id) from supplierOrders where year(date) = :year group by month(date) order by month(date) asc;";
+
+        $params = [":year" => $year];
+
+        return (new Database)->query($sql, $params);
+    }
+
     public static function SupplierOrderedProducts($SupplierOrder_id)
     {
         $sql = "SELECT 
