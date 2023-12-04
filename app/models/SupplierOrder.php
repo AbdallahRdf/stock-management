@@ -40,8 +40,8 @@ class SupplierOrder
     {
         $sql = "SELECT 
         supplierOrderedProducts.id, 
-        supplierOrderedProducts.quantity, 
-        products.name as product_name 
+        products.name as product_name,
+        supplierOrderedProducts.quantity
     FROM supplierOrderedProducts JOIN products 
     WHERE supplierOrderedProducts.product_id = products.id and supplierOrderedProducts.supplierOrder_id=:SupplierOrder_id
     Order BY supplierOrderedProducts.created_at DESC;";

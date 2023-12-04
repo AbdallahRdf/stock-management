@@ -3,7 +3,13 @@
 require_once "../../../app/util/functions.php";
 $current_view = get_current_view();  // getting the name of the current view
 
-$controller = ($current_view === "products") ? "ProductController" : "OrderedProdsController";
+if ($current_view === "products") {
+    $controller = "ProductController";
+} elseif ($current_view === "orders") {
+    $controller = "OrderedProdsController";
+} else {
+    $controller = "SuppOrderedProdsController";
+}
 
 $last_element = end($items); // getting the last element in the array;
 
@@ -69,7 +75,7 @@ $description_index = array_search("Description", $table_header); // get the posi
                         <?php endfor; ?>
                         <td class="<?= $class ?>">
                             <!-- info button -->
-                            <?php if (in_array($current_view, ["products", "orders"])) : ?>
+                            <?php if (in_array($current_view, ["products", "orders", "supplierOrders"])) : ?>
                                 <a href="../../../controllers/<?= $controller ?>.php?info=<?= $item['id'] ?>" class="info-btn" id="info-btn" title="info">
                                     <img src="../../img/info.svg" alt="info icon">
                                 </a>

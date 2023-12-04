@@ -82,7 +82,7 @@ const handleClick = (e) => {
       if (i === 0) {
         // the first input is the hidden input that will hold the id
         inputs[0].value = updateBtn.value;
-        console.log("update value", updateBtn.value);
+        console.log(updateBtn.value);
       } else {
         if (inputs[i].tagName === "SELECT") {
           // if it is a <select> then add selected attribute to the relevant <option>

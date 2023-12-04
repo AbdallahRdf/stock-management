@@ -4,7 +4,7 @@ require_once "../components/session_start.php"; // if not logged in redirect bac
 
 
 
-$items = $_SESSION["orderedProducts"]; // items to be shown in the table;
+$items = $_SESSION["supplierOrderedProducts"]; // items to be shown in the table;
 
 // the title of the <th> tags
 $table_header = ["Product", "Quantity", "Actions"];
@@ -23,6 +23,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
     unset($_SESSION["old"]);
 }
 
+
 $display_proprety = $_SESSION["errors"] ? "block" : "none";
 ?>
 
@@ -38,11 +39,12 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
 
     <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
-        <form id="form" class="form" action="../../../controllers/OrderedProdsController.php" method="POST">
+        <form id="form" class="form" action="../../../controllers/SuppOrderedProdsController.php" method="POST">
             <h3>Add New Record</h3>
 
-            <input type="hidden" name="ordered_p_id" class="form-input">
+            <input type="hidden" name="supplierOrdered_p_id" class="form-input">
 
+            <!--<input type="hidden" name="orderId" class="form-input" value="</*?= $orderId ?>">-->
             <div class="input-group">
                 <label for="product">Select the Ordered Product</label>
                 <div class="custom-select">
@@ -72,9 +74,9 @@ $display_proprety = $_SESSION["errors"] ? "block" : "none";
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/OrderedProdsController.php" method="post" id="delete-form" class="delete-form">
+        <form action="../../../controllers/SuppOrderedProdsController.php" method="post" id="delete-form" class="delete-form">
             <p class="delete-message">Are you sure you want to delete this record permanently?</p>
-            <input type="hidden" name="ordered_p_id" id="id" value="">
+            <input type="hidden" name="supplierOrdered_p_id" id="id" value="">
             <div>
                 <button type="button" id="delete-cancel" class="delete-cancel">Cancel</button>
                 <button type="submit" class="delete-delete">Delete</button>
