@@ -13,13 +13,14 @@ class SupplierOrder
             supplierOrders.id, 
             supplierOrders.date, 
             suppliers.full_name as supplier_name 
-        FROM SupplierOrders JOIN suppliers 
+        FROM supplierOrders JOIN suppliers 
         WHERE supplierOrders.supplier_id = suppliers.id 
-        SupplierOrder BY supplierOrders.created_at DESC;";
+        ORDER BY supplierOrders.created_at DESC;";
 
         return (new Database)->query($sql);
     }
 
+<<<<<<< HEAD
     // get the quantity of orders in each month
     public static function allGroupByMonth($year)
     {
@@ -31,14 +32,17 @@ class SupplierOrder
     }
 
     public static function SupplierOrderedProducts($SupplierOrder_id)
+=======
+    public static function supplierOrderedProducts($SupplierOrder_id)
+>>>>>>> 9ada7cb158cc14e4f75d7c8d2c6d2bda5bd216ba
     {
         $sql = "SELECT 
-        SupplierOrderedProducts.id, 
-        SupplierOrderedProducts.quantity, 
+        supplierOrderedProducts.id, 
+        supplierOrderedProducts.quantity, 
         products.name as product_name 
-    FROM SupplierOrderedProducts JOIN products 
-    WHERE SupplierOrderedProducts.product_id = products.id and SupplierOrderedProducts.SupplierOrder_id=:SupplierOrder_id
-    SupplierOrder BY SupplierOrderedProducts.created_at DESC;";
+    FROM supplierOrderedProducts JOIN products 
+    WHERE supplierOrderedProducts.product_id = products.id and supplierOrderedProducts.supplierOrder_id=:SupplierOrder_id
+    Order BY supplierOrderedProducts.created_at DESC;";
         $params = [':SupplierOrder_id' => $SupplierOrder_id];
 
         return (new Database)->query($sql, $params);
@@ -50,9 +54,9 @@ class SupplierOrder
             supplierOrders.id, 
             supplierOrders.date, 
             suppliers.full_name as supplier_name 
-        FROM SupplierOrders JOIN suppliers 
+        FROM supplierOrders JOIN suppliers 
         WHERE supplierOrders.supplier_id = suppliers.id 
-        SupplierOrder BY supplierOrders.created_at DESC
+        ORDER BY supplierOrders.created_at DESC
         LIMIT {$limit} OFFSET {$offset};";
 
         return ((new Database)->query($sql));
@@ -61,7 +65,7 @@ class SupplierOrder
     // create an SupplierOrder
     public static function create($date, $supplier_id)
     {
-        $sql = "INSERT INTO SupplierOrders (date, supplier_id) VALUES (:date, :supplier_id);";
+        $sql = "INSERT INTO supplierOrders (date, supplier_id) VALUES (:date, :supplier_id);";
 
         $params = [
             ":date" => $date,
@@ -73,15 +77,15 @@ class SupplierOrder
     // gets the last inserted item
     public static function getLast()
     {
-        $sql = "SELECT MAX(id) FROM SupplierOrders";
-        //$sql="SELECT * FROM SupplierOrders SupplierOrder BY DESC LIMIT 1";
+        $sql = "SELECT MAX(id) FROM supplierOrders";
+        //$sql="SELECT * FROM supplierOrders SupplierOrder BY DESC LIMIT 1";
         return (new Database)->query($sql);
     }
 
     // delete an SupplierOrder
     public static function delete($id)
     {
-        $sql = "DELETE FROM SupplierOrders WHERE id=:id";
+        $sql = "DELETE FROM supplierOrders WHERE id=:id";
 
         $params = [":id" => $id];
 
@@ -91,7 +95,7 @@ class SupplierOrder
     // update an SupplierOrder
     public static function update($id, $date, $supplier_id)
     {
-        $sql = "UPDATE SupplierOrders SET date=:date, supplier_id=:supplier_id  WHERE id=:id";
+        $sql = "UPDATE supplierOrders SET date=:date, supplier_id=:supplier_id  WHERE id=:id";
 
         $params = [
             ":date" => $date,
@@ -107,7 +111,7 @@ class SupplierOrder
     //create an SupplierOrdered product
     public static function createSupplierOrderedProduct($product_id, $quantity, $SupplierOrder_id)
     {
-        $sql1 = "INSERT INTO SupplierOrderedProducts (SupplierOrder_id,product_id,quantity) values (:SupplierOrder_id, :product_id, :quantity);";
+        $sql1 = "INSERT INTO supplierOrderedProducts (supplierOrder_id,product_id,quantity) values (:SupplierOrder_id, :product_id, :quantity);";
         $params1 = [
             ":SupplierOrder_id" => $SupplierOrder_id,
             ":product_id" => $product_id,
@@ -120,7 +124,7 @@ class SupplierOrder
     // delete an SupplierOrdered product
     public static function deleteSupplierOrderedProduct($id)
     {
-        $sql = "DELETE FROM SupplierOrderedProducts WHERE id=:id";
+        $sql = "DELETE FROM supplierOrderedProducts WHERE id=:id";
         $params = [":id" => $id];
         return (new Database)->query($sql, $params);
     }
@@ -129,7 +133,7 @@ class SupplierOrder
     // update an SupplierOrdered product
     public static function updateSupplierOrderedProduct($id, $product_id, $quantity)
     {
-        $sql = "UPDATE SupplierOrderedProducts SET product_id=:product_id, quantity=:quantity  WHERE id=:id";
+        $sql = "UPDATE supplierOrderedProducts SET product_id=:product_id, quantity=:quantity  WHERE id=:id";
 
         $params = [
             ":product_id" => $product_id,
