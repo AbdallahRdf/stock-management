@@ -13,7 +13,7 @@ use App\Models\Order;
 
 header('Content-Type: application/json'); // specify the content-type header of the response;
 
-$model = $_GET["model"];
+$view_name = $_GET["model"];
 $year = $_GET["year"];
 
 
@@ -52,8 +52,8 @@ function formatData($data)
     }
 }
 
-$models = [
+$view_model = [
     "ordersChart" => fn() => [formatData(Order::allGroupByMonth($year)), formatData(SupplierOrder::allGroupByMonth($year))],
 ];
 
-echo json_encode($models[$model]());
+echo json_encode($view_model[$view_name]());

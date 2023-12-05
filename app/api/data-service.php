@@ -13,10 +13,23 @@ use App\Models\Client;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Order;
+use App\Models\SupplierOrder;
 
 header('Content-Type: application/json'); // specify the content-type header of the response;
 
-$model = $_GET["viewName"];
+
+$view_name = $_GET["viewName"];
+
+session_start();
+$id = null;
+if($view_name === "suppOrderedProducts")
+{
+    $id = $_SESSION["supplierOrderId"];
+}
+else if ($view_name === "orderedProducts")
+{
+    $id = $_SESSION["orderId"];
+}
 
 if (isset($_GET["limit"]) && isset($_GET["offset"]))
 {
@@ -24,23 +37,27 @@ if (isset($_GET["limit"]) && isset($_GET["offset"]))
     $offset = $_GET["offset"];
 
     // an array mapping each view name with the model
-    $models = [
+    $view_model = [
         "categories" => fn() => Category::paginate($offset, $limit),
         "products" => fn() => Product::paginate($offset, $limit),
         "clients" => fn() => Client::paginate($offset, $limit),
         "suppliers" => fn() => Supplier::paginate($offset, $limit),
         "orders" => fn() => Order::paginate($offset, $limit),
+        "supplierOrders" => fn() => SupplierOrder::paginate($offset, $limit),
+        "suppOrderedProducts" => fn() => SupplierOrder::supplierOrderedProductsPaginate($id, $offset, $limit),
     ];
 }
 else
 {
     // an array mapping each view name with the model
-    $models = [
+    $view_model = [
         "categories" => fn() => count(Category::all()),
         "products" => fn() => count(Product::all()),
         "clients" => fn() => count(Client::all()),
         "suppliers" => fn() => count(Supplier::all()),
         "orders" => fn() => count(Order::all()),
+        "supplierOrders" => fn() => count(SupplierOrder::all()),
+        "suppOrderedProducts" => fn() => count(SupplierOrder::supplierOrderedProducts($id)),
     ];
 }
-echo json_encode($models[$model]());
+echo json_encode($view_model[$view_name]());

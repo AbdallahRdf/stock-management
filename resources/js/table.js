@@ -72,8 +72,7 @@ const fetchData = async (URL) => {
 const getTableData = async (offset, limit) => {
   const viewName = getViewName();
 
-  const URL =
-    APIEndpoint + `?viewName=${viewName}&offset=${offset}&limit=${limit}`;
+  const URL = APIEndpoint + `?viewName=${viewName}&offset=${offset}&limit=${limit}`;
 
   return await fetchData(URL);
 };
