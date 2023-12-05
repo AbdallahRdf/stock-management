@@ -11,18 +11,21 @@ use App\Models\Category;
 session_start();
 
 // this function handles when there is an error in the inputs;
-function handle_form_errors($category_name, $message)
+function handle_form_errors($category_name, $message, $id = null)
 {
     $_SESSION['error_message'] = $message;
-    $_SESSION["old"] = $category_name;
-    
+    $_SESSION["old_category"] = $category_name;
+    if($id !== null){
+        $_SESSION["old_id"] = $id;
+    }
+
     //* redirect to categories page;
     header("Location: ../resources/views/pages/categories.php");
     die();
 }
 
 if($_SERVER['REQUEST_METHOD'] === "POST")
-{
+{   
     if(isset($_POST["name"]) && $_POST["category_id"]==="") // create an element:
     {
         $category_name = $_POST["name"];
@@ -47,13 +50,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         $category_id = $_POST["category_id"];
 
         if (!Validator::isAlphaNum($category_name)) {
-            handle_form_errors($category_name, "Invalid Category Name");
+            handle_form_errors($category_name, "Invalid Category Name", $category_id);
         }
         $result = Category::update($category_id, $category_name);
 
         // if the category already exists in db;
         if ($result === null) {
-            handle_form_errors($category_name, "Category already exists");
+            handle_form_errors($category_name, "Category already exists", $category_id);
         }
         create_alert_session_variable("updated_successfully_alert", "Record Updated Successfully!");
     }

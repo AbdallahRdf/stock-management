@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
         }
         $_SESSION['user'] = $user;
     }
-    header("Location: ../resources/views/pages/dashboard.php");
+    header("Location: DashboardController.php");
     die();
 }
 // if we have a user in session, then logout

@@ -169,11 +169,8 @@ const updateTable = (data) => {
 
   table.appendChild(tbody);
 
-  for (
-    let i = 0;
-    i < data.length;
-    i++ // creating rows depending on how many data records we have;
-  ) {
+  for (let i = 0; i < data.length; i++) // creating rows depending on how many data records we have;
+  {
     const tr = document.createElement("tr"); // create a table row;
 
     const id = data[i].shift(); // get the id of the element to make the value of the update and delete buttons;

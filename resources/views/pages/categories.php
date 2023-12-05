@@ -7,7 +7,9 @@ $items = $_SESSION["categories"]; // items to be shown in the table;
 $table_header = ["Name", "Actions"]; // the title of the <th> tags
 
 $error_message = $_SESSION["error_message"] ?? "";
-$old_input_value = $_SESSION['old'] ?? "";
+$old_input_value = $_SESSION['old_category'] ?? "";
+$old_id = $_SESSION["old_id"] ?? "";
+
 $display_proprety = isset($_SESSION["error_message"]) ? "block" : "none"; // if there is an error in the form then show the form again;
 
 if (isset($_SESSION["error_message"])) // if there is a session variable then unset it;
@@ -32,7 +34,7 @@ if (isset($_SESSION["error_message"])) // if there is a session variable then un
         <form id="form" class="form" action="../../../controllers/CategoryController.php" method="POST">
             <h3>Add New Record</h3>
             <div class="input-group">
-                <input type="hidden" name="category_id" class="form-input">
+                <input type="hidden" name="category_id" class="form-input" value="<?= $old_id ?>">
                 <input class="form-input" type="text" name="name" placeholder="Category Name" value="<?= $old_input_value ?>">
                 <small>
                     <?= $error_message ?>

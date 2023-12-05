@@ -5,12 +5,19 @@ const overlayForAddingForm = document.querySelector("#overlay"); // overlay
 const addingFormContainer = document.querySelector("#adding-form-container"); // the container of the adding form
 const form = document.querySelector("#form"); // the form
 const inputs = document.querySelectorAll(".form-input"); // select all the inputs in the form
+const smalls = document.querySelectorAll("small");
 
 if (addingFormContainer.style.display === "block") {
   // if the page loads and the form is visible, then show the overlay;
   disable_tabbing(); // already defined in the sidebar.js
   overlay.style.display = "block";
 }
+
+// empty error message in the small tags;
+const smallTags = () => smalls.forEach(small => small.innerText = "");
+
+// clearing all the input when clicking the cancel button;
+const clearInputs = () => inputs.forEach(input => input.value = "");
 
 // handles showing the form;
 const showTheForm = () => {
@@ -22,7 +29,12 @@ const showTheForm = () => {
   form.classList.add("form-appear");
 };
 
-addingBtn.addEventListener("click", () => showTheForm());
+// addingBtn event listener;
+addingBtn.addEventListener("click", () => {
+  clearInputs();
+  smallTags();
+  showTheForm();
+});
 
 cancelBtn.addEventListener("click", () => {
   form.classList.remove("form-appear");
@@ -34,28 +46,20 @@ cancelBtn.addEventListener("click", () => {
     addingFormContainer.style.display = "none";
   }, 200);
 
-  // clearing all the input when clicking the cancel button;
-  for (let i = 0; i < inputs.length; i++) {
-    inputs[i].value = "";
-  }
-  inputs[inputs.length - 1].value = "";
-
+  clearInputs();
+  
   form.children[0].textContent = "Add New Record"; // update the title of the form
 });
 
-//* this handles showing and hiding the form that is responsible for updating new element (categories, products ..);
-// const updateBtns = document.querySelectorAll("#modify-btn");
-
 // the table structure is like this: <tr></tr> => multiple <td> | <td></td> => <p>textContent</p>
+// this handles the update process
 const handleClick = (e) => {
   if (
-    (e.target &&
-      e.target.tagName === "BUTTON" &&
-      e.target.id === "modify-btn") ||
+    (e.target && e.target.tagName === "BUTTON" && e.target.id === "modify-btn") ||
     (e.target && e.target.tagName === "IMG" && e.target.alt === "modify icon")
   ) {
-    const updateBtn =
-      e.target.tagName === "BUTTON" ? e.target : e.target.parentNode; // get the clicked update button;
+    smallTags();
+    const updateBtn = e.target.tagName === "BUTTON" ? e.target : e.target.parentNode; // get the clicked update button;
     const td = updateBtn.parentNode; // get the td (table data) that in which the button exist;
     const tr = td.parentNode; // get the tr (table row) in which the td exist;
     const tds = tr.children; // get all the td tags or children of the tr;
@@ -82,7 +86,6 @@ const handleClick = (e) => {
       if (i === 0) {
         // the first input is the hidden input that will hold the id
         inputs[0].value = updateBtn.value;
-        console.log(updateBtn.value);
       } else {
         if (inputs[i].tagName === "SELECT") {
           // if it is a <select> then add selected attribute to the relevant <option>
@@ -103,11 +106,6 @@ const handleClick = (e) => {
     showTheForm();
   }
 };
-// adding event listener to each update button in the table;
-// for(let i = 0; i < updateBtns.length; i++)
-// {
-//     updateBtns[i].addEventListener("click", (e) => handleClick(e));
-// }
 
 document
   .getElementById("table")
