@@ -40,6 +40,8 @@ function handle_inputs_validation($date, $client)
         goback();
     }
 }
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($_POST["order_id"] == "") // create an order:
     {

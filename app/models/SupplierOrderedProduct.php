@@ -43,7 +43,7 @@ class SupplierOrderedProduct
     public static function create($product_id, $quantity, $SupplierOrder_id)
     {
         $sql = "INSERT INTO supplierOrderedProducts (supplierOrder_id,product_id,quantity) values (:SupplierOrder_id, :product_id, :quantity);";
-        
+
         $params = [
             ":SupplierOrder_id" => $SupplierOrder_id,
             ":product_id" => $product_id,
@@ -74,7 +74,7 @@ class SupplierOrderedProduct
             ":quantity" => $quantity,
             ":id" => $id
         ];
-        
+
         return (new Database)->query($sql, $params);
     }
 }

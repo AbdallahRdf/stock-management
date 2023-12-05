@@ -17,13 +17,13 @@ $quantity_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
 $old_quantity = $_SESSION["old"]["old_quantity"] ?? "";
 $old_product = $_SESSION["old"]["old_product"] ?? "";
 
+$display_proprety = $_SESSION["errors"] ? "block" : "none";
 if (isset($_SESSION["errors"])) // if there is an error after creating new element;
 {
     unset($_SESSION["errors"]);
     unset($_SESSION["old"]);
 }
 
-$display_proprety = $_SESSION["errors"] ? "block" : "none";
 ?>
 
 <!DOCTYPE html>

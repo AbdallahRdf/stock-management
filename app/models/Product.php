@@ -43,6 +43,23 @@ class Product
         return ((new Database)->query($sql));
     }
 
+    // get One Product by its id :
+    public static function getProduct($id)
+    {
+        $sql = "SELECT 
+            products.id, 
+            products.name, 
+            products.description, 
+            products.price, 
+            products.stock_quantity, 
+            categories.name as category_name 
+        FROM products JOIN categories 
+        WHERE products.category_id = categories.id and products.id=:id
+        ORDER BY products.created_at DESC;";
+        $params = [':id' => $id];
+
+        return (new Database)->query($sql, $params);
+    }
     // create a product
     public static function create($name, $excerpt, $description, $price, $quantity, $category)
     {
@@ -52,9 +69,9 @@ class Product
             ":name" => $name,
             ":excerpt" => $excerpt,
             ":description" => $description,
-            ":price"=> $price,
-            ":quantity"=> $quantity,
-            ":category"=> $category
+            ":price" => $price,
+            ":quantity" => $quantity,
+            ":category" => $category
         ];
 
         return (new Database)->query($sql, $params);
@@ -78,10 +95,10 @@ class Product
         $params = [
             ":name" => $name,
             ":excerpt" => $excerpt,
-            ":description"=> $description,
-            ":price"=> $price,
+            ":description" => $description,
+            ":price" => $price,
             ":quantity" => $quantity,
-            ":category_id"=> $category_id,
+            ":category_id" => $category_id,
             ":id" => $id
         ];
 

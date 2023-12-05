@@ -44,7 +44,7 @@ function handle_inputs_validation($name, $description, $price, $quantity, $categ
         $OLD["old_price"] = $price;
         $OLD["old_quantity"] = $quantity;
         $OLD["old_category"] = $category;
-        if($id !== null){
+        if ($id !== null) {
             $OLD["old_id"] = $id;
         }
 
@@ -56,6 +56,12 @@ function handle_inputs_validation($name, $description, $price, $quantity, $categ
     }
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['info'])) {
+    $id = $_GET['info'];
+    $_SESSION["product"] = Product::getProduct($id); // get a specific product
+    header("Location: ../resources/views/pages/productsInfo.php");
+    die();
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["product_id"] == "") // create a product:
     {
@@ -94,7 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
-
 $_SESSION["products"] = Product::paginate(); // get all the products
 $_SESSION["categories"] = Category::all(); // get all the categories;
 goback();

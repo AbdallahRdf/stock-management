@@ -40,12 +40,10 @@ function handle_inputs_validation($product, $quantity)
         goback();
     }
 }
-if ($_SERVER["REQUEST_METHOD"] == "GET") 
-{
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $_SESSION["orderId"] = $_GET['info'];
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["ordered_p_id"] == "") { //create an ordered product
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
@@ -57,8 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         OrderedProduct::create($product, $quantity, $order_id);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } 
-    else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
+    } else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
     {
         $result = OrderedProduct::delete($_POST["ordered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");

@@ -15,13 +15,13 @@ $date_error_message = $_SESSION["errors"]["date_error"] ?? "";
 $old_date = $_SESSION["old"]["old_date"] ?? "";
 $old_supplier = $_SESSION["old"]["old_supplier"] ?? "";
 
+$display_proprety = $_SESSION["errors"] ? "block" : "none";
 // empty the session variable
 if (isset($_SESSION["errors"])) {
     unset($_SESSION["errors"]);
     unset($_SESSION["old"]);
 }
 
-$display_proprety = $_SESSION["errors"] ? "block" : "none";
 ?>
 
 <!DOCTYPE html>

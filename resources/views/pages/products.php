@@ -42,7 +42,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
     <!-- main.php contains the overlay, the sidebar, the alert, the table -->
     <?php require_once "../commun/main.php"; ?>
 
-   <!-- Form to add elements to the table -->
+    <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../controllers/ProductController.php" method="POST">
             <h3>Add New Record</h3>
@@ -79,14 +79,14 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
                     <?= $date_error_message ?>
                 </small>
             </div>
-            
+
             <div class="input-group">
                 <label for="category">Select the product category</label>
                 <div class="custom-select">
                     <select name="category" class="form-input" id="category" required>
                         <option value="" disabled selected>--Select an option--</option>
-                        <?php foreach($categories as $category): ?>
-                            <option value="<?= $category["id"] ?>" <?= (string)$category["id"]===(string)$old_category ? 'selected' : '' ?>><?= $category["name"] ?></option>
+                        <?php foreach ($categories as $category) : ?>
+                            <option value="<?= $category["id"] ?>" <?= (string)$category["id"] === (string)$old_category ? 'selected' : '' ?>><?= $category["name"] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -101,8 +101,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 
     <!-- form for deleting an element from the table -->
     <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/ProductController.php" method="post" id="delete-form"
-            class="delete-form">
+        <form action="../../../controllers/ProductController.php" method="post" id="delete-form" class="delete-form">
             <p class="delete-message">Are you sure you want to delete this record permanently?</p>
             <input type="hidden" name="product_id" id="id" value="">
             <div>

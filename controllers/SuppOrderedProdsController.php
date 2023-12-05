@@ -18,6 +18,7 @@ function goback()
 }
 
 // this function checks if the inputs are valid if not then send back an error message
+
 function handle_inputs_validation($product, $quantity)
 {
     $ERRORS = []; // will hold error messages
@@ -33,7 +34,6 @@ function handle_inputs_validation($product, $quantity)
         $OLD["old_product"] = $product;
         $OLD["old_quantity"] = $quantity;
 
-
         // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
         $_SESSION["old"] = $OLD;
@@ -41,6 +41,8 @@ function handle_inputs_validation($product, $quantity)
         goback();
     }
 }
+
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $_SESSION["supplierOrderId"] = $_GET['info'];
 }
