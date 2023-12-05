@@ -19,7 +19,7 @@ function goback()
 }
 
 // this function checks if the inputs are valid if not then send back an error message
-function handle_inputs_validation($name, $description, $price, $quantity, $category)
+function handle_inputs_validation($name, $description, $price, $quantity, $category, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -44,6 +44,9 @@ function handle_inputs_validation($name, $description, $price, $quantity, $categ
         $OLD["old_price"] = $price;
         $OLD["old_quantity"] = $quantity;
         $OLD["old_category"] = $category;
+        if($id !== null){
+            $OLD["old_id"] = $id;
+        }
 
         // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
@@ -82,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $quantity = $_POST["quantity"];
         $category = $_POST["category"];
 
-        handle_inputs_validation($name, $description, $price, $quantity, $category);
+        handle_inputs_validation($name, $description, $price, $quantity, $category, $product_id);
 
         // creating an excerpt of the description to show it in the table;
         $excerpt = substr($description, 0, 14) . "...";

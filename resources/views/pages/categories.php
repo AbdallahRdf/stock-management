@@ -15,7 +15,8 @@ $display_proprety = isset($_SESSION["error_message"]) ? "block" : "none"; // if 
 if (isset($_SESSION["error_message"])) // if there is a session variable then unset it;
 {
     unset($_SESSION["error_message"]);
-    unset($_SESSION["old"]);
+    unset($_SESSION["old_category"]);
+    unset($_SESSION["old_id"]);
 }
 ?>
 

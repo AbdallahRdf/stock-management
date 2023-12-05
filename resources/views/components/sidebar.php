@@ -25,7 +25,7 @@ $current_page = get_current_view();  // getting the name of the current view
             <img src="../../img/client.svg" alt="client icon" title="Clients">
             Clients
         </a>
-        <a href="../../../controllers/OrderController.php" class="select-btn icon-btn toggled <?= $current_page === "orders" ? 'selected' : '' ?>">
+        <a href="../../../controllers/OrderController.php" class="select-btn icon-btn toggled <?= in_array($current_page ,["orders", "orderedProducts"]) ? 'selected' : '' ?>">
             <img src="../../img/order.svg" alt="client icon" title="Orders">
             Orders
         </a>
@@ -33,7 +33,7 @@ $current_page = get_current_view();  // getting the name of the current view
             <img src="../../img/supplier.svg" alt="supplier icon" title="Suppliers">
             Suppliers
         </a>
-        <a href="../../../controllers/SuppOrderController.php" class="select-btn icon-btn toggled <?= $current_page === "supplierOrders" ? 'selected' : '' ?>">
+        <a href="../../../controllers/SuppOrderController.php" class="select-btn icon-btn toggled <?= in_array($current_page, ["supplierOrders", "suppOrderedProducts"]) ? 'selected' : '' ?>">
             <img src="../../img/supplier-orders.svg" alt="client icon" title="Supplier Orders">
             Supplier Orders
         </a>

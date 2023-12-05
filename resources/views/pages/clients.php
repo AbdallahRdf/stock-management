@@ -17,6 +17,7 @@ $old_name = $_SESSION["old"]["old_name"] ?? "";
 $old_email = $_SESSION["old"]["old_email"] ?? "";
 $old_number = $_SESSION["old"]["old_number"] ?? "";
 $old_date = $_SESSION["old"]["old_date"] ?? "";
+$old_id = $_SESSION["old"]["old_id"] ?? "";
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none"; // if there is an error in the form then show the form again;
 
@@ -42,7 +43,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
         <form id="form" class="form" action="../../../controllers/ClientController.php" method="POST">
             <h3>Add New Record</h3>
 
-            <input type="hidden" name="client_id" class="form-input">
+            <input type="hidden" name="client_id" class="form-input" value="<?= $old_id ?>">
 
             <div class="input-group">
                 <label for="name">Full Name</label>

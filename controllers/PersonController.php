@@ -10,7 +10,7 @@ use App\Core\Validator;
 class PersonController
 {
     // this function checks if the inputs are valid if not then send back an error message
-    public static function handle_inputs_validation($name, $email, $phone_number, $date, $view)
+    public static function handle_inputs_validation($name, $email, $phone_number, $date, $view, $id = null)
     {
         $ERRORS = []; // will hold error messages
         $OLD = []; // will hold old inputs data when there is an error;
@@ -30,6 +30,9 @@ class PersonController
             $OLD["old_email"] = $email;
             $OLD["old_number"] = $phone_number;
             $OLD["old_date"] = $date;
+            if($id !== null){
+                $OLD["old_id"] = $id;
+            }
 
             $_SESSION["errors"] = $ERRORS;
             $_SESSION["old"] = $OLD;

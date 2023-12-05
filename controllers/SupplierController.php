@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // did we get to this page through a 
         $phone_number = trim($_POST["phoneNumber"]);
         $date = $_POST["date"];
 
-        PersonController::handle_inputs_validation($name, $email, $phone_number, $date, "suppliers");
+        PersonController::handle_inputs_validation($name, $email, $phone_number, $date, "suppliers", $supplier_id);
 
         $result = Supplier::update($supplier_id, $name, $email, $phone_number, $date);
 

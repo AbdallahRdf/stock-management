@@ -21,6 +21,7 @@ $old_email = $_SESSION["old"]["old_description"] ?? "";
 $old_number = $_SESSION["old"]["old_price"] ?? "";
 $old_date = $_SESSION["old"]["old_quantity"] ?? "";
 $old_category = $_SESSION["old"]["old_category"] ?? "";
+$old_id = $_SESSION["old"]["old_id"] ?? "";
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none"; // if there is an error in the form then show the form again;
 
@@ -47,7 +48,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
             <h3>Add New Record</h3>
 
             <div class="input-group">
-                <input type="hidden" name="product_id" class="form-input">
+                <input type="hidden" name="product_id" class="form-input" value="<?= $old_id ?>">
                 <label for="name">Product Name</label>
                 <input class="form-input" id="name" type="text" name="name" placeholder="Product Name" value="<?= $old_name ?>">
                 <small>
