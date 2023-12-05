@@ -13,7 +13,9 @@ use App\Models\Client;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Order;
+use App\Models\OrderedProduct;
 use App\Models\SupplierOrder;
+use App\Models\SupplierOrderedProduct;
 
 header('Content-Type: application/json'); // specify the content-type header of the response;
 
@@ -43,8 +45,9 @@ if (isset($_GET["limit"]) && isset($_GET["offset"]))
         "clients" => fn() => Client::paginate($offset, $limit),
         "suppliers" => fn() => Supplier::paginate($offset, $limit),
         "orders" => fn() => Order::paginate($offset, $limit),
+        "orderedProducts" => fn() => OrderedProduct::paginate($id, $offset, $limit),
         "supplierOrders" => fn() => SupplierOrder::paginate($offset, $limit),
-        "suppOrderedProducts" => fn() => SupplierOrder::supplierOrderedProductsPaginate($id, $offset, $limit),
+        "suppOrderedProducts" => fn() => SupplierOrderedProduct::paginate($id, $offset, $limit),
     ];
 }
 else
@@ -56,8 +59,9 @@ else
         "clients" => fn() => count(Client::all()),
         "suppliers" => fn() => count(Supplier::all()),
         "orders" => fn() => count(Order::all()),
+        "orderedProducts" => fn() => count(OrderedProduct::all($id)),
         "supplierOrders" => fn() => count(SupplierOrder::all()),
-        "suppOrderedProducts" => fn() => count(SupplierOrder::supplierOrderedProducts($id)),
+        "suppOrderedProducts" => fn() => count(SupplierOrderedProduct::all($id)),
     ];
 }
 echo json_encode($view_model[$view_name]());
