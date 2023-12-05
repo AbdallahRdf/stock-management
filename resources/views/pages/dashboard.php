@@ -74,22 +74,36 @@ $cards_data = [
                 <?php endforeach ?>
             </div>
 
-            <!-- orders chart -->
-            <div class="orders-chart">
-                <div class="orders-chart-header">
-                    <div class="orders-chart-title">
-                        Orders Overview
+            <div class="first-charts">
+                <!-- orders chart -->
+                <div class="orders-chart">
+                    <div class="orders-chart-header">
+                        <div class="orders-chart-title">
+                            Orders Overview
+                        </div>
+                        <div class="orders-chart-year">
+                            <select name="year" id="year-select">
+                                <?php foreach ($_SESSION["years_arrray"] as $year): ?>
+                                    <option value="<?= $year ?>">
+                                        <?= $year ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
                     </div>
-                    <div class="orders-chart-year">
-                        <select name="year" id="year-select">
-                            <?php foreach($_SESSION["years_arrray"] as $year): ?>
-                                <option value="<?= $year ?>"><?= $year ?></option>
-                            <?php endforeach ?>
-                        </select>
+                    <div class="chart">
+                        <canvas id="orders-chart"></canvas>
                     </div>
                 </div>
-                <div class="chart">
-                    <canvas id="orders-chart"></canvas>
+
+                <!-- most saled products of all time -->
+                <div class="best-selling-products-chart">
+                    <div class="best-selling-products-chart-title">
+                        Top 5 best-selling products.
+                    </div>
+                    <div class="chart">
+                        <canvas id="best-selling-products-chart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

@@ -35,14 +35,28 @@ h2 {
     color: rgb(100, 100, 100);
 }
 
-.orders-chart {
+.first-charts {
+    display: flex;
+    flex-direction: row;
+}
+
+.orders-chart,
+.best-selling-products-chart {
     width: 60%;
     background-color: #fff;
     border-radius: 4px;
     margin-left: 3%;
 }
 
-.orders-chart-header {
+.best-selling-products-chart {
+    width: 32%;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-left: 2.2%;
+}
+
+.orders-chart-header,
+.best-selling-products-chart-title {
     border-bottom: 1px solid rgb(225, 225, 225);
     padding: 10px 14px;
     display: flex;
@@ -51,7 +65,12 @@ h2 {
     align-items: center;
 }
 
-.orders-chart-title {
+.best-selling-products-chart-title {
+    padding: 14px 14px;
+}
+
+.orders-chart-title,
+.best-selling-products-chart-title {
     color: rgb(100, 100, 100);
     font-size: 0.8rem;
 }
