@@ -112,7 +112,7 @@ $cards_data = [
     <script src="../../js/sidebar.js"></script>
     <script src="../../js/dropdown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../../js/ordersChart.js"></script>
+    <script src="../../js/charts.js"></script>
 </body>
 
 </html>

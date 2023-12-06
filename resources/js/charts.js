@@ -1,4 +1,4 @@
-const APIEndpoint = "http://localhost/stock-management/app/api/dashboard-api.php";
+const baseURL = "http://localhost/stock-management/app/api/dashboard-api.php";
 
 // fetches data;
 const fetchData = async (URL) => {
@@ -15,9 +15,10 @@ const fetchData = async (URL) => {
   }
 };
 
+// ************** this block handles the orders chart ***************//
 // get the orders count and supplier orders count through an api request then update the chart
 const getOrdersCount = async (year) => {
-  const URL = APIEndpoint + `?model=ordersChart&year=${year}`;
+  const URL = baseURL + `?model=ordersChart&year=${year}`;
 
   const data = await fetchData(URL); // fetching data;
 
@@ -34,7 +35,7 @@ const getOrdersCount = async (year) => {
 };
 
 // data object
-const data = {
+const ordersData = {
   labels: [
     "Jan",
     "Feb",
@@ -69,9 +70,9 @@ const data = {
   ],
 };
 // config object
-const config = {
+const ordersConfig = {
   type: "line",
-  data,
+  data: ordersData,
   options: {
     responsive: true,
     maintainAspectRatio: false,
@@ -83,9 +84,60 @@ const config = {
     },
   },
 };
-// create and render the chart
-const ordersChart = new Chart(document.getElementById("orders-chart"), config);
+// create and render the orders chart
+const ordersChart = new Chart(document.getElementById("orders-chart"), ordersConfig);
+
 // update the chart;
 getOrdersCount((new Date()).getFullYear());
-// add eent listener to the select year;
+
+// add event listener to the select year in the orders chart;
 document.getElementById("year-select").addEventListener("change", e => getOrdersCount(e.target.value));
+
+// ************** this block handles the best selling products chart ***************//
+
+// data object
+const productsData = {
+  labels: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+  ],
+  datasets: [
+    {
+      label: "Orders",
+      data: [300, 230, 124, 62, 41],
+      borderWidth: 1,
+      backgroundColor: [
+        'rgba(75, 192, 192, 0.6)', // green
+        'rgba(54, 162, 235, 0.6)', // blue
+        'rgba(153, 102, 255, 0.6)', // purple
+        'rgba(255, 99, 132, 0.6)', // red
+        'rgba(255, 159, 64, 0.6)', // orange
+        'rgba(255, 205, 86, 0.6)', // yellow
+        'rgba(201, 203, 207, 0.6)', // grey
+      ],
+      hoverOffset: 8
+    }
+  ],
+};
+// config object
+const productsConfig = {
+  type: "doughnut",
+  data: productsData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        display: false
+      },
+      x: {
+        display: false
+      }
+    },
+  },
+};
+// create and render the orders chart
+const productsChart = new Chart(document.getElementById("best-selling-products-chart"), productsConfig);
