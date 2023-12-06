@@ -73,4 +73,17 @@ class OrderedProduct
         ];
         return (new Database)->query($sql, $params);
     }
+
+    // Retrieves the top-selling products by summing their quantities from all orders.
+    public static function get_top_selling_products($limit = 5)
+    {
+        $sql = "SELECT products.name, sum(orderedProducts.quantity) AS quantity 
+            FROM orderedProducts JOIN products 
+            WHERE products.id = orderedProducts.product_id 
+            GROUP BY orderedProducts.product_id 
+            ORDER BY sum(orderedProducts.quantity) DESC
+            LIMIT $limit;";
+
+        return (new Database)->query($sql);
+    }
 }

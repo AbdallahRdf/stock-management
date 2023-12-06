@@ -18,7 +18,7 @@ const fetchData = async (URL) => {
 // ************** this block handles the orders chart ***************//
 // get the orders count and supplier orders count through an api request then update the chart
 const getOrdersCount = async (year) => {
-  const URL = baseURL + `?model=ordersChart&year=${year}`;
+  const URL = baseURL + `?chart=ordersChart&year=${year}`;
 
   const data = await fetchData(URL); // fetching data;
 
@@ -95,19 +95,30 @@ document.getElementById("year-select").addEventListener("change", e => getOrders
 
 // ************** this block handles the best selling products chart ***************//
 
+// get the top 5 selling products;
+const getTopSellingProducts = async () => {
+
+  const URL = baseURL + "?chart=topSellingProducts"; 
+
+  const data = await fetchData(URL);
+
+  productsChart.config.data.labels = data[0]; // updating lables
+  productsChart.config.data.datasets[0].data = data[1]; // updating chart data
+
+  if(data[0].length <= 0){ // if the array is empty then make the y and x axis visible
+    productsChart.config.options.scales.x.display = true;
+    productsChart.config.options.scales.y.display = true;
+  }
+  productsChart.update();
+}
+
 // data object
 const productsData = {
-  labels: [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-  ],
+  labels: [],
   datasets: [
     {
-      label: "Orders",
-      data: [300, 230, 124, 62, 41],
+      label: "Selled quantity",
+      data: [],
       borderWidth: 1,
       backgroundColor: [
         'rgba(75, 192, 192, 0.6)', // green
@@ -131,13 +142,15 @@ const productsConfig = {
     maintainAspectRatio: false,
     scales: {
       y: {
-        display: false
+        display: false,
       },
       x: {
-        display: false
+        display: false,
       }
     },
   },
 };
 // create and render the orders chart
 const productsChart = new Chart(document.getElementById("best-selling-products-chart"), productsConfig);
+
+getTopSellingProducts();

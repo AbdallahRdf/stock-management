@@ -10,15 +10,16 @@ require_once "../autoloader/autoloader.php";
 
 use App\Models\SupplierOrder;
 use App\Models\Order;
+use App\Models\OrderedProduct;
 
 header('Content-Type: application/json'); // specify the content-type header of the response;
 
-$view_name = $_GET["model"];
-$year = $_GET["year"];
+$chart = $_GET["chart"];
+$year = $_GET["year"] ?? null;
 
 
 // if there is a month missing in the data array, we put instead a zero value;
-function formatData($data)
+function formatOrdersChartData($data)
 {
     if(!empty($data))
     {
@@ -52,8 +53,24 @@ function formatData($data)
     }
 }
 
+// this function handles formating Products chart data
+function formatProductsChartData($data)
+{
+    $products_names = [];
+    $products_quantities = [];
+
+    for($i = 0; $i < count($data); $i++)
+    {
+        array_push($products_names, $data[$i]["name"]);
+        array_push($products_quantities, $data[$i]["quantity"]);
+    }
+
+    return [$products_names, $products_quantities];
+}
+
 $view_model = [
-    "ordersChart" => fn() => [formatData(Order::allGroupByMonth($year)), formatData(SupplierOrder::allGroupByMonth($year))],
+    "ordersChart" => fn() => [formatOrdersChartData(Order::allGroupByMonth($year)), formatOrdersChartData(SupplierOrder::allGroupByMonth($year))],
+    "topSellingProducts" => fn() => formatProductsChartData(OrderedProduct::get_top_selling_products()),
 ];
 
-echo json_encode($view_model[$view_name]());
+echo json_encode($view_model[$chart]());
