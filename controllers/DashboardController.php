@@ -25,7 +25,7 @@ $supplier_orders_years = SupplierOrder::getAllYears(); // get the array of suppl
 // return only an array of years
 $years = array_map(fn($element) => $element["(year(date))"] , [...$orders_years, ...$supplier_orders_years]);
 
-$_SESSION["years_arrray"] = array_unique($years); // delete the duplicates
+$_SESSION["orders_years_array"] = array_unique($years); // delete the duplicates
 
 header("location: ../resources/views/pages/dashboard.php");
 die();

@@ -74,16 +74,16 @@ $cards_data = [
                 <?php endforeach ?>
             </div>
 
-            <div class="first-charts">
+            <div class="d-flex">
                 <!-- orders chart -->
                 <div class="orders-chart">
-                    <div class="orders-chart-header">
-                        <div class="orders-chart-title">
+                    <div class="chart-header">
+                        <div class="chart-title">
                             Orders Overview
                         </div>
-                        <div class="orders-chart-year">
-                            <select name="year" id="year-select">
-                                <?php foreach ($_SESSION["years_arrray"] as $year): ?>
+                        <div class="chart-year">
+                            <select name="year" id="orders-year-select">
+                                <?php foreach ($_SESSION["orders_years_array"] as $year): ?>
                                     <option value="<?= $year ?>">
                                         <?= $year ?>
                                     </option>
@@ -103,6 +103,30 @@ $cards_data = [
                     </div>
                     <div class="chart">
                         <canvas id="best-selling-products-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex">
+
+                <!--  chart -->
+                <div class="clients-chart">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            Monthly Client Growth Chart
+                        </div>
+                        <div class="chart-year">
+                            <select name="year" id="clients-year-select">
+                                <?php foreach ($_SESSION["years_arrray"] as $year): ?>
+                                    <option value="<?= $year ?>">
+                                        <?= $year ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <canvas id="clients-chart"></canvas>
                     </div>
                 </div>
             </div>

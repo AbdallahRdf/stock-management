@@ -91,7 +91,7 @@ const ordersChart = new Chart(document.getElementById("orders-chart"), ordersCon
 getOrdersCount((new Date()).getFullYear());
 
 // add event listener to the select year in the orders chart;
-document.getElementById("year-select").addEventListener("change", e => getOrdersCount(e.target.value));
+document.getElementById("orders-year-select").addEventListener("change", e => getOrdersCount(e.target.value));
 
 // ************** this block handles the best selling products chart ***************//
 
