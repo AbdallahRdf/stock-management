@@ -74,20 +74,24 @@ $cards_data = [
                 <?php endforeach ?>
             </div>
 
-            <div class="first-charts">
+            <div class="d-flex">
                 <!-- orders chart -->
                 <div class="orders-chart">
-                    <div class="orders-chart-header">
-                        <div class="orders-chart-title">
+                    <div class="chart-header">
+                        <div class="chart-title">
                             Orders Overview
                         </div>
-                        <div class="orders-chart-year">
-                            <select name="year" id="year-select">
-                                <?php foreach ($_SESSION["years_arrray"] as $year): ?>
-                                    <option value="<?= $year ?>">
-                                        <?= $year ?>
-                                    </option>
-                                <?php endforeach ?>
+                        <div class="chart-year">
+                            <select name="year" id="orders-year-select">
+                                <?php if(count($_SESSION["orders_years_array"]) <= 0): ?>
+                                    <option value=""><?= date("Y") ?></option>
+                                <?php else: ?>
+                                    <?php foreach ($_SESSION["orders_years_array"] as $year): ?>
+                                        <option value="<?= $year ?>">
+                                            <?= $year ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                             </select>
                         </div>
                     </div>
@@ -106,13 +110,41 @@ $cards_data = [
                     </div>
                 </div>
             </div>
+
+            <div class="d-flex">
+
+                <!--  chart -->
+                <div class="clients-chart">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            Monthly Client Growth Chart
+                        </div>
+                        <div class="chart-year">
+                            <select name="year" id="clients-year-select">
+                                <?php if(count($_SESSION["clients_years_array"]) <= 0): ?>
+                                    <option value=""><?= date("Y") ?></option>
+                                <?php else: ?>
+                                    <?php foreach ($_SESSION["clients_years_array"] as $year): ?>
+                                        <option value="<?= $year ?>">
+                                            <?= $year ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <canvas id="clients-chart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="../../js/sidebar.js"></script>
     <script src="../../js/dropdown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../../js/ordersChart.js"></script>
+    <script src="../../js/charts.js"></script>
 </body>
 
 </html>

@@ -12,6 +12,15 @@ require_once "../app/util/functions.php";
 //* requiring the autoloader
 require_once "../app/autoloader/autoloader.php";
 
+/**
+ * @param array $array an array containing other array, each sub-array contains a year;
+ * @return array return an array of years
+ */
+function format_years_array($array)
+{
+    return array_unique(array_map(fn($element) => $element["years"], $array));
+}
+
 session_start();
 
 $_SESSION["client_count"] = number_format(count(Client::all())); // get the number of clients
@@ -22,10 +31,8 @@ $_SESSION["product_count"] = number_format(count(Product::all())); // get the nu
 $orders_years = Order::getAllYears(); // get the array of orders years wich contains each year in its own array
 $supplier_orders_years = SupplierOrder::getAllYears(); // get the array of suppliers orders years wich contains each year in its own array
 
-// return only an array of years
-$years = array_map(fn($element) => $element["(year(date))"] , [...$orders_years, ...$supplier_orders_years]);
-
-$_SESSION["years_arrray"] = array_unique($years); // delete the duplicates
+$_SESSION["orders_years_array"] = format_years_array([...$orders_years, ...$supplier_orders_years]);
+$_SESSION["clients_years_array"] = format_years_array(Client::getAllYears());
 
 header("location: ../resources/views/pages/dashboard.php");
 die();

@@ -75,7 +75,10 @@ class SupplierOrder
     // get the quantity of orders in each month
     public static function allGroupByMonth($year)
     {
-        $sql = "select month(date), count(id) from supplierOrders where year(date) = :year group by month(date) order by month(date) asc;";
+        $sql = "SELECT month(date) as months, count(id) FROM supplierOrders 
+            WHERE year(date) = :year 
+            GROUP BY month(date) 
+            ORDER BY month(date) ASC;";
 
         $params = [":year" => $year];
 
@@ -85,7 +88,7 @@ class SupplierOrder
     // returns an array containing all the years of supplier orders
     public static function getAllYears()
     {
-        return (new Database)->query("select distinct(year(date)) from supplierOrders order by year(date) desc");
+        return (new Database)->query("SELECT distinct(year(date)) AS years FROM supplierOrders ORDER BY year(date) DESC");
     }
 
     // gets the last inserted item
