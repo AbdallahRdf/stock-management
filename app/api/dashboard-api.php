@@ -8,6 +8,7 @@ require_once "../util/functions.php";
 //* requiring the autoloader
 require_once "../autoloader/autoloader.php";
 
+use App\Models\Client;
 use App\Models\SupplierOrder;
 use App\Models\Order;
 use App\Models\OrderedProduct;
@@ -31,7 +32,7 @@ function formatOrdersChartData($data)
         {
             if(isset($data[$i]))
             {
-                if ($data[$i]["month(date)"] == $month) // if the current element equals the current month
+                if ($data[$i]["months"] == $month) // if the current element equals the current month
                 {
                     array_push($formattedData, $data[$i]["count(id)"]); // then push it
                     $i++; // increment the $i
@@ -71,6 +72,7 @@ function formatProductsChartData($data)
 $view_model = [
     "ordersChart" => fn() => [formatOrdersChartData(Order::allGroupByMonth($year)), formatOrdersChartData(SupplierOrder::allGroupByMonth($year))],
     "topSellingProducts" => fn() => formatProductsChartData(OrderedProduct::get_top_selling_products()),
+    "clientsChart" => fn() => formatOrdersChartData(Client::allGroupByMonth($year)),
 ];
 
 echo json_encode($view_model[$chart]());

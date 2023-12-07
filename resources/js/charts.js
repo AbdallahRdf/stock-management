@@ -154,3 +154,75 @@ const productsConfig = {
 const productsChart = new Chart(document.getElementById("best-selling-products-chart"), productsConfig);
 
 getTopSellingProducts();
+
+// ************** this block handles the clients growth chart ***************//
+
+// get the top 5 selling products;
+const getTheClientGrowth = async (year) => {
+
+  const URL = baseURL + `?chart=clientsChart&year=${year}`;
+
+  const data = await fetchData(URL);
+
+  clientsChart.config.data.datasets[0].data = data; // updating chart data
+
+  clientsChart.config.options.scales.y.suggestedMax = Math.max(...data) + 2; // updated the max value of y axis;
+
+  clientsChart.update();
+}
+
+// data object
+const clientsData = {
+  labels: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
+  datasets: [
+    {
+      label: "new clients count",
+      data: [],
+      borderWidth: 1,
+      backgroundColor: [
+        'rgba(75, 192, 192, 0.7)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(75, 192, 192, 0.5)',
+        'rgba(75, 192, 192, 0.4)',
+        'rgba(75, 192, 192, 0.3)',
+        'rgba(75, 192, 192, 0.2)',
+      ],
+      hoverOffset: 8
+    }
+  ],
+};
+// config object
+const clientsConfig = {
+  type: "bar",
+  data: clientsData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+        suggestedMax: 10,
+      },
+    },
+  },
+};
+// create and render the orders chart
+const clientsChart = new Chart(document.getElementById("clients-chart"), clientsConfig);
+
+getTheClientGrowth((new Date()).getFullYear());
+
+// add event listener to the select year in the clients chart;
+document.getElementById("clients-year-select").addEventListener("change", e => getTheClientGrowth(e.target.value));

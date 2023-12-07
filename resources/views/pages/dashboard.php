@@ -83,11 +83,15 @@ $cards_data = [
                         </div>
                         <div class="chart-year">
                             <select name="year" id="orders-year-select">
-                                <?php foreach ($_SESSION["orders_years_array"] as $year): ?>
-                                    <option value="<?= $year ?>">
-                                        <?= $year ?>
-                                    </option>
-                                <?php endforeach ?>
+                                <?php if(count($_SESSION["orders_years_array"]) <= 0): ?>
+                                    <option value=""><?= date("Y") ?></option>
+                                <?php else: ?>
+                                    <?php foreach ($_SESSION["orders_years_array"] as $year): ?>
+                                        <option value="<?= $year ?>">
+                                            <?= $year ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                             </select>
                         </div>
                     </div>
@@ -117,11 +121,15 @@ $cards_data = [
                         </div>
                         <div class="chart-year">
                             <select name="year" id="clients-year-select">
-                                <?php foreach ($_SESSION["years_arrray"] as $year): ?>
-                                    <option value="<?= $year ?>">
-                                        <?= $year ?>
-                                    </option>
-                                <?php endforeach ?>
+                                <?php if(count($_SESSION["clients_years_array"]) <= 0): ?>
+                                    <option value=""><?= date("Y") ?></option>
+                                <?php else: ?>
+                                    <?php foreach ($_SESSION["clients_years_array"] as $year): ?>
+                                        <option value="<?= $year ?>">
+                                            <?= $year ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                <?php endif; ?>
                             </select>
                         </div>
                     </div>
