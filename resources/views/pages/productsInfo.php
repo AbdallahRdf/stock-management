@@ -2,8 +2,9 @@
 require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
-$product = $_SESSION["product"];
-dd($product);
+$product = $_SESSION["product"][0];
+
+//dd($product);
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@ dd($product);
 
 <body>
     <!-- overlay -->
-    <div id="overlay" class="overlay"></div>
+    <div id="nameoverlay" class="overlay"></div>
 
     <div class="container">
         <!-- sidebar -->
@@ -26,36 +27,28 @@ dd($product);
             <?php require_once "../components/alert.php"; ?>
 
             <!-- card showing info -->
-            <div class="settings-container">
-                <h2>Your information</h2>
-
-                <div class="input-grp">
-                    <label for="firstName">First Name</label>
-                    <input class="signup-input" type="text" placeholder="First Name" value="<?= $_SESSION["user"]["firstName"] ?>" disabled>
+            <div class="product-container">
+                <h1><?= $product['name'] ?></h1>
+                <div class="element-grp">
+                    <label for="description">Description : </label>
+                    <p id="description"> <?= $product['description'] ?></p>
+                </div>
+                <div class="element-grp">
+                    <label for="price"> Price : </label> <span id="price"><?= $product['price'] ?> </span>
+                </div>
+                <div class="element-grp">
+                    <label for="category"> Category : </label> <span id="category"><?= $product['category_name'] ?></span>
+                </div>
+                <div class="element-grp">
+                    <label for="stock"> Stock Quantity : </label> <span id="stock"><?= $product['stock_quantity'] ?> </span>
                 </div>
 
-                <div class="input-grp">
-                    <label for="lastName">Last Name</label>
-                    <input class="signup-input" type="text" placeholder="Last Name" value="<?= $_SESSION["user"]["lastName"] ?>" disabled>
-                </div>
-
-
-                <div class="input-grp">
-                    <label for="email">E-Mail</label>
-                    <input class="signup-input" type="email" placeholder="E-Mail Address" value="<?= $_SESSION["user"]["email"] ?>" disabled>
-                </div>
-                <!--<div class="btns">
-                    <a href="updateSettings.php">Update information</a>
-                    <a href="updatePassword.php">Update Password</a>
-                </div>-->
             </div>
-
         </div>
-    </div>
 
-    <script src="../../js/sidebar.js"></script>
-    <script src="../../js/alert.js"></script>
-    <script src="../../js/dropdown.js"></script>
+        <script src="../../js/sidebar.js"></script>
+        <script src="../../js/alert.js"></script>
+        <script src="../../js/dropdown.js"></script>
 </body>
 
 </html>

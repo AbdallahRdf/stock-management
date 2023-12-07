@@ -1,0 +1,67 @@
+.product-container {
+  width: 50%;
+  background-color: rgb(64, 79, 94);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px #0000001f;
+  padding: 30px 20px;
+  margin-top: 150px;
+  margin-bottom: 100px;
+  display: flexbox;
+}
+
+.product-container h1 {
+  margin-bottom: 20px;
+  color: rgb(202, 218, 230);
+}
+
+.element-grp {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: lighter;
+}
+.element-grp label {
+  font-weight: bold;
+  color: #b7c9da;
+  margin-right: 20px;
+  padding-right: 0;
+}
+.element-grp p {
+  margin-top: 5px;
+}
+
+.product-container a,
+.product-container button {
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  width: fit-content;
+  border: 1px solid #bdbdbd;
+  color: #f2f2f2;
+}
+
+.product-container a {
+  background-color: #21262d91;
+}
+
+.product-container button {
+  background-color: #1ab188;
+}
+
+.product-container a:hover,
+.product-container a:focus {
+  background-color: #21262d71;
+  border-color: #fff;
+}
+
+.product-container button:hover,
+.product-container button:focus {
+  background-color: #1dbd92;
+  border-color: #fff;
+}
+
+.error-message {
+  margin-top: 2px;
+  color: #b10000;
+}

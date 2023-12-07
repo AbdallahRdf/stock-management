@@ -13,4 +13,5 @@
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/dropdown.css">
     <link rel="stylesheet" href="../../styles/settings.css">
+    <link rel="stylesheet" href="../../styles/product.css">
 </head>
