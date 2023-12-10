@@ -72,7 +72,8 @@ const fetchData = async (URL) => {
 const getTableData = async (offset, limit) => {
   const viewName = getViewName();
 
-  const URL = APIEndpoint + `?viewName=${viewName}&offset=${offset}&limit=${limit}`;
+  const URL =
+    APIEndpoint + `?viewName=${viewName}&offset=${offset}&limit=${limit}`;
 
   return await fetchData(URL);
 };
@@ -92,8 +93,6 @@ const createActionButton = (
   button.setAttribute("id", btnId);
   button.value = recordId;
   button.setAttribute("title", title);
-  button.style.marginRight = "3px";
-  button.style.marginLeft = "3px";
 
   // creating the image that will be in action button;
   const img = document.createElement("img");
@@ -148,6 +147,7 @@ const updateTable = (data) => {
       }
     }
     const td = document.createElement("td");
+    td.classList.add("actions-btns");
 
     const updateButton = createActionButton(
       "modify-btn",
