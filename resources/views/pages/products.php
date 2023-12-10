@@ -5,22 +5,25 @@ require_once "../components/session_start.php"; // if not logged in redirect bac
 $items = $_SESSION['products']; // items to be shown in the table;
 
 // the title of the <th> tags
-$table_header = ["Name", "Description", "Price", "Quantity", "Category", "Actions"];
+$table_header = ["Name", "Description", "Purchase Price", "Selling Price", "Quantity", "Supplier",  "Category", "Actions"];
 
 $categories = $_SESSION['categories']; // getting all the categories, they will be shown in the select in the from;
-
+$suppliers = $_SESSION['suppliers']; // getting all the suppliers, they will be shown in the select in the from;
 // error messages for the form;
 $name_error_message = $_SESSION["errors"]["name_error"] ?? "";
 $email_error_message = $_SESSION["errors"]["description_error"] ?? "";
-$number_error_message = $_SESSION["errors"]["price_error"] ?? "";
+$pprice_error_message = $_SESSION["errors"]["p_price_error"] ?? "";
 $date_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
+$sprice_error_message = $_SESSION["errors"]["s_price_error"] ?? "";
 
 // old input values
 $old_name = $_SESSION["old"]["old_name"] ?? "";
 $old_email = $_SESSION["old"]["old_description"] ?? "";
-$old_number = $_SESSION["old"]["old_price"] ?? "";
+$old_p_price = $_SESSION["old"]["old_p_price"] ?? "";
 $old_date = $_SESSION["old"]["old_quantity"] ?? "";
 $old_category = $_SESSION["old"]["old_category"] ?? "";
+$old_supplier = $_SESSION["old"]["old_supplier"] ?? "";
+$old_s_price = $_SESSION["old"]["old_s_price"] ?? "";
 $old_id = $_SESSION["old"]["old_id"] ?? "";
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none"; // if there is an error in the form then show the form again;
@@ -65,13 +68,19 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
             </div>
 
             <div class="input-group">
-                <label for="price">Product Price</label>
-                <input class="form-input" type="text" name="price" placeholder="Product Price" value="<?= $old_number ?>">
+                <label for="pprice">Purchase Price</label>
+                <input id="pprice" class="form-input" type="text" name="purchase_price" placeholder="Product Purchase Price" value="<?= $old_p_price ?>">
                 <small>
-                    <?= $number_error_message ?>
+                    <?= $pprice_error_message ?>
                 </small>
             </div>
-
+            <div class="input-group">
+                <label for="s_price">Selling Price</label>
+                <input id="s_price" class="form-input" type="text" name="selling_price" placeholder="Product Selling Price" value="<?= $old_s_price ?>">
+                <small>
+                    <?= $sprice_error_message ?>
+                </small>
+            </div>
             <div class="input-group">
                 <label for="quantity">Product Quantity</label>
                 <input class="form-input" id="quantity" type="number" min="0" name="quantity" placeholder="Product Quantity" value="<?= $old_date ?>">
@@ -79,7 +88,17 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
                     <?= $date_error_message ?>
                 </small>
             </div>
-
+            <div class="input-group">
+                <label for="supplier">Select the product supplier</label>
+                <div class="custom-select">
+                    <select name="supplier" class="form-input" id="supplier" required>
+                        <option value="" disabled selected>--Select an option--</option>
+                        <?php foreach ($suppliers as $supplier) : ?>
+                            <option value="<?= $supplier["id"] ?>" <?= (string)$supplier["id"] === (string)$old_supplier ? 'selected' : '' ?>><?= $supplier["full_name"] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
             <div class="input-group">
                 <label for="category">Select the product category</label>
                 <div class="custom-select">
@@ -91,6 +110,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
                     </select>
                 </div>
             </div>
+
 
             <div class="btns">
                 <button id="cancel-btn" class="cancel-btn" type="button">Cancel</button>

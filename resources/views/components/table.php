@@ -10,7 +10,6 @@ if ($current_view === "products") {
 } else {
     $controller = "SuppOrderedProdsController";
 }
-
 $last_element = end($items); // getting the last element in the array;
 
 $description_index = array_search("Description", $table_header); // get the position (index) of the description
@@ -54,6 +53,7 @@ $description_index = array_search("Description", $table_header); // get the posi
                         <?php
                         $indexed_item = array_values($item); // turn the assoc array into the indexed  array
                         array_shift($indexed_item); // removing the first element which is the id, we are not going to show the id of each record in the table;
+
                         ?>
                         <?php for ($i = 0; $i < count($indexed_item); $i++) : ?>
                             <!-- if the current iteration is showing the description then put the description in a hidden <td> to use it later and skip the currenct iteration -->

@@ -47,7 +47,7 @@ cancelBtn.addEventListener("click", () => {
   }, 200);
 
   clearInputs();
-  
+
   form.children[0].textContent = "Add New Record"; // update the title of the form
 });
 
@@ -75,8 +75,8 @@ const handleClick = (e) => {
         continue;
       }
       isPreviousTdHidden = tableData.style.display === "none"; // if the display is none, then make true
-
       const p = tableData.childNodes[1] ?? tableData.childNodes[0];
+
       inputsValue.push(p.outerText); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
     }
 
@@ -88,9 +88,11 @@ const handleClick = (e) => {
         inputs[0].value = updateBtn.value;
       } else {
         if (inputs[i].tagName === "SELECT") {
+
           // if it is a <select> then add selected attribute to the relevant <option>
           const options = inputs[i].children; // getting the option tags inside the select tag
           for (let j = 0; j < options.length; j++) {
+
             if (options[j].textContent === inputsValue[i - 1]) {
               options[j].selected = true;
               break;

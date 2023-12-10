@@ -34,7 +34,13 @@ $product = $_SESSION["product"][0];
                     <p id="description"> <?= $product['description'] ?></p>
                 </div>
                 <div class="element-grp">
-                    <label for="price"> Price : </label> <span id="price"><?= $product['price'] ?> </span>
+                    <label for="pprice"> Purchase Price : </label> <span id="pprice"><?= $product['purchase_price'] ?> </span>
+                </div>
+                <div class="element-grp">
+                    <label for="sprice"> Selling Price : </label> <span id="sprice"><?= $product['selling_price'] ?> </span>
+                </div>
+                <div class="element-grp">
+                    <label for="supplier"> Supplier : </label> <span id="supplier"><?= $product['supplier_name'] ?></span>
                 </div>
                 <div class="element-grp">
                     <label for="category"> Category : </label> <span id="category"><?= $product['category_name'] ?></span>
