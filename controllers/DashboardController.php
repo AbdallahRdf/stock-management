@@ -34,5 +34,7 @@ $supplier_orders_years = SupplierOrder::getAllYears(); // get the array of suppl
 $_SESSION["orders_years_array"] = format_years_array([...$orders_years, ...$supplier_orders_years]);
 $_SESSION["clients_years_array"] = format_years_array(Client::getAllYears());
 
+$_SESSION["orders_data"] = Order::paginate();
+
 header("location: ../resources/views/pages/dashboard.php");
 die();

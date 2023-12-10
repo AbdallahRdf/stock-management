@@ -141,9 +141,35 @@ $cards_data = [
                 </div>
 
                 <!-- table showing latest clients orders -->
-                <div class="order-table">
+                <div class="orders-table">
+                    <div class="order-table-title">
+                        Latest 10 Orders
+                    </div>
+                    <!-- <caption>Latest Orders</caption> -->
                     <table>
-                        
+                        <thead>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Info</th>
+                        </thead>
+                        <tbody>
+                            <?php if(count($_SESSION["orders_data"]) <= 0) : ?>
+                                <p>No Orders To Show</p>
+                            <?php else: ?>
+                                <?php foreach($_SESSION["orders_data"] as $row): ?>
+                                    <tr>
+                                        <td><?= $row["date"] ?></td>
+                                        <td><?= $row["client_name"] ?></td>
+                                        <td>
+                                            <button class="info-btn" value="<?= $row["id"] ?>">
+                                                <!-- <img src="../../img/info.svg" alt="info icon"> -->
+                                                Details
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?> 
+                            <?php endif ?>
+                        </tbody>
                     </table>
                 </div>
                 

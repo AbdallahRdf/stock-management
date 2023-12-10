@@ -99,5 +99,60 @@ h2 {
 
 .best-selling-products-chart-container {
     padding-bottom: 4px;
-    height: 300px;
+    height: 325px;
+}
+
+.orders-table {
+    width: 62%;
+    color: rgb(107, 107, 107);
+    background-color: #fff;
+    border-radius: 20px;
+    margin-left: 2%;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    height: 380px;
+}
+
+.order-table-title {
+    padding: 16px 20px 0px 20px;
+    color: rgb(100, 100, 100);
+    font-size: 0.9rem;
+}
+
+.orders-table table {
+    width: 100%;
+    padding: 8px 24px 14px 24px;
+}
+
+.orders-table table th{
+    border-bottom: 1px solid rgb(225, 225, 225);
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.orders-table th,
+.orders-table td {
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 4%;
+}
+
+.orders-table td:first {
+    padding-top: 16px;
+}
+
+.info-btn {
+    border: 1px solid rgb(188, 188, 188);
+    color: rgb(100, 100, 100);
+    background-color: transparent;
+    padding: 4px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .1s;
+    font-size: 0.8rem;
+}
+
+.info-btn:hover {
+    background-color: rgb(248, 248, 248);
 }
