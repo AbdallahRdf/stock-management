@@ -79,6 +79,11 @@ td:not(.last) {
     border-bottom: 1px solid var(--gray);
 }
 
+.actions-btns {
+    display: flex;
+    column-gap: 3px;
+}
+
 .delete-btn,
 .modify-btn,
 .info-btn {
@@ -92,34 +97,31 @@ td:not(.last) {
     background-color: transparent;
 }
 
-.info-btn {
-    text-decoration: none;
-}
-
-.danger {
+.delete-btn {
     background-color: #ff665b;
     border-color: #ff665b;
 }
 
-.danger:hover {
+.delete-btn:hover {
     background-color: #f44336;
 }
 
-.success {
+.modify-btn {
     background-color: #22d5a5;
     border-color: #22d5a5;
 }
 
-.success:hover {
+.modify-btn:hover {
     background-color: #21c095;
 }
 
-.info {
+.info-btn {
+    text-decoration: none;
     background-color: #1dc5df;
     border-color: #1dc5df;
 }
 
-.info:hover {
+.info-btn:hover {
     background-color: #17bdd6;
 }
 /* utility classes */

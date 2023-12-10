@@ -73,7 +73,7 @@ $description_index = array_search("Description", $table_header); // get the posi
                             </td>
 
                         <?php endfor; ?>
-                        <td class="<?= $class ?>">
+                        <td class="<?= $class ?> actions-btns">
                             <!-- info button -->
                             <?php if (in_array($current_view, ["products", "orders", "supplierOrders"])) : ?>
                                 <a href="../../../controllers/<?= $controller ?>.php?info=<?= $item['id'] ?>" class="info-btn info" id="info-btn" title="info">
