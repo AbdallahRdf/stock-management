@@ -80,19 +80,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $supplier = $_POST["supplier"];
         $selling_price = $_POST["selling_price"];
 
-
         handle_inputs_validation($name, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
 
         // creating an excerpt of the description to show it in the table;
         $excerpt = substr($description, 0, 14) . "...";
 
-        Product::create($name, $excerpt, $description, $price, $quantity, $category, $supplier, $selling_price);
+        Product::create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
+
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
+    } 
+    else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
     {
         $result = Product::delete($_POST["product_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
+    }
+    else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
     {
         $product_id = $_POST["product_id"];
         $name = trim($_POST["name"]);
