@@ -1,3 +1,8 @@
+<?php
+require_once "../../../app/util/functions.php";
+$current_page = get_current_view();  // getting the name of the current view
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
