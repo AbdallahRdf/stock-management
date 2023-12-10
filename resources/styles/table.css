@@ -81,6 +81,7 @@ td:not(.last) {
 
 .actions-btns {
     display: flex;
+    justify-content: center;
     column-gap: 3px;
 }
 
