@@ -75,6 +75,7 @@ h2 {
 
 .best-selling-products-chart-title {
     padding: 14px 14px;
+    margin-bottom: 10px;
 }
 
 .chart-title,
@@ -110,11 +111,11 @@ h2 {
     margin-left: 2%;
     overflow: scroll;
     scroll-behavior: smooth;
-    height: 380px;
+    height: 389px;
 }
 
 .order-table-title {
-    padding: 16px 20px 0px 20px;
+    padding: 16px 20px 0 20px;
     color: rgb(100, 100, 100);
     font-size: 0.9rem;
 }
@@ -146,11 +147,12 @@ h2 {
     border: 1px solid rgb(188, 188, 188);
     color: rgb(100, 100, 100);
     background-color: transparent;
-    padding: 4px 20px;
+    padding: 5px 20px;
     border-radius: 4px;
     cursor: pointer;
     transition: all .1s;
     font-size: 0.8rem;
+    text-decoration: none;
 }
 
 .info-btn:hover {

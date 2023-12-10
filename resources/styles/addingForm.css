@@ -1,6 +1,6 @@
 :root {
     --blue-dark: #13232f;
-    --body-bg: #c1bdba;
+    /* --body-bg: #c1bdba; */
     --white: #ffffff;
 
     --main: #1ab188;
@@ -13,18 +13,6 @@
 
     --red: #f44336;
     --red-pale: #f4433643;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--body-bg);
-    font-family: 'Titillium Web', sans-serif;
-    color: var(--white);
 }
 
 .form {

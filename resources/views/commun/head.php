@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../../styles/addingForm.css">
     <link rel="stylesheet" href="../../styles/deleteForm.css">
     <link rel="stylesheet" href="../../styles/alert.css">
-    <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/dropdown.css">
     <link rel="stylesheet" href="../../styles/settings.css">
     <link rel="stylesheet" href="../../styles/product.css">

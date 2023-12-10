@@ -105,52 +105,56 @@ const createActionButton = (
   return button;
 };
 
-// when hover over a table row, we add some style to its action buttons;
-const handleMouseEnter = (e) => {
-  const actionsBtnTd = e.target.children[e.target.children.length - 1];
-  for (btn of actionsBtnTd.children) {
-    switch (btn.id) {
-      case "delete-btn":
-        btn.classList.add("danger");
-        break;
-      case "modify-btn":
-        btn.classList.add("success");
-        break;
-      case "info-btn":
-        btn.classList.add("info");
-        break;
-    }
-  }
-};
+// // when hover over a table row, we add some style to its action buttons;
+// const handleMouseEnter = (e) => {
+//   const actionsBtnTd = e.target.children[e.target.children.length - 1];
+//   for (btn of actionsBtnTd.children) {
+//     switch (btn.id) {
+//       case "delete-btn":
+//         btn.classList.add("danger");
+//         break;
+//       case "modify-btn":
+//         btn.classList.add("success");
+//         btn.firstElementChild.src = "../../img/white-update.svg";
+//         break;
+//       case "info-btn":
+//         btn.classList.add("info");
+//         btn.firstElementChild.src = "../../img/white-info.svg";
+//         break;
+//     }
+//   }
+// };
 
-// when hover over a table row, we add some style to its action buttons;
-const handleMouseLeave = (e) => {
-  const actionsBtnTd = e.target.children[e.target.children.length - 1];
-  for (btn of actionsBtnTd.children) {
-    switch (btn.id) {
-      case "delete-btn":
-        btn.classList.remove("danger");
-        break;
-      case "modify-btn":
-        btn.classList.remove("success");
-        break;
-      case "info-btn":
-        btn.classList.remove("info");
-        break;
-    }
-  }
-};
+// // when hover over a table row, we add some style to its action buttons;
+// const handleMouseLeave = (e) => {
+//   const actionsBtnTd = e.target.children[e.target.children.length - 1];
+//   for (btn of actionsBtnTd.children) {
+//     switch (btn.id) {
+//       case "delete-btn":
+//         btn.classList.remove("danger");
+//         break;
+//       case "modify-btn":
+//         btn.classList.remove("success");
+//         btn.firstElementChild.src = "../../img/update.svg";
+//         break;
+//       case "info-btn":
+//         btn.classList.remove("info");
+//         btn.firstElementChild.src = "../../img/info.svg";
+//         break;
+//     }
+//   }
+// };
 
-// adding event listener to the table rows;
-const rowEventListener = () => {
-  const tableRows = table.children[1].children; // selecting table rows;
+// // adding event listener to the table rows;
+// const rowEventListener = () => {
+//   const tableRows = table.children[1].children; // selecting table rows;
 
-  for (tr of tableRows) {
-    // adding event listener to table rows;
-    tr.addEventListener("mouseleave", (e) => handleMouseLeave(e));
-    tr.addEventListener("mouseenter", (e) => handleMouseEnter(e));
-  }
-};
+//   for (tr of tableRows) {
+//     // adding event listener to table rows;
+//     tr.addEventListener("mouseleave", (e) => handleMouseLeave(e));
+//     tr.addEventListener("mouseenter", (e) => handleMouseEnter(e));
+//   }
+// };
 
 rowEventListener(); // invoking the function;
 

@@ -61,10 +61,10 @@ $cards_data = [
                     <div class="card" style="border-left-color: <?= $card["color"] ?>">
                         <div class="card-text">
                             <p style="color: <?= $card["color"] ?>">
-                                <?= $card["card_title"] ?>
+                                <?= htmlspecialchars($card["card_title"]) ?>
                             </p>
                             <h3>
-                                <?= $card["card_count"] ?>
+                                <?= htmlspecialchars($card["card_count"]) ?>
                             </h3>
                         </div>
                         <div>
@@ -154,17 +154,18 @@ $cards_data = [
                         </thead>
                         <tbody>
                             <?php if(count($_SESSION["orders_data"]) <= 0) : ?>
-                                <p>No Orders To Show</p>
+                                <tr>
+                                    <td colspan="3">No Orders To Show</td>
+                                </tr>
                             <?php else: ?>
                                 <?php foreach($_SESSION["orders_data"] as $row): ?>
                                     <tr>
-                                        <td><?= $row["date"] ?></td>
-                                        <td><?= $row["client_name"] ?></td>
+                                        <td><?= htmlspecialchars($row["date"]) ?></td>
+                                        <td><?= htmlspecialchars($row["client_name"]) ?></td>
                                         <td>
-                                            <button class="info-btn" value="<?= $row["id"] ?>">
-                                                <!-- <img src="../../img/info.svg" alt="info icon"> -->
+                                            <a href="../../../controllers/OrderedProdsController.php?info=<?= $row["id"] ?>" class="info-btn">
                                                 Details
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach ?> 
@@ -177,9 +178,9 @@ $cards_data = [
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../js/sidebar.js"></script>
     <script src="../../js/dropdown.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../js/charts.js"></script>
 </body>
 

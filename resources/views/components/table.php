@@ -76,17 +76,17 @@ $description_index = array_search("Description", $table_header); // get the posi
                         <td class="<?= $class ?>">
                             <!-- info button -->
                             <?php if (in_array($current_view, ["products", "orders", "supplierOrders"])) : ?>
-                                <a href="../../../controllers/<?= $controller ?>.php?info=<?= $item['id'] ?>" class="info-btn" id="info-btn" title="info">
-                                    <img src="../../img/info.svg" alt="info icon">
+                                <a href="../../../controllers/<?= $controller ?>.php?info=<?= $item['id'] ?>" class="info-btn info" id="info-btn" title="info">
+                                    <img src="../../img/white-info.svg" alt="info icon">
                                 </a>
                             <?php endif; ?>
                             <!-- update button -->
-                            <button class="modify-btn" id="modify-btn" value="<?= $item['id'] ?>" title="modify">
-                                <img src="../../img/update.svg" alt="modify icon">
+                            <button class="modify-btn success" id="modify-btn" value="<?= $item['id'] ?>" title="modify">
+                                <img src="../../img/white-update.svg" alt="modify icon">
                             </button>
                             <!-- delete button -->
-                            <button class="delete-btn" id="delete-btn" value="<?= $item['id'] ?>" title="delete">
-                                <img src="../../img/delete.svg" alt="delete icon">
+                            <button class="delete-btn danger" id="delete-btn" value="<?= $item['id'] ?>" title="delete">
+                                <img src="../../img/white-delete.svg" alt="delete icon">
                             </button>
                         </td>
                     </tr>
