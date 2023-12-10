@@ -7,6 +7,7 @@ require_once "../app/autoloader/autoloader.php";
 use App\Core\Validator;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Supplier;
 
 session_start();
 
@@ -19,7 +20,7 @@ function goback()
 }
 
 // this function checks if the inputs are valid if not then send back an error message
-function handle_inputs_validation($name, $description, $price, $quantity, $category, $id = null)
+function handle_inputs_validation($name, $description, $purchase_price, $quantity, $category, $supplier, $selling_price, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -30,8 +31,11 @@ function handle_inputs_validation($name, $description, $price, $quantity, $categ
     if (!Validator::isAlphaNum($description)) {
         $ERRORS["description_error"] = "Invalid Product Description";
     }
-    if (!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $price)) {
-        $ERRORS["price_error"] = "Invalid Product Price, If you include a decimal point, ensure there is at least one digit after it (e.g., 10, 10.99)";
+    if (!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $purchase_price)) {
+        $ERRORS["p_price_error"] = "Invalid Product Price, If you include a decimal point, ensure there is at least one digit after it (e.g., 10, 10.99)";
+    }
+    if (!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $selling_price)) {
+        $ERRORS["s_price_error"] = "Invalid Product Price, If you include a decimal point, ensure there is at least one digit after it (e.g., 10, 10.99)";
     }
     if (!preg_match("/^[1-9]+[0-9]+$/", $quantity)) {
         $ERRORS["quantity_error"] = "Invalid Product Quantity";
@@ -41,9 +45,12 @@ function handle_inputs_validation($name, $description, $price, $quantity, $categ
     {
         $OLD["old_name"] = $name;
         $OLD["old_description"] = $description;
-        $OLD["old_price"] = $price;
+        $OLD["old_p_price"] = $purchase_price;
         $OLD["old_quantity"] = $quantity;
         $OLD["old_category"] = $category;
+        $OLD["old_supplier"] = $supplier;
+        $OLD["old_s_price"] = $selling_price;
+
         if ($id !== null) {
             $OLD["old_id"] = $id;
         }
@@ -67,16 +74,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     {
         $name = trim($_POST["name"]);
         $description = trim($_POST["description"]);
-        $price = $_POST["price"];
+        $purchase_price = $_POST["purchase_price"];
         $quantity = $_POST["quantity"];
         $category = $_POST["category"];
+        $supplier = $_POST["supplier"];
+        $selling_price = $_POST["selling_price"];
 
-        handle_inputs_validation($name, $description, $price, $quantity, $category);
+
+        handle_inputs_validation($name, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
 
         // creating an excerpt of the description to show it in the table;
         $excerpt = substr($description, 0, 14) . "...";
 
-        Product::create($name, $excerpt, $description, $price, $quantity, $category);
+        Product::create($name, $excerpt, $description, $price, $quantity, $category, $supplier, $selling_price);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
     {
@@ -87,19 +97,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $product_id = $_POST["product_id"];
         $name = trim($_POST["name"]);
         $description = trim($_POST["description"]);
-        $price = $_POST["price"];
+        $purchase_price = $_POST["purchase_price"];
         $quantity = $_POST["quantity"];
         $category = $_POST["category"];
+        $supplier = $_POST["supplier"];
+        $selling_price = $_POST["selling_price"];
 
-        handle_inputs_validation($name, $description, $price, $quantity, $category, $product_id);
+        handle_inputs_validation($name, $description, $purchase_price, $quantity, $category, $supplier, $selling_price, $product_id);
 
         // creating an excerpt of the description to show it in the table;
         $excerpt = substr($description, 0, 14) . "...";
 
-        Product::update($product_id, $name, $excerpt, $description, $price, $quantity, $category);
+        Product::update($product_id, $name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
 $_SESSION["products"] = Product::paginate(); // get all the products
 $_SESSION["categories"] = Category::all(); // get all the categories;
+$_SESSION["suppliers"] = Supplier::all(); // get all the suppliers;
 goback();

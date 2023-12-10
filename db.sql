@@ -22,21 +22,6 @@ CREATE TABLE `categories` (
   UNIQUE KEY `name` (`name`)
 );
 
--- create products table;
-CREATE TABLE `products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` text DEFAULT NULL,
-  `excerpt` varchar(20) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `stock_quantity` int(11) NOT NULL DEFAULT 0,
-  `category_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `category_id` (`category_id`),
-  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-);
-
 -- create the clients table;
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -63,6 +48,23 @@ CREATE TABLE `suppliers` (
   UNIQUE KEY `full_name` (`full_name`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone_num` (`phone_num`)
+);
+
+-- create products table;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` text DEFAULT NULL,
+  `excerpt` varchar(20) NOT NULL,
+  `purchase_price` decimal(10,2) NOT NULL,
+  `stock_quantity` int(11) NOT NULL DEFAULT 0,
+  `category_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `supplier_id` int(11) NOT NULL,
+  `selling_price` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+  CONSTRAINT `products_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
 );
 
 

@@ -12,13 +12,16 @@ class Product
         $sql = "SELECT 
             products.id, 
             products.name, 
-            products.description, 
-            products.excerpt,
-            products.price, 
-            products.stock_quantity, 
+            products.description,
+            products.excerpt, 
+            products.purchase_price, 
+            products.selling_price,
+            products.stock_quantity,
+            suppliers.full_name as supplier_name,
             categories.name as category_name 
-        FROM products JOIN categories 
-        WHERE products.category_id = categories.id 
+        FROM products 
+        JOIN categories ON products.category_id = categories.id 
+        JOIN suppliers ON products.supplier_id = suppliers.id  
         ORDER BY products.created_at DESC;";
 
         return (new Database)->query($sql);
@@ -30,13 +33,16 @@ class Product
         $sql = "SELECT 
             products.id, 
             products.name, 
-            products.description, 
-            products.excerpt,
-            products.price, 
-            products.stock_quantity, 
+            products.description,
+            products.excerpt,  
+            products.purchase_price, 
+            products.selling_price,
+            products.stock_quantity,
+            suppliers.full_name as supplier_name,
             categories.name as category_name 
-        FROM products JOIN categories 
-        WHERE products.category_id = categories.id 
+        FROM products 
+        JOIN categories ON products.category_id = categories.id 
+        JOIN suppliers ON products.supplier_id = suppliers.id 
         ORDER BY products.created_at DESC
         LIMIT {$limit} OFFSET {$offset};";
 
@@ -48,30 +54,38 @@ class Product
     {
         $sql = "SELECT 
             products.id, 
-            products.name, 
+            products.name,
+            products.excerpt,  
             products.description, 
-            products.price, 
-            products.stock_quantity, 
+            products.purchase_price, 
+            products.selling_price,
+            products.stock_quantity,
+            suppliers.full_name as supplier_name,
             categories.name as category_name 
-        FROM products JOIN categories 
-        WHERE products.category_id = categories.id and products.id=:id
-        ORDER BY products.created_at DESC;";
+        FROM products 
+        JOIN categories ON products.category_id = categories.id 
+        JOIN suppliers ON products.supplier_id = suppliers.id 
+        WHERE products.id = :id
+        ORDER BY products.created_at DESC;
+";
         $params = [':id' => $id];
 
         return (new Database)->query($sql, $params);
     }
     // create a product
-    public static function create($name, $excerpt, $description, $price, $quantity, $category)
+    public static function create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price)
     {
-        $sql = "INSERT INTO products (name, excerpt, description, price, stock_quantity, category_id) VALUES (:name, :excerpt, :description, :price, :quantity, :category);";
+        $sql = "INSERT INTO products (name, excerpt, description, purchase_price, stock_quantity, category_id,supplier_id,selling_price) VALUES (:name, :excerpt, :description, :purchase_price, :quantity, :category,:supplier,:selling_price);";
 
         $params = [
             ":name" => $name,
             ":excerpt" => $excerpt,
             ":description" => $description,
-            ":price" => $price,
+            ":purchase_price" => $purchase_price,
             ":quantity" => $quantity,
-            ":category" => $category
+            ":category" => $category,
+            ":supplier" => $supplier,
+            ":selling_price" => $selling_price
         ];
 
         return (new Database)->query($sql, $params);
@@ -88,17 +102,19 @@ class Product
     }
 
     // update a product
-    public static function update($id, $name, $excerpt, $description, $price, $quantity, $category_id)
+    public static function update($id, $name, $excerpt, $description, $purchase_price, $quantity, $category_id, $supplier_id, $selling_price)
     {
-        $sql = "UPDATE products SET name=:name, excerpt=:excerpt, description=:description, price=:price, stock_quantity=:quantity, category_id=:category_id WHERE id=:id";
+        $sql = "UPDATE products SET name=:name, excerpt=:excerpt, description=:description, purchase_price=:purchase_price, stock_quantity=:quantity, category_id=:category_id, supplier_id=:supplier_id, selling_price=:selling_price WHERE id=:id";
 
         $params = [
             ":name" => $name,
             ":excerpt" => $excerpt,
             ":description" => $description,
-            ":price" => $price,
+            ":purchase_price" => $purchase_price,
             ":quantity" => $quantity,
             ":category_id" => $category_id,
+            ":supplier_id" => $supplier_id,
+            ":selling_price" => $selling_price,
             ":id" => $id
         ];
 
