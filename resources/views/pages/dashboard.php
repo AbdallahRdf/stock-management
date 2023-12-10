@@ -100,20 +100,7 @@ $cards_data = [
                     </div>
                 </div>
 
-                <!-- most saled products of all time -->
-                <div class="best-selling-products-chart">
-                    <div class="best-selling-products-chart-title">
-                        Top 5 best-selling products.
-                    </div>
-                    <div class="chart">
-                        <canvas id="best-selling-products-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="d-flex">
-
-                <!--  chart -->
+                <!-- client chart -->
                 <div class="clients-chart">
                     <div class="chart-header">
                         <div class="chart-title">
@@ -121,8 +108,10 @@ $cards_data = [
                         </div>
                         <div class="chart-year">
                             <select name="year" id="clients-year-select">
-                                <?php if(count($_SESSION["clients_years_array"]) <= 0): ?>
-                                    <option value=""><?= date("Y") ?></option>
+                                <?php if (count($_SESSION["clients_years_array"]) <= 0): ?>
+                                    <option value="">
+                                        <?= date("Y") ?>
+                                    </option>
                                 <?php else: ?>
                                     <?php foreach ($_SESSION["clients_years_array"] as $year): ?>
                                         <option value="<?= $year ?>">
@@ -137,6 +126,27 @@ $cards_data = [
                         <canvas id="clients-chart"></canvas>
                     </div>
                 </div>
+            </div>
+
+            <div class="d-flex">
+                
+                <!-- most saled products of all time -->
+                <div class="best-selling-products-chart">
+                    <div class="best-selling-products-chart-title">
+                        Top 5 best-selling products.
+                    </div>
+                    <div class="best-selling-products-chart-container">
+                        <canvas id="best-selling-products-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- table showing latest clients orders -->
+                <div class="order-table">
+                    <table>
+                        
+                    </table>
+                </div>
+                
             </div>
         </div>
     </div>
