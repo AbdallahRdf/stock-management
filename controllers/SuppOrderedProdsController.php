@@ -5,6 +5,7 @@ require_once "../app/util/functions.php";
 require_once "../app/autoloader/autoloader.php";
 
 use App\Models\Product;
+use App\Models\SupplierOrder;
 use App\Models\SupplierOrderedProduct;
 
 session_start();
@@ -19,7 +20,7 @@ function goback()
 
 // this function checks if the inputs are valid if not then send back an error message
 
-function handle_inputs_validation($product, $quantity)
+function handle_inputs_validation($product, $quantity, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -33,6 +34,7 @@ function handle_inputs_validation($product, $quantity)
     {
         $OLD["old_product"] = $product;
         $OLD["old_quantity"] = $quantity;
+        if ($id != null) $OLD["old_id"] = $id;
 
         // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
@@ -50,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($_POST["supplierOrdered_p_id"] == "")  //create an ordered product
-    {      
+    {
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
         $supplierOrder_id = $_SESSION["supplierOrderId"];
@@ -62,14 +64,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
 
 
-    } 
-    else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
+    } else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
     {
 
         $result = SupplierOrderedProduct::delete($_POST["supplierOrdered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } 
-    else if (isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // updating an SupplierOrdered product
+    } else if (isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // updating an SupplierOrdered product
     {
 
         $supplierOrdered_p_id = $_POST["supplierOrdered_p_id"];
@@ -77,13 +77,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $quantity = $_POST["quantity"];
         //dd(['quantity' => $quantity, 'supplierOrdered_p_id' => $supplierOrdered_p_id, "product_id" => $product_id]);
 
-        handle_inputs_validation($product_id, $quantity);
+        handle_inputs_validation($product_id, $quantity, $supplierOrdered_p_id);
 
         SupplierOrderedProduct::update($supplierOrdered_p_id, $product_id, $quantity);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
-
-$_SESSION["products"] = Product::all(); // get all the products
+$supplier = SupplierOrder::getSupplier($_SESSION["supplierOrderId"]);
+$_SESSION["products"] = Product::getProdsBySupp($supplier[0]["supplier_id"]); // get the products
 $_SESSION["supplierOrderedProducts"] = SupplierOrderedProduct::paginate($_SESSION["supplierOrderId"]); // gets all the ordered ;
 goback();

@@ -3,7 +3,6 @@ require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
 $items = $_SESSION["orderedProducts"]; // items to be shown in the table;
-
 // the title of the <th> tags
 $table_header = ["Product", "Quantity", "Actions"];
 
@@ -14,6 +13,8 @@ $quantity_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
 // old input values
 $old_quantity = $_SESSION["old"]["old_quantity"] ?? "";
 $old_product = $_SESSION["old"]["old_product"] ?? "";
+$old_id = $_SESSION["old"]["old_id"] ?? "";
+
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none";
 if (isset($_SESSION["errors"])) // if there is an error after creating new element;
@@ -39,7 +40,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
         <form id="form" class="form" action="../../../controllers/OrderedProdsController.php" method="POST">
             <h3>Add New Record</h3>
 
-            <input type="hidden" name="ordered_p_id" class="form-input">
+            <input type="hidden" name="ordered_p_id" class="form-input" value="<?= $old_id ?>">
 
             <div class="input-group">
                 <label for="product">Select the Ordered Product</label>

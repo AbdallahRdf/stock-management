@@ -22,7 +22,8 @@ $product = $_SESSION["product"][0];
         <div class="main">
 
             <!-- alert -->
-            <?php //require_once "../components/alert.php"; ?>
+            <?php //require_once "../components/alert.php"; 
+            ?>
 
             <!-- card showing info -->
             <div class="product-container">
@@ -48,8 +49,7 @@ $product = $_SESSION["product"][0];
                 </div>
                 <div class="element-grp">
                     <label for="supplier"> Supplier: </label>
-                    <input type="text" id="supplier" value="<?= htmlspecialchars($product['supplier_name']) ?>"
-                        disabled>
+                    <input type="text" id="supplier" value="<?= htmlspecialchars($product['supplier_name']) ?>" disabled>
                 </div>
                 <div class="element-grp">
                     <label for="category"> Category: </label>

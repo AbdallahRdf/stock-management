@@ -17,7 +17,7 @@ function goback()
 }
 
 // this function checks if the inputs are valid if not then send back an error message
-function handle_inputs_validation($date, $supplier)
+function handle_inputs_validation($date, $supplier, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -33,7 +33,7 @@ function handle_inputs_validation($date, $supplier)
     {
         $OLD["old_date"] = $date;
         $OLD["old_supplier"] = $supplier;
-
+        if ($id != null) $OLD["old_id"] = $id;
         // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
         $_SESSION["old"] = $OLD;
@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $id = $_POST["supplierOrder_id"];
         $date = $_POST["date"];
         $supplier_id = $_POST["supplier_id"];
+        handle_inputs_validation($date, $supplier_id, $id);
 
         SupplierOrder::update($id, $date, $supplier_id);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");

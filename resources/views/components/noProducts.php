@@ -1,11 +1,11 @@
 <?php
+
 require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
 $items = $_SESSION['products']; // items to be shown in the table;
 
 // the title of the <th> tags
-$table_header = ["Name", "Description", "Purchase Price", "Selling Price", "Quantity", "Supplier", "Category", "Actions"];
 
 $categories = $_SESSION['categories']; // getting all the categories, they will be shown in the select in the from;
 $suppliers = $_SESSION['suppliers']; // getting all the suppliers, they will be shown in the select in the from;
@@ -35,17 +35,21 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<!-- requiring <head> tag -->
-<?php require_once "../commun/head.php"; ?>
+?>
 
-<body>
-    <!-- main.php contains the overlay, the sidebar, the alert, the table -->
-    <?php require_once "../commun/main.php"; ?>
+<div class="noproduct-container">
+    <div class="header">
+        <a href="../../../controllers/SuppOrderedProductsController.php">
+            <img src="../../img/arrow.svg" alt="">
+        </a>
+        <h2>!! Opps ...</h2>
+        <h3>There are no Products supplied by </h3>
+    </div>
+    <button id="add-btn"> <!-- button to add new elements to the table -->
+        Add Product For abdellah
+    </button>
 
-    <!-- Form to add elements to the table -->
     <div id="adding-form-container" style="display:<?= $display_proprety ?>">
         <form id="form" class="form" action="../../../controllers/ProductController.php" method="POST">
             <h3>Add New Record</h3>
@@ -128,21 +132,4 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
             </div>
         </form>
     </div>
-
-    <!-- form for deleting an element from the table -->
-    <div id="delete-form-container" class="delete-form-container">
-        <form action="../../../controllers/ProductController.php" method="post" id="delete-form" class="delete-form">
-            <p class="delete-message">Are you sure you want to delete this record permanently?</p>
-            <input type="hidden" name="product_id" id="id" value="">
-            <div>
-                <button type="button" id="delete-cancel" class="delete-cancel">Cancel</button>
-                <button type="submit" class="delete-delete">Delete</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- requiring the js script tags -->
-    <?php require_once "../commun/jsScripts.php"; ?>
-</body>
-
-</html>
+</div>

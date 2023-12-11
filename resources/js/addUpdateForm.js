@@ -81,8 +81,8 @@ const handleClick = (e) => {
     }
 
     inputsValue.pop(); // remove the last item in the array, because it is not a part of the table data, its the last column in the table (the actions column);
-    
     inputs[0].value = updateBtn.value; // the first input is the hidden input that will hold the id
+
     for (let i = 1; i < inputs.length; i++) {
       if (inputs[i].tagName === "SELECT") {
 
@@ -90,7 +90,9 @@ const handleClick = (e) => {
         const options = inputs[i].children; // getting the option tags inside the select tag
         for (let j = 0; j < options.length; j++) {
 
-          if (options[j].textContent === inputsValue[i - 1]) {
+          console.log(inputsValue[i - 1]);
+          console.log("option " + j + " " + options[j].textContent);
+          if (options[j].textContent.trim() === inputsValue[i - 1]) {
             options[j].selected = true;
             break;
           }

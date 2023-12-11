@@ -36,7 +36,7 @@ class OrderedProduct
 
         $params = [':order_id' => $order_id];
 
-        return (new Database)->query($sql);
+        return (new Database)->query($sql, $params);
     }
 
     //create an ordered product

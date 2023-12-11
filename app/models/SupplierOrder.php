@@ -44,7 +44,7 @@ class SupplierOrder
             ":date" => $date,
             ":supplier_id" => $supplier_id,
         ];
-        
+
         return (new Database)->query($sql, $params);
     }
 
@@ -97,5 +97,18 @@ class SupplierOrder
         $sql = "SELECT MAX(id) FROM supplierOrders";
         //$sql="SELECT * FROM supplierOrders SupplierOrder BY DESC LIMIT 1";
         return (new Database)->query($sql);
+    }
+
+    // get the supplier of the order
+    public static function getSupplier($supplierOrder_id)
+    {
+        $sql = "SELECT 
+        supplier_id
+        FROM supplierOrders
+        WHERE id= :SupplierOrder_id";
+
+        $params = [':SupplierOrder_id' => $supplierOrder_id];
+
+        return (new Database)->query($sql, $params);
     }
 }

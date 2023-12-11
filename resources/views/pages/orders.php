@@ -14,6 +14,8 @@ $date_error_message = $_SESSION["errors"]["date_error"] ?? "";
 // old input values
 $old_date = $_SESSION["old"]["old_date"] ?? "";
 $old_client = $_SESSION["old"]["old_client"] ?? "";
+$old_id = $_SESSION["old"]["old_id"] ?? "";
+
 
 $display_proprety = $_SESSION["errors"] ? "block" : "none";
 // empty the session variable
@@ -39,7 +41,7 @@ if (isset($_SESSION["errors"])) {
         <form id="form" class="form" action="../../../controllers/OrderController.php" method="POST">
             <h3>Add New Order</h3>
 
-            <input type="hidden" name="order_id" class="form-input">
+            <input type="hidden" name="order_id" class="form-input" value="<?= $old_id ?>">
             <div class="input-group">
                 <label for="date">Order Date</label>
                 <input class="form-input" id="date" type="date" name="date" value="<?= $old_date ?>">

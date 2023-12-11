@@ -19,7 +19,7 @@ function goback()
 }
 
 // this function checks if the inputs are valid if not then send back an error message
-function handle_inputs_validation($product, $quantity)
+function handle_inputs_validation($product, $quantity, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -32,7 +32,7 @@ function handle_inputs_validation($product, $quantity)
     {
         $OLD["old_product"] = $product;
         $OLD["old_quantity"] = $quantity;
-
+        if ($id != null) $OLD["old_id"] = $id;
         // send back the error messages and the old input
         $_SESSION["errors"] = $ERRORS;
         $_SESSION["old"] = $OLD;
@@ -47,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["ordered_p_id"] == "") { //create an ordered product
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
-        //$order_id = $_POST["orderId"];
         $order_id = $_SESSION["orderId"];
         //dd(['quantity' => $quantity, 'ordered_id' => $order_id, "product_id" => $product]);
 
@@ -64,9 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ordered_p_id = $_POST["ordered_p_id"];
         $product_id = $_POST["product_id"];
         $quantity = $_POST["quantity"];
-        //dd(['quantity' => $quantity, 'ordered_p_id' => $order_p_id, "product_id" => $product]);
+        //dd(['quantity' => $quantity, 'ordered_p_id' => $ordered_p_id, "product_id" => $product_id]);
 
-        handle_inputs_validation($product_id, $quantity);
+        handle_inputs_validation($product_id, $quantity, $ordered_p_id);
 
         OrderedProduct::update($ordered_p_id, $product_id, $quantity);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
