@@ -76,32 +76,27 @@ const handleClick = (e) => {
       }
       isPreviousTdHidden = tableData.style.display === "none"; // if the display is none, then make true
       const p = tableData.childNodes[1] ?? tableData.childNodes[0];
-
-      inputsValue.push(p.outerText); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
+      const trimmedValue = p.outerText?.trim();
+      inputsValue.push(trimmedValue); // childNodes[1].textContent gets the text in the <p></p> in the <td></td>
     }
 
     inputsValue.pop(); // remove the last item in the array, because it is not a part of the table data, its the last column in the table (the actions column);
+    
+    inputs[0].value = updateBtn.value; // the first input is the hidden input that will hold the id
+    for (let i = 1; i < inputs.length; i++) {
+      if (inputs[i].tagName === "SELECT") {
 
-    for (let i = 0; i < inputs.length; i++) {
-      if (i === 0) {
-        // the first input is the hidden input that will hold the id
-        inputs[0].value = updateBtn.value;
-      } else {
-        if (inputs[i].tagName === "SELECT") {
+        // if it is a <select> then add selected attribute to the relevant <option>
+        const options = inputs[i].children; // getting the option tags inside the select tag
+        for (let j = 0; j < options.length; j++) {
 
-          // if it is a <select> then add selected attribute to the relevant <option>
-          const options = inputs[i].children; // getting the option tags inside the select tag
-          for (let j = 0; j < options.length; j++) {
-
-            if (options[j].textContent === inputsValue[i - 1]) {
-              options[j].selected = true;
-              break;
-            }
+          if (options[j].textContent === inputsValue[i - 1]) {
+            options[j].selected = true;
+            break;
           }
-        } // if it is an <input>
-        else {
-          inputs[i].value = inputsValue[i - 1];
         }
+      } else { // if it is an <input>
+        inputs[i].value = inputsValue[i - 1];
       }
     }
     form.children[0].textContent = "Update This Record"; // update the title of the form

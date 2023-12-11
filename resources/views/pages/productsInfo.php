@@ -36,9 +36,7 @@ $product = $_SESSION["product"][0];
                 </div>
                 <div class="element-grp">
                     <label for="description">Description: </label>
-                    <textarea id="description" rows="6" disabled>
-                        <?= htmlspecialchars($product['description']) ?>
-                    </textarea>
+                    <textarea id="description" rows="6" disabled><?= htmlspecialchars($product['description']) ?></textarea>
                 </div>
                 <div class="element-grp">
                     <label for="pprice"> Purchase Price: </label>
