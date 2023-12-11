@@ -37,11 +37,11 @@ $current_page = get_current_view();  // getting the name of the current view
             <img src="../../img/supplier-orders.svg" alt="client icon" title="Supplier Orders">
             Supplier Orders
         </a>
-        <a id="dropdown" class="select-btn icon-btn user-btn toggled <?= in_array($current_page, ["settings", "updateSettings", "updatePassword"]) ? 'selected' : '' ?>">
-            <img src="../../img/user.svg" alt="logout icon" title="Log out">
-            <?= "{$_SESSION["user"]["firstName"]} {$_SESSION["user"]["lastName"]}" ?>
-        </a>
     </div>
+    <a id="dropdown" class="select-btn icon-btn user-btn toggled <?= in_array($current_page, ["settings", "updateSettings", "updatePassword"]) ? 'selected' : '' ?>">
+        <img src="../../img/user.svg" alt="logout icon" title="Log out">
+        <?= "{$_SESSION["user"]["firstName"]} {$_SESSION["user"]["lastName"]}" ?>
+    </a>
 
     <!-- dropdown -->
     <div id="dropdown-card" class="dropdown" style="display: none" ;>
@@ -65,7 +65,7 @@ $current_page = get_current_view();  // getting the name of the current view
 <div class="logout-card-container" id="logout-card-container">
     <div id="logout-card" class="logout-card">
         <img src="../../img/green-logout-door.svg" alt="logout image">
-        <p class="logout-message">Oh no! You're leaving...<br>Are you sure?</p>
+        <p class="logout-message">Oh! You're leaving...<br>Are you sure?</p>
         <div class="logout-acions-btn">
             <button id="logout-cancel" class="logout-cancel">Not sure, Cancel</button>
             <a class="logout-logout" href="../../../controllers/AuthController.php">Yes, Log me out</a>
