@@ -1,7 +1,5 @@
 <?php
 
-require "../../../app/util/functions.php";
-require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
 $items = $_SESSION['products']; // items to be shown in the table;
 
@@ -36,7 +34,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 ?>
 
 
-?>
+
 
 <div class="noproduct-container">
     <div class="header">

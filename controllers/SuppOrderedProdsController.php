@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
-$supplier = SupplierOrder::getSupplier($_SESSION["supplierOrderId"]);
-$_SESSION["products"] = Product::getProdsBySupp($supplier[0]["supplier_id"]); // get the products
+$supplier = SupplierOrder::getSupplier($_SESSION["supplierOrderId"]); //get the supplier id from the supplierOrders where supplierOrder_id == $_SESSION["supplierOrderId"]
+$_SESSION["products"] = Product::getProdsBySupp($supplier[0]["supplier_id"]); // get the products where prodcuts.supplier_id == $supplier[0]["supplier_id"]
 $_SESSION["supplierOrderedProducts"] = SupplierOrderedProduct::paginate($_SESSION["supplierOrderId"]); // gets all the ordered ;
 goback();

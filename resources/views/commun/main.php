@@ -11,9 +11,6 @@
         <?php require_once "../components/alert.php"; ?>
 
         <!-- table -->
-        <?php 
-        if()
-        require_once "../components/table.php"; 
-        ?>
+        <?php require_once "../components/table.php"; ?>
     </main>
 </div>
