@@ -2,8 +2,6 @@
 require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
-
-
 $items = $_SESSION["orderedProducts"]; // items to be shown in the table;
 
 // the title of the <th> tags

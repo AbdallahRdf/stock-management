@@ -258,6 +258,10 @@ body {
     background-color: var(--main-light);
 }
 
+.logout-cancel:hover {
+    background-color: var(--main-dark);
+}
+
 .logout-logout {
     padding: 14px 12px;
     background-color: transparent;
@@ -265,6 +269,13 @@ body {
     border: 1px solid #1792F9; */
     color: var(--main-light);
     border: 1px solid var(--main-light);
+    transition: all .2s;
+}
+
+.logout-logout:hover {
+    background-color: var(--main);
+    color: white;
+    border: 1px solid var(--main);
 }
 
 /* utility classes */
