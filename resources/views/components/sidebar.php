@@ -64,10 +64,11 @@ $current_page = get_current_view();  // getting the name of the current view
 <!-- logout confirmation box -->
 <div class="logout-card-container" id="logout-card-container">
     <div id="logout-card" class="logout-card">
-        <p class="logout-message">Are you sure you want to log out?</p>
-        <div>
-            <button id="logout-cancel" class="logout-cancel">Cancel</button>
-            <a class="logout-logout" href="../../../controllers/AuthController.php">Log out</a>
+        <img src="../../img/green-logout-door.svg" alt="logout image">
+        <p class="logout-message">Oh no! You're leaving...<br>Are you sure?</p>
+        <div class="logout-acions-btn">
+            <button id="logout-cancel" class="logout-cancel">Not sure, Cancel</button>
+            <a class="logout-logout" href="../../../controllers/AuthController.php">Yes, Log me out</a>
         </div>
     </div>
 </div>

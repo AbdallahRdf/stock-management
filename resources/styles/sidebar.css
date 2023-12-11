@@ -1,11 +1,10 @@
 :root {
     --blue-dark: #13232f;
-    /* --body-bg: #c1bdba; */
     --body-bg: #EAEFF8;
     --white: #ffffff;
 
     --main: #1ab188;
-    --main-light: #1ab189f2;
+    --main-light: #1ab188f2;
     --main-dark: #179b78;
 
     --gray: #ddd;
@@ -173,15 +172,24 @@ body {
 }
 
 .logout-card {
-    width: 300px;
-    background-color: rgb(228, 228, 228);
+    width: fit-content;
+    box-sizing: content-box;
+    background-color: rgb(242, 242, 242);
     color: var(--blue-dark);
-    border-radius: 6px;
+    border-radius: 14px;
     padding: 14px;
     position: fixed;
     left: 50%;
-    top: 40%;
+    top: 45%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logout-card img {
+    margin: auto;
+    margin-top: 20px;
 }
 
 .card-desappear {
@@ -200,7 +208,7 @@ body {
     }
     100% {
         opacity: 1;
-        top: 40%;
+        top: 45%;
         display: block;
     }
 }
@@ -208,7 +216,7 @@ body {
 @keyframes card-desappear {
     0% {
         opacity: 1;
-        top: 40%;
+        top: 45%;
         display: block;
     }
     
@@ -220,27 +228,43 @@ body {
 }
 
 .logout-message {
-    margin: 16px 0;
+    margin: 30px 50px 15px 50px;
+    text-align: center;
+}
+
+.logout-acions-btn {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    text-align: center;
+    column-gap: 10px;
+    margin-bottom: 20px;
 }
 
 .logout-cancel,
 .logout-logout {
     text-decoration: none;
     border: none;
-    font-size: .9rem;
-    border-radius: 6px;
+    font-size: 1rem;
+    border-radius: 50px;
     color: var(--white);
-    cursor: pointer
+    cursor: pointer;
 }
 
 .logout-cancel {
-    padding: 8px 12px;
-    background-color: var(--gray-dark);
+    padding: 12px 12px;
+    /* background-color: #1792F9 */
+    background-color: var(--main-light);
 }
 
 .logout-logout {
-    padding: 10px 12px;
-    background-color: var(--red);
+    padding: 14px 12px;
+    background-color: transparent;
+    /* color: #1792F9;
+    border: 1px solid #1792F9; */
+    color: var(--main-light);
+    border: 1px solid var(--main-light);
 }
 
 /* utility classes */
