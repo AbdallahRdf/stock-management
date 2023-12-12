@@ -8,7 +8,6 @@ function dd($data) // die and dump
     die();
 }
 
-
 /** redirects you to a specific view.
  * @param string $view_name the view name to be redirected to, and it could also be in this format: folder_name.view_name
  * @param array $params optional params to send to the view through GET method

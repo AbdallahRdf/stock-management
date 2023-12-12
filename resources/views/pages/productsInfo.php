@@ -21,10 +21,6 @@ $product = $_SESSION["product"][0];
 
         <div class="main">
 
-            <!-- alert -->
-            <?php //require_once "../components/alert.php"; 
-            ?>
-
             <!-- card showing info -->
             <div class="product-container">
                 <div class="header">
@@ -59,7 +55,6 @@ $product = $_SESSION["product"][0];
                     <label for="stock"> Stock Quantity: </label>
                     <input type="text" id="stock" value="<?= $product['stock_quantity'] ?>" disabled>
                 </div>
-
             </div>
         </div>
 
