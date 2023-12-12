@@ -56,8 +56,14 @@ function handle_inputs_validation($name, $description, $purchase_price, $quantit
         }
 
         // send back the error messages and the old input
-        $_SESSION["errors"] = $ERRORS;
+
         $_SESSION["old"] = $OLD;
+        if (isset($_POST["supplierOrderId"])) {
+            $_SESSION["errors1"] = $ERRORS;
+            header("Location: ../resources/views/pages/suppOrderedProducts.php");
+            die();
+        }
+        $_SESSION["errors"] = $ERRORS;
 
         goback();
     }
@@ -70,6 +76,23 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['info'])) {
     die();
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["supplierOrderId"])) {
+        $name = trim($_POST["name"]);
+        $description = trim($_POST["description"]);
+        $purchase_price = $_POST["purchase_price"];
+        $quantity = $_POST["quantity"];
+        $category = $_POST["category"];
+        $supplier = $_POST["supplier"];
+        $selling_price = $_POST["selling_price"];
+        handle_inputs_validation($name, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
+        $excerpt = substr($description, 0, 14) . "...";
+
+        Product::create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
+
+        create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
+        header("Location: ./SuppOrderedProdsController.php?info=" . $_POST["supplierOrderId"]);
+        die();
+    }
     if ($_POST["product_id"] == "") // create a product:
     {
         $name = trim($_POST["name"]);
@@ -88,13 +111,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Product::create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
 
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } 
-    else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
+    } else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
     {
         $result = Product::delete($_POST["product_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    }
-    else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
+    } else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
     {
         $product_id = $_POST["product_id"];
         $name = trim($_POST["name"]);

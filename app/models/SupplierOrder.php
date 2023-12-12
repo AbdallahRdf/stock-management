@@ -102,10 +102,7 @@ class SupplierOrder
     // get the supplier of the order
     public static function getSupplier($supplierOrder_id)
     {
-        $sql = "SELECT 
-        supplier_id
-        FROM supplierOrders
-        WHERE id= :SupplierOrder_id";
+        $sql = "SELECT suppliers.id, full_name, email, phone_num, registration_date FROM supplierOrders JOIN suppliers WHERE suppliers.id = supplierOrders.supplier_id and supplierOrders.id= :SupplierOrder_id";
 
         $params = [':SupplierOrder_id' => $supplierOrder_id];
 

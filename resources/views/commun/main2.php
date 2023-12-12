@@ -10,7 +10,7 @@
         <!-- alert -->
         <?php require_once "../components/alert.php"; ?>
 
-        <?php require_once "../components/noProducts.php" ?>
+        <?php require_once "../components/noProducts.php"; ?>
 
     </main>
 </div>

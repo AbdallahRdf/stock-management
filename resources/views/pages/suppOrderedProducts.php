@@ -2,15 +2,38 @@
 require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
+// no product
+$categories = $_SESSION['categories']; // getting all the categories, they will be shown in the select in the from;
+$suppliers = $_SESSION['suppliers']; // getting all the suppliers, they will be shown in the select in the from;
+// error messages for the form;
+$name_error_message = $_SESSION["errors1"]["name_error"] ?? "";
+$email_error_message = $_SESSION["errors1"]["description_error"] ?? "";
+$pprice_error_message = $_SESSION["errors1"]["p_price_error"] ?? "";
+$date_error_message = $_SESSION["errors1"]["quantity_error"] ?? "";
+$sprice_error_message = $_SESSION["errors1"]["s_price_error"] ?? "";
+// old input values
+$old_name = $_SESSION["old"]["old_name"] ?? "";
+$old_email = $_SESSION["old"]["old_description"] ?? "";
+$old_p_price = $_SESSION["old"]["old_p_price"] ?? "";
+$old_date = $_SESSION["old"]["old_quantity"] ?? "";
+$old_category = $_SESSION["old"]["old_category"] ?? "";
+$old_supplier = $_SESSION["old"]["old_supplier"] ?? "";
+$old_s_price = $_SESSION["old"]["old_s_price"] ?? "";
+$old_id = $_SESSION["old"]["old_id"] ?? "";
 
+
+
+$current_page = get_current_view();
+
+
+
+//////////////////////
 
 $items = $_SESSION["supplierOrderedProducts"]; // items to be shown in the table;
-
-// the title of the <th> tags
+$supplier = $_SESSION["supplier"];
 $table_header = ["Product", "Quantity", "Actions"];
-
-$products = $_SESSION["products"]; // getting all the categories, they will be shown in the select in the from;
-// error messages for the form;
+$supplierOrderId = $_SESSION["supplierOrderId"];
+$products = $_SESSION["products"];
 $quantity_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
 
 // old input values
@@ -18,12 +41,27 @@ $old_quantity = $_SESSION["old"]["old_quantity"] ?? "";
 $old_product = $_SESSION["old"]["old_product"] ?? "";
 $old_id = $_SESSION["old"]["old_id"] ?? "";
 
-$display_proprety = $_SESSION["errors"] ? "block" : "none";
+if ($_SESSION["errors"]) {
+    $display_proprety = "block";
+    $display_proprety1 = "none";
+} else if ($_SESSION["errors1"]) {
+    $display_proprety = "none";
+    $display_proprety1 = "block";
+} else {
+    $display_proprety = "none";
+    $display_proprety1 = "none";
+}
+
 
 if (empty($products)) {
     $display_button = "none";
 } else {
     $display_button = "block";
+}
+if (isset($_SESSION["errors1"])) // if there is an error after creating new element;
+{
+    unset($_SESSION["errors1"]);
+    unset($_SESSION["old"]);
 }
 if (isset($_SESSION["errors"])) // if there is an error after creating new element;
 {
@@ -55,7 +93,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 
 
     <!-- Form to add elements to the table -->
-    <div style="display: <?= $display_button ?>;">
+    <div>
         <div id="adding-form-container" style="display:<?= $display_proprety ?>">
             <form id="form" class="form" action="../../../controllers/SuppOrderedProdsController.php" method="POST">
                 <h3>Add New Record</h3>
