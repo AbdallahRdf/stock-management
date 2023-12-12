@@ -1,41 +1,3 @@
-<?php
-
-
-$items = $_SESSION['products']; // items to be shown in the table;
-
-// the title of the <th> tags
-
-$categories = $_SESSION['categories']; // getting all the categories, they will be shown in the select in the from;
-$suppliers = $_SESSION['suppliers']; // getting all the suppliers, they will be shown in the select in the from;
-// error messages for the form;
-$name_error_message = $_SESSION["errors"]["name_error"] ?? "";
-$email_error_message = $_SESSION["errors"]["description_error"] ?? "";
-$pprice_error_message = $_SESSION["errors"]["p_price_error"] ?? "";
-$date_error_message = $_SESSION["errors"]["quantity_error"] ?? "";
-$sprice_error_message = $_SESSION["errors"]["s_price_error"] ?? "";
-
-// old input values
-$old_name = $_SESSION["old"]["old_name"] ?? "";
-$old_email = $_SESSION["old"]["old_description"] ?? "";
-$old_p_price = $_SESSION["old"]["old_p_price"] ?? "";
-$old_date = $_SESSION["old"]["old_quantity"] ?? "";
-$old_category = $_SESSION["old"]["old_category"] ?? "";
-$old_supplier = $_SESSION["old"]["old_supplier"] ?? "";
-$old_s_price = $_SESSION["old"]["old_s_price"] ?? "";
-$old_id = $_SESSION["old"]["old_id"] ?? "";
-
-$display_proprety = $_SESSION["errors"] ? "block" : "none"; // if there is an error in the form then show the form again;
-
-if (isset($_SESSION["errors"])) // if there is an error after creating new element;
-{
-    unset($_SESSION["errors"]);
-    unset($_SESSION["old"]);
-}
-?>
-
-
-
-
 <div class="noproduct-container">
     <div class="header">
         <a href="../../../controllers/SuppOrderedProductsController.php">
@@ -48,13 +10,19 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
         Add Product For abdellah
     </button>
 
-    <div id="adding-form-container" style="display:<?= $display_proprety ?>">
+    <div id="adding-form-container" style="display:<?= $display_proprety1 ?>">
         <form id="form" class="form" action="../../../controllers/ProductController.php" method="POST">
             <h3>Add New Record</h3>
             <div class="inside-form-container">
-
                 <div class="input-group">
                     <input type="hidden" name="product_id" class="form-input" value="<?= $old_id ?>">
+                    <?php
+                    if ($current_page == "suppOrderedProducts") {
+                    ?>
+                        <input type="hidden" name="supplierOrderId" value="<?= $supplierOrderId ?>">
+                    <?php
+                    }
+                    ?>
                     <label for="name">Product Name</label>
                     <input class="form-input" id="name" type="text" name="name" placeholder="Product Name" value="<?= $old_name ?>">
                     <small>
@@ -96,15 +64,11 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
                 </div>
 
                 <div class="input-group">
-                    <label for="supplier">Select the product supplier</label>
+                    <label for="supplier">The Product Supplier</label>
                     <div class="custom-select">
                         <select name="supplier" class="form-input" id="supplier" required>
                             <option value="" disabled selected>--Select an option--</option>
-                            <?php foreach ($suppliers as $supplier) : ?>
-                                <option value="<?= $supplier["id"] ?>" <?= (string) $supplier["id"] === (string) $old_supplier ? 'selected' : '' ?>>
-                                    <?= $supplier["full_name"] ?>
-                                </option>
-                            <?php endforeach; ?>
+                            <option value="<?= $supplier[0]["id"] ?>" selected><?= $supplier[0]["full_name"] ?></option>
                         </select>
                     </div>
                 </div>
