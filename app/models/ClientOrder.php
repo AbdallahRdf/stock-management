@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Order;
-
 class ClientOrder extends Order
 {
     protected static $table_name = "clientOrders";
