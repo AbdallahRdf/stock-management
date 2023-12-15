@@ -6,16 +6,20 @@ use App\Core\Database;
 
 class Order
 {
-    // returns all the orders in the db;
+    protected static $table_name; // table name (clientOrders or supplierOrder)
+    protected static $joined_table; // table to join with (clients or suppliers)
+    protected static $person_id; // either client_id or supplier_id
+
+    // returns all the clientOrders in the db;
     public static function all()
     {
         $sql = "SELECT 
-            orders.id, 
-            orders.date, 
-            clients.full_name as client_name 
-        FROM orders JOIN clients 
-        WHERE orders.client_id = clients.id 
-        ORDER BY orders.created_at DESC;";
+            " . static::$table_name . ".id, 
+            " . static::$table_name . ".date, 
+            " . static::$joined_table . ".full_name as name 
+        FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
+        WHERE " . static::$table_name . "." . static::$person_id . " = " . static::$joined_table . ".id 
+        ORDER BY " . static::$table_name . ".created_at DESC;";
 
         return (new Database)->query($sql);
     }
@@ -24,25 +28,25 @@ class Order
     public static function paginate($offset = 0, $limit = 10)
     {
         $sql = "SELECT 
-            orders.id, 
-            orders.date, 
-            clients.full_name as client_name 
-        FROM orders JOIN clients 
-        WHERE orders.client_id = clients.id 
-        ORDER BY orders.created_at DESC
+            " . static::$table_name . ".id, 
+            " . static::$table_name . ".date, 
+            " . static::$joined_table . ".full_name as name 
+        FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
+        WHERE " . static::$table_name . "." . static::$person_id . " = " . static::$joined_table . ".id 
+        ORDER BY " . static::$table_name . ".created_at DESC
         LIMIT $limit OFFSET $offset;";
 
         return (new Database)->query($sql);
     }
 
     // create an order
-    public static function create($date, $client_id)
+    public static function create($date, $person_id)
     {
-        $sql = "INSERT INTO orders (date, client_id) VALUES (:date, :client_id);";
+        $sql = "INSERT INTO " . static::$table_name . " (date, " . static::$person_id . ") VALUES (:date, :client_id);";
 
         $params = [
             ":date" => $date,
-            ":client_id" => $client_id,
+            ":client_id" => $person_id,
         ];
         return (new Database)->query($sql, $params);
     }
@@ -50,7 +54,7 @@ class Order
     // delete an order
     public static function delete($id)
     {
-        $sql = "DELETE FROM orders WHERE id=:id";
+        $sql = "DELETE FROM " . static::$table_name . " WHERE id=:id";
 
         $params = [":id" => $id];
 
@@ -58,23 +62,23 @@ class Order
     }
 
     // update an order
-    public static function update($id, $date, $client_id)
+    public static function update($id, $date, $person_id)
     {
-        $sql = "UPDATE orders SET date=:date, client_id=:client_id  WHERE id=:id";
+        $sql = "UPDATE " . static::$table_name . " SET date=:date, " . static::$person_id . "=:person_id  WHERE id=:id";
 
         $params = [
             ":date" => $date,
-            ":client_id" => $client_id,
+            ":person_id" => $person_id,
             ":id" => $id
         ];
         return (new Database)->query($sql, $params);
     }
 
 
-    // get the quantity of orders in each month
+    // get the quantity of clientOrders in each month
     public static function allGroupByMonth($year)
     {
-        $sql = "SELECT month(date) AS months, count(id) FROM orders 
+        $sql = "SELECT month(date) AS months, count(id) FROM " . static::$table_name . " 
             WHERE year(date) = :year 
             GROUP BY month(date) 
             ORDER BY month(date) ASC;";
@@ -84,17 +88,17 @@ class Order
         return (new Database)->query($sql, $params);
     }
 
-    // returns an array containing all the years of supplier orders
+    // returns an array containing all the years of supplier clientOrders
     public static function getAllYears()
     {
-        return (new Database)->query("SELECT distinct(year(date)) AS years FROM orders ORDER BY year(date) DESC");
+        return (new Database)->query("SELECT distinct(year(date)) AS years FROM " . static::$table_name . " ORDER BY year(date) DESC");
     }
 
     // gets the last inserted item
     public static function getLast()
     {
-        $sql = "SELECT MAX(id) FROM orders";
-        //$sql="SELECT * FROM orders ORDER BY DESC LIMIT 1";
+        $sql = "SELECT MAX(id) FROM " . static::$table_name;
+
         return (new Database)->query($sql);
     }
 }

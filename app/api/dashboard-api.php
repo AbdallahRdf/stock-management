@@ -10,7 +10,7 @@ require_once "../autoloader/autoloader.php";
 
 use App\Models\Client;
 use App\Models\SupplierOrder;
-use App\Models\Order;
+use App\Models\ClientOrder;
 use App\Models\OrderedProduct;
 
 header('Content-Type: application/json'); // specify the content-type header of the response;
@@ -70,7 +70,7 @@ function formatProductsChartData($data)
 }
 
 $view_model = [
-    "ordersChart" => fn() => [formatOrdersChartData(Order::allGroupByMonth($year)), formatOrdersChartData(SupplierOrder::allGroupByMonth($year))],
+    "ordersChart" => fn() => [formatOrdersChartData(ClientOrder::allGroupByMonth($year)), formatOrdersChartData(SupplierOrder::allGroupByMonth($year))],
     "topSellingProducts" => fn() => formatProductsChartData(OrderedProduct::get_top_selling_products()),
     "clientsChart" => fn() => formatOrdersChartData(Client::allGroupByMonth($year)),
 ];

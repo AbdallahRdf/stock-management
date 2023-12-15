@@ -69,7 +69,7 @@ CREATE TABLE `products` (
 
 
 -- create the orders table
-CREATE TABLE `orders` (
+CREATE TABLE `clientOrders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `client_id` int(11) NOT NULL,

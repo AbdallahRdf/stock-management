@@ -2,7 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Client;
-use App\Models\Order;
+use App\Models\ClientOrder;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\SupplierOrder;
@@ -28,13 +28,13 @@ $_SESSION["supplier_count"] = number_format(count(Supplier::all())); // get the 
 $_SESSION["category_count"] = number_format(count(Category::all())); // get the number of categories
 $_SESSION["product_count"] = number_format(count(Product::all())); // get the number of products
 
-$orders_years = Order::getAllYears(); // get the array of orders years wich contains each year in its own array
+$orders_years = ClientOrder::getAllYears(); // get the array of orders years wich contains each year in its own array
 $supplier_orders_years = SupplierOrder::getAllYears(); // get the array of suppliers orders years wich contains each year in its own array
 
 $_SESSION["orders_years_array"] = format_years_array([...$orders_years, ...$supplier_orders_years]);
 $_SESSION["clients_years_array"] = format_years_array(Client::getAllYears());
 
-$_SESSION["orders_data"] = Order::paginate();
+$_SESSION["orders_data"] = ClientOrder::paginate();
 
 header("location: ../resources/views/pages/dashboard.php");
 die();

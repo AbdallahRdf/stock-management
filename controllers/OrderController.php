@@ -5,7 +5,7 @@ require_once "../app/util/functions.php";
 require_once "../app/autoloader/autoloader.php";
 
 use App\Models\Client;
-use App\Models\Order;
+use App\Models\ClientOrder;
 
 session_start();
 
@@ -49,11 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $date = $_POST["date"];
         $client = $_POST["client_id"];
         handle_inputs_validation($date, $client);
-        Order::create($date, $client);
+        ClientOrder::create($date, $client);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["date"]) && $_POST["order_id"] != "") // delete an order:
     {
-        $result = Order::delete($_POST["order_id"]);
+        $result = ClientOrder::delete($_POST["order_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
     } else if (isset($_POST["date"]) && $_POST["order_id"] != "") // updating an order
     {
@@ -62,14 +62,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $client_id = $_POST["client_id"];
         handle_inputs_validation($date, $client, $id);
 
-        Order::update($id, $date, $client_id);
+        ClientOrder::update($id, $date, $client_id);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
 
 $_SESSION["clients"] = Client::all(); // get all the client;
-$_SESSION["orders"] = Order::paginate(); // get all the client;
-
+$_SESSION["orders"] = ClientOrder::paginate(); // get all the client;
 
 //* redirect to clients page;
 goback();
