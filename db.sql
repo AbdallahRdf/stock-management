@@ -80,7 +80,7 @@ CREATE TABLE `clientOrders` (
 
 -- create the ordered products table
 
-CREATE TABLE `orderedProducts` (
+CREATE TABLE `ClientOrderedProducts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE `supplierOrders` (
 
 CREATE TABLE `supplierOrderedProducts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `supplierOrder_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),

@@ -4,9 +4,8 @@ require_once "../app/util/functions.php";
 //* requiring the autoloader
 require_once "../app/autoloader/autoloader.php";
 
-use App\Models\OrderedProduct;
+use App\Models\ClientOrderedProduct;
 use App\Models\Product;
-
 
 session_start();
 
@@ -52,11 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         handle_inputs_validation($product, $quantity);
 
-        OrderedProduct::create($product, $quantity, $order_id);
+        ClientOrderedProduct::create($product, $quantity, $order_id);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
     {
-        $result = OrderedProduct::delete($_POST["ordered_p_id"]);
+        $result = ClientOrderedProduct::delete($_POST["ordered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
     } else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
     {
@@ -67,11 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         handle_inputs_validation($product_id, $quantity, $ordered_p_id);
 
-        OrderedProduct::update($ordered_p_id, $product_id, $quantity);
+        ClientOrderedProduct::update($ordered_p_id, $product_id, $quantity);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
 
 $_SESSION["products"] = Product::all(); // get all the products
-$_SESSION["orderedProducts"] = OrderedProduct::paginate($_SESSION["orderId"]); // gets all the ordered ;
+$_SESSION["orderedProducts"] = ClientOrderedProduct::paginate($_SESSION["orderId"]); // gets all the ordered ;
 goback();

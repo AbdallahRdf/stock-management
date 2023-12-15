@@ -11,7 +11,7 @@ require_once "../autoloader/autoloader.php";
 use App\Models\Client;
 use App\Models\SupplierOrder;
 use App\Models\ClientOrder;
-use App\Models\OrderedProduct;
+use App\Models\ClientOrderedProduct;
 
 header('Content-Type: application/json'); // specify the content-type header of the response;
 
@@ -71,7 +71,7 @@ function formatProductsChartData($data)
 
 $view_model = [
     "ordersChart" => fn() => [formatOrdersChartData(ClientOrder::allGroupByMonth($year)), formatOrdersChartData(SupplierOrder::allGroupByMonth($year))],
-    "topSellingProducts" => fn() => formatProductsChartData(OrderedProduct::get_top_selling_products()),
+    "topSellingProducts" => fn() => formatProductsChartData(ClientOrderedProduct::get_top_selling_products()),
     "clientsChart" => fn() => formatOrdersChartData(Client::allGroupByMonth($year)),
 ];
 

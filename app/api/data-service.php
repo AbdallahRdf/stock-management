@@ -13,7 +13,7 @@ use App\Models\Client;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\ClientOrder;
-use App\Models\OrderedProduct;
+use App\Models\ClientOrderedProduct;
 use App\Models\SupplierOrder;
 use App\Models\SupplierOrderedProduct;
 
@@ -45,7 +45,7 @@ if (isset($_GET["limit"]) && isset($_GET["offset"]))
         "clients" => fn() => Client::paginate($offset, $limit),
         "suppliers" => fn() => Supplier::paginate($offset, $limit),
         "orders" => fn() => ClientOrder::paginate($offset, $limit),
-        "orderedProducts" => fn() => OrderedProduct::paginate($id, $offset, $limit),
+        "orderedProducts" => fn() => ClientOrderedProduct::paginate($id, $offset, $limit),
         "supplierOrders" => fn() => SupplierOrder::paginate($offset, $limit),
         "suppOrderedProducts" => fn() => SupplierOrderedProduct::paginate($id, $offset, $limit),
     ];
@@ -59,7 +59,7 @@ else
         "clients" => fn() => count(Client::all()),
         "suppliers" => fn() => count(Supplier::all()),
         "orders" => fn() => count(ClientOrder::all()),
-        "orderedProducts" => fn() => count(OrderedProduct::all($id)),
+        "orderedProducts" => fn() => count(ClientOrderedProduct::all($id)),
         "supplierOrders" => fn() => count(SupplierOrder::all()),
         "suppOrderedProducts" => fn() => count(SupplierOrderedProduct::all($id)),
     ];

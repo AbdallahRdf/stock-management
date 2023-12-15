@@ -10,6 +10,7 @@ if ($current_view === "products") {
 } else {
     $controller = "SuppOrderedProdsController";
 }
+
 $last_element = end($items); // getting the last element in the array;
 $description_index = array_search("Description", $table_header); // get the position (index) of the description
 ?>

@@ -2,6 +2,9 @@
 require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 $items = $_SESSION["orderedProducts"]; // items to be shown in the table;
 // the title of the <th> tags
 $table_header = ["Product", "Quantity", "Actions"];
@@ -16,7 +19,7 @@ $old_product = $_SESSION["old"]["old_product"] ?? "";
 $old_id = $_SESSION["old"]["old_id"] ?? "";
 
 
-$display_proprety = $_SESSION["errors"] ? "block" : "none";
+$display_proprety = isset($_SESSION["errors"]) ? "block" : "none";
 if (isset($_SESSION["errors"])) // if there is an error after creating new element;
 {
     unset($_SESSION["errors"]);
