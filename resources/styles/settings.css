@@ -1,81 +1,70 @@
 .settings-container {
-    width: 80%;
-    background-color: #9b9795;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px #0000001f;
-    padding: 30px 20px;
-    margin-top: 160px;
+  width: 60%;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px #00000027;
+  padding: 20px;
+  margin-top: 12%;
+  margin-bottom: 20px;
 }
 
 .settings-container h2 {
-    margin-bottom: 20px;
-    font-weight: normal;
+  margin: 6px auto 30px auto;
+  font-size: 1.8rem;
+  font-weight: normal;
+  text-align: center;
+  color: #878e93;
 }
 
 .input-grp {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-.input-grp input {
-    background-color: #0000001c;
-    color: white;
-    border: 1px solid #bdbdbd;
-    padding: 5px 10px;
-    font-size: 1rem;
-    border-radius: 4px;
-}
-
-.input-grp input:focus {
-    outline: none;
-    border-color: #fff;
-}
-
-.input-grp input::placeholder {
-    color: #fff;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-grp label {
+    color: #878e93;
+    margin-left: 2px;
     margin-bottom: 4px;
     font-weight: 600;
     font-size: 0.9rem;
 }
 
+.input-grp input {
+  margin-top: 4px;
+  color: #585858;
+  padding: 4px 10px;
+  font-size: 1rem;
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: 8px;
+  resize: none;
+}
+
 .btns {
     margin-top: 34px;
+    margin-bottom: 14px;
 }
 
 .settings-container a,
 .settings-container button {
-    padding: 8px 18px;
-    border-radius: 6px;
+    padding: 10px 18px;
+    border-radius: 20px;
     font-size: 1rem;
     cursor: pointer;
     text-decoration: none;
     width: fit-content;
     border: 1px solid #bdbdbd;
-    color:  #f2f2f2;
-}
-
-.settings-container a {
-    background-color: #21262d91;
-}
-
-.settings-container button {
-    background-color: #1ab188;
+    background-color:  transparent;
+    color: #21262d91;
+    transition: all .2s;
 }
 
 .settings-container a:hover,
-.settings-container a:focus {
-    background-color: #21262d71;
-    border-color: #fff; 
-}
-
+.settings-container a:focus,
 .settings-container button:hover,
 .settings-container button:focus {
-    background-color: #1dbd92;
-    border-color: #fff; 
+    color:  #fff;
+    background-color: #21262d91; 
 }
 
 .error-message {

@@ -16,7 +16,7 @@ $current_page = get_current_view();  // getting the name of the current view
     <link rel="stylesheet" href="../../styles/deleteForm.css">
     <link rel="stylesheet" href="../../styles/alert.css">
     <link rel="stylesheet" href="../../styles/dropdown.css">
-    <link rel="stylesheet" href="../../styles/settings.css">
     <link rel="stylesheet" href="../../styles/product.css">
     <link rel="stylesheet" href="../../styles/noproduct.css">
+    <link rel="stylesheet" href="../../styles/settings.css">
 </head>
