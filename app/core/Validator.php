@@ -17,6 +17,18 @@ class Validator {
 
     }
 
+    // checks if the passed string is a number;
+    public static function isNumber($num)
+    {
+        return preg_match("/^[1-9]+[0-9]*$/", $num);
+    }
+
+    // checks if the passed string is a float;
+    public static function isDouble($num)
+    {
+        return preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $num);
+    }
+
     //* checks if the email is valid;
     public static function isEmailValid($email)
     {

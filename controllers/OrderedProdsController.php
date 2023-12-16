@@ -4,6 +4,7 @@ require_once "../app/util/functions.php";
 //* requiring the autoloader
 require_once "../app/autoloader/autoloader.php";
 
+use App\Core\Validator;
 use App\Models\ClientOrderedProduct;
 use App\Models\Product;
 
@@ -23,7 +24,7 @@ function handle_inputs_validation($product, $quantity, $id = null)
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
 
-    if (!preg_match("/^[1-9]+[0-9]+$/", $quantity)) {
+    if (!Validator::isNumber($quantity)) {
         $ERRORS["quantity_error"] = "Invalid Product Quantity";
     }
 
@@ -39,6 +40,7 @@ function handle_inputs_validation($product, $quantity, $id = null)
         goback();
     }
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $_SESSION["orderId"] = $_GET['info'];
 }

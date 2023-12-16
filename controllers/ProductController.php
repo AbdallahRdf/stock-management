@@ -31,13 +31,13 @@ function handle_inputs_validation($name, $description, $purchase_price, $quantit
     if (!Validator::isAlphaNum($description)) {
         $ERRORS["description_error"] = "Invalid Product Description";
     }
-    if (!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $purchase_price)) {
+    if (!Validator::isDouble($purchase_price)) {
         $ERRORS["p_price_error"] = "Invalid Product Price, If you include a decimal point, ensure there is at least one digit after it (e.g., 10, 10.99)";
     }
-    if (!preg_match("/^[0-9]+(\.[0-9]{1,2})?$/", $selling_price)) {
+    if (!Validator::isDouble($selling_price)) {
         $ERRORS["s_price_error"] = "Invalid Product Price, If you include a decimal point, ensure there is at least one digit after it (e.g., 10, 10.99)";
     }
-    if (!preg_match("/^[1-9]+[0-9]+$/", $quantity)) {
+    if (!Validator::isNumber($quantity)) {
         $ERRORS["quantity_error"] = "Invalid Product Quantity";
     }
 
@@ -69,14 +69,16 @@ function handle_inputs_validation($name, $description, $purchase_price, $quantit
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['info'])) {
-    $id = $_GET['info'];
-    $_SESSION["product"] = Product::getProduct($id); // get a specific product
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['info'])) // if it a get request, and $_GET["info"] does exist which is a product id, then:
+{
+    $_SESSION["product"] = Product::getProduct($_GET['info']); // get a specific product
     header("Location: ../resources/views/pages/productsInfo.php");
     die();
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["supplierOrderId"])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST") 
+{
+    if (isset($_POST["supplierOrderId"])) 
+    {
         $name = trim($_POST["name"]);
         $description = trim($_POST["description"]);
         $purchase_price = $_POST["purchase_price"];
@@ -111,11 +113,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Product::create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
 
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
+    } 
+    else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
     {
         $result = Product::delete($_POST["product_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
+    } 
+    else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
     {
         $product_id = $_POST["product_id"];
         $name = trim($_POST["name"]);

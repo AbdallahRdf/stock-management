@@ -27,8 +27,6 @@ function handle_inputs_validation($date, $supplier, $id = null)
         $ERRORS["date_error"] = "Invalid Date";
     }
 
-
-
     if (!empty($ERRORS)) // if there is errors
     {
         $OLD["old_date"] = $date;

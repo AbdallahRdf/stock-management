@@ -4,6 +4,7 @@ require_once "../app/util/functions.php";
 //* requiring the autoloader
 require_once "../app/autoloader/autoloader.php";
 
+use App\Core\Validator;
 use App\Models\Product;
 use App\Models\SupplierOrder;
 use App\Models\SupplierOrderedProduct;
@@ -25,8 +26,7 @@ function handle_inputs_validation($product, $quantity, $id = null)
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
 
-
-    if (!preg_match("/^[1-9]+[0-9]+$/", $quantity)) {
+    if (!Validator::isNumber($quantity)) {
         $ERRORS["quantity_error"] = "Invalid Product Quantity";
     }
 
@@ -44,13 +44,12 @@ function handle_inputs_validation($product, $quantity, $id = null)
     }
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $_SESSION["supplierOrderId"] = $_GET['info'];
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
     if ($_POST["supplierOrdered_p_id"] == "")  //create an ordered product
     {
         $product = $_POST["product_id"];
@@ -62,14 +61,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         SupplierOrderedProduct::create($product, $quantity, $supplierOrder_id);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-
-
-    } else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
+    } 
+    else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
     {
 
         $result = SupplierOrderedProduct::delete($_POST["supplierOrdered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } else if (isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // updating an SupplierOrdered product
+    } 
+    else if (isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // updating an SupplierOrdered product
     {
 
         $supplierOrdered_p_id = $_POST["supplierOrdered_p_id"];
