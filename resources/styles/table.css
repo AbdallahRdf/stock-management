@@ -38,9 +38,10 @@
 
 .add-btn {
   display: flex;
+  justify-content: center;
   border: none;
-  padding: 8px 20px;
-  border-radius: 6px;
+  padding: 8px 26px;
+  border-radius: 18px;
   font-size: 1rem;
   background-color: var(--main-light);
   color: var(--white);
@@ -57,12 +58,19 @@
   background-color: var(--main-light);
 }
 
+.table-div {
+  width: 100%;
+  overflow: scroll;
+  border-radius: 20px;
+  scroll-behavior: smooth;
+}
+
 table {
   width: 100%;
   color: rgb(84, 84, 84);
   border-collapse: collapse;
   background-color: rgba(255, 255, 255);
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 tr:hover {
@@ -73,6 +81,7 @@ th,
 td {
   padding: 10px;
   text-align: center;
+  white-space: nowrap;
 }
 
 th,
@@ -150,14 +159,14 @@ td:not(.last) {
 }
 
 .previous {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   cursor: pointer;
 }
 
 .next {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   cursor: pointer;
 }
 
