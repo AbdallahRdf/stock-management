@@ -49,7 +49,7 @@ The project follows the Model-View-Controller (MVC) architecture pattern for bet
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/your-username/InventoSync.git`
+1. Clone the repository: `git clone https://github.com/AbdallahRdf/stock-management.git`
 2. Import the database using `db.sql`.
 3. Configure database connection in the appropriate files.
 4. Deploy the application using a web server.
