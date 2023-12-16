@@ -44,12 +44,12 @@ function handle_inputs_validation($product, $quantity, $id = null)
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $_SESSION["supplierOrderId"] = $_GET['info'];
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") { // checks if the request method is GET ."when the user click on the info button in supplierOrders.php view
+    $_SESSION["supplierOrderId"] = $_GET['info']; //stores the value of the id sent into the session.
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["supplierOrdered_p_id"] == "")  //create an ordered product
     {
         $product = $_POST["product_id"];
@@ -61,14 +61,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         SupplierOrderedProduct::create($product, $quantity, $supplierOrder_id);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } 
-    else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
+    } else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
     {
 
         $result = SupplierOrderedProduct::delete($_POST["supplierOrdered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } 
-    else if (isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // updating an SupplierOrdered product
+    } else if (isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // updating an SupplierOrdered product
     {
 
         $supplierOrdered_p_id = $_POST["supplierOrdered_p_id"];
@@ -77,7 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         //dd(['quantity' => $quantity, 'supplierOrdered_p_id' => $supplierOrdered_p_id, "product_id" => $product_id]);
 
         handle_inputs_validation($product_id, $quantity, $supplierOrdered_p_id);
-
         SupplierOrderedProduct::update($supplierOrdered_p_id, $product_id, $quantity);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }

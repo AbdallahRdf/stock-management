@@ -68,7 +68,7 @@ CREATE TABLE `products` (
 );
 
 
--- create the orders table
+-- create the orders table  
 CREATE TABLE `clientOrders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `clientOrders` (
 
 -- create the ordered products table
 
-CREATE TABLE `ClientOrderedProducts` (
+CREATE TABLE `clientOrderedProducts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,

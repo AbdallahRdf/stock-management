@@ -41,8 +41,8 @@ function handle_inputs_validation($product, $quantity, $id = null)
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $_SESSION["orderId"] = $_GET['info'];
+if ($_SERVER["REQUEST_METHOD"] == "GET") { // checks if the request method is GET ."when the user click on the info button in orders.php view
+    $_SESSION["orderId"] = $_GET['info']; //stores the value of the id sent into the session.
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["ordered_p_id"] == "") { //create an ordered product

@@ -53,11 +53,7 @@ if ($_SESSION["errors"]) {
 }
 
 
-if (empty($products)) {
-    $display_button = "none";
-} else {
-    $display_button = "block";
-}
+
 if (isset($_SESSION["errors1"])) // if there is an error after creating new element;
 {
     unset($_SESSION["errors1"]);
@@ -83,14 +79,8 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 
     <!-- main.php contains the overlay, the sidebar, the alert, the table -->
     <?php
-    if (empty($products)) {
-        require_once "../commun/main2.php";
-    } else {
-        require_once "../commun/main.php";
-    }
-
+    require_once "../commun/main.php";
     ?>
-
 
     <!-- Form to add elements to the table -->
     <div>

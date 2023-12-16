@@ -4,13 +4,10 @@
   border-radius: 14px;
   box-shadow: 0 4px 8px #00000027;
   padding: 20px;
-  margin-top: 60px;
-  margin-bottom: 20px;
-}
-
-.header {
-  display: block;
-  align-items: start;
+  margin-top: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .noproduct-container h2 {
@@ -18,16 +15,17 @@
   font-size: 1.8rem;
   font-weight: normal;
   text-align: center;
-  color: var(--main-dark);
+  color: #188064;
 }
 .noproduct-container h3 {
   margin: 6px auto 30px auto;
   font-size: 1.3rem;
   font-weight: normal;
   text-align: center;
-  color: var(--main-light);
+  color: #1f9777f2;
 }
 .noproduct-container button {
+  width: 50%;
   text-decoration: none;
   border: none;
   font-size: 1rem;
@@ -38,11 +36,11 @@
   background-color: transparent;
   /* color: #1792F9;
     border: 1px solid #1792F9; */
-  color: var(--main-light);
-  border: 1px solid var(--main-light);
+  color: #1ab189f2;
+  border: 1px solid #1ab189f2;
 }
 
 .noproduct-container button:hover {
-  background-color: var(--main-light);
+  background-color: #1ab189f2;
   color: var(--white);
 }

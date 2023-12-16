@@ -1,13 +1,16 @@
 <div class="noproduct-container">
     <div class="header">
-        <a href="../../../controllers/SuppOrderedProductsController.php">
+        <a href="../../../controllers/SuppOrderController.php">
             <img src="../../img/arrow.svg" alt="">
         </a>
-        <h2>!! Opps ...</h2>
-        <h3>There are no Products supplied by </h3>
+        <div>
+            <h2>!! Opps ...</h2>
+            <h3>There are no Products supplied by <?= $supplier[0]['full_name'] ?> </h3>
+        </div>
+
     </div>
     <button id="add-btn"> <!-- button to add new elements to the table -->
-        Add Product For abdellah
+        Add Product For <?= $supplier[0]['full_name'] ?>
     </button>
 
     <div id="adding-form-container" style="display:<?= $display_proprety1 ?>">
