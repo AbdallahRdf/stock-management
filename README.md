@@ -1,5 +1,7 @@
 # InventoSync - Stock Management Web App
 
+[![Dashboard Screenshot](./resources/img/dashboard-screenshot.png)](./resources/img/dashboard-screenshot.png)
+
 InventoSync is a web application designed for stock management. It enables users to efficiently manage products, clients, suppliers, orders, and provides insightful statistics on a comprehensive dashboard.
 
 ## Technologies Used
