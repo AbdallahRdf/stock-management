@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // handle POST requests
     if (isset($_POST["first_name"])) {
         $ERRORS = []; // array to hold error for singup
         $OLD = []; // will hold the old inputs value;
-        
+
         $first_name = trim($first_name);
         $last_name = trim($last_name);
 

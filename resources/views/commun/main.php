@@ -11,6 +11,14 @@
         <?php require_once "../components/alert.php"; ?>
 
         <!-- table -->
-        <?php require_once "../components/table.php"; ?>
+        <?php
+        if (isset($products) && empty($products)) {
+            require_once "../components/noProducts.php";
+        } else {
+            require_once "../components/table.php";
+        }
+
+
+        ?>
     </main>
 </div>
