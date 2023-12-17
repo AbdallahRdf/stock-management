@@ -7,7 +7,7 @@ use App\Core\Database;
 class User
 {
     //* create a new user
-    public static function create_user($first_name, $last_name, $email, $password)
+    public static function create($first_name, $last_name, $email, $password)
     {
         $sql = "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)";
 
@@ -21,7 +21,7 @@ class User
     }
 
     // get a user using email
-    public static function get_user($email)
+    public static function get($email)
     {
         $sql = "SELECT * FROM users WHERE email = :email";
 

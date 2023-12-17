@@ -8,10 +8,10 @@ class SupplierOrder extends Order
 {
     protected static $table_name = "supplierOrders";
     protected static $joined_table = "suppliers";
-    protected static $person_id = "supplier_id";
+    protected static $trade_partner_id = "supplier_id";
 
     // get the supplier of the order
-    public static function getSupplier($supplierOrder_id)
+    public static function get_supplier($supplierOrder_id)
     {
         $sql = "SELECT suppliers.id, full_name, email, phone_num, registration_date 
             FROM supplierOrders JOIN suppliers 

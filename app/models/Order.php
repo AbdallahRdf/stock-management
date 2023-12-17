@@ -8,7 +8,7 @@ class Order
 {
     protected static $table_name; // table name (clientOrders or supplierOrder)
     protected static $joined_table; // table to join with (clients or suppliers)
-    protected static $person_id; // either client_id or supplier_id
+    protected static $trade_partner_id; // either client_id or supplier_id
 
     // returns all the clientOrders in the db;
     public static function all()
@@ -18,7 +18,7 @@ class Order
             " . static::$table_name . ".date, 
             " . static::$joined_table . ".full_name as name 
         FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
-        WHERE " . static::$table_name . "." . static::$person_id . " = " . static::$joined_table . ".id 
+        WHERE " . static::$table_name . "." . static::$trade_partner_id . " = " . static::$joined_table . ".id 
         ORDER BY " . static::$table_name . ".created_at DESC;";
 
         return (new Database)->query($sql);
@@ -32,7 +32,7 @@ class Order
             " . static::$table_name . ".date, 
             " . static::$joined_table . ".full_name as name 
         FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
-        WHERE " . static::$table_name . "." . static::$person_id . " = " . static::$joined_table . ".id 
+        WHERE " . static::$table_name . "." . static::$trade_partner_id . " = " . static::$joined_table . ".id 
         ORDER BY " . static::$table_name . ".created_at DESC
         LIMIT $limit OFFSET $offset;";
 
@@ -42,7 +42,7 @@ class Order
     // create an order
     public static function create($date, $person_id)
     {
-        $sql = "INSERT INTO " . static::$table_name . " (date, " . static::$person_id . ") VALUES (:date, :client_id);";
+        $sql = "INSERT INTO " . static::$table_name . " (date, " . static::$trade_partner_id . ") VALUES (:date, :client_id);";
 
         $params = [
             ":date" => $date,
@@ -64,7 +64,7 @@ class Order
     // update an order
     public static function update($id, $date, $person_id)
     {
-        $sql = "UPDATE " . static::$table_name . " SET date=:date, " . static::$person_id . "=:person_id  WHERE id=:id";
+        $sql = "UPDATE " . static::$table_name . " SET date=:date, " . static::$trade_partner_id . "=:person_id  WHERE id=:id";
 
         $params = [
             ":date" => $date,

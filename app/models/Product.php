@@ -50,7 +50,7 @@ class Product
     }
 
     // get One Product by its id :
-    public static function getProduct($id)
+    public static function get_product($id)
     {
         $sql = "SELECT 
             products.id, 
@@ -120,7 +120,7 @@ class Product
         return (new Database)->query($sql, $params);
     }
 
-    //get products of a specific supplier
+    //get products we got from a specific supplier
     public static function getProdsBySupp($supplier_id)
     {
         $sql = "SELECT 
@@ -138,6 +138,7 @@ class Product
         JOIN suppliers ON products.supplier_id = suppliers.id 
         WHERE suppliers.id = :supplier
         ORDER BY products.created_at DESC;";
+        
         $params = [':supplier' => $supplier_id];
 
         return (new Database)->query($sql, $params);

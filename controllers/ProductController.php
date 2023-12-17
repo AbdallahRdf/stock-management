@@ -71,7 +71,7 @@ function handle_inputs_validation($name, $description, $purchase_price, $quantit
 
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['info'])) // if it a get request, and $_GET["info"] does exist which is a product id, then:
 {
-    $_SESSION["product"] = Product::getProduct($_GET['info']); // get a specific product
+    $_SESSION["product"] = Product::get_product($_GET['info']); // get a specific product
     header("Location: ../resources/views/pages/productsInfo.php");
     die();
 }

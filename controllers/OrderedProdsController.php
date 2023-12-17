@@ -44,7 +44,8 @@ function handle_inputs_validation($product, $quantity, $id = null)
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $_SESSION["orderId"] = $_GET['info'];
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
     if ($_POST["ordered_p_id"] == "") { //create an ordered product
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];

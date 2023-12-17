@@ -6,5 +6,5 @@ class ClientOrder extends Order
 {
     protected static $table_name = "clientOrders";
     protected static $joined_table = "clients";
-    protected static $person_id = "client_id";
+    protected static $trade_partner_id = "client_id";
 }

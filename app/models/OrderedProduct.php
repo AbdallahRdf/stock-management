@@ -65,7 +65,6 @@ class OrderedProduct
         return (new Database)->query($sql, $params);
     }
 
-
     // update an Supplier Ordered product
     public static function update($id, $product_id, $quantity)
     {
