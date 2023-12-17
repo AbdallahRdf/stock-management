@@ -107,7 +107,7 @@ if (isset($_SESSION["errors"])) // if there is an error after creating new eleme
 
                 <div class="input-group">
                     <label for="quantity">Product Quantity</label>
-                    <input class="form-input" id="quantity" type="quantity" name="quantity" value="<?= $old_quantity ?>">
+                    <input class="form-input" id="quantity" type="quantity" name="quantity" value="<?= $old_quantity ?>" placeholder="Product Quantity">
                     <small>
                         <?= $quantity_error_message ?>
                     </small>
