@@ -133,8 +133,7 @@ class Product
             products.stock_quantity,
             suppliers.full_name as supplier_name,
             categories.name as category_name 
-        FROM products 
-        JOIN categories ON products.category_id = categories.id 
+        FROM products JOIN categories ON products.category_id = categories.id 
         JOIN suppliers ON products.supplier_id = suppliers.id 
         WHERE suppliers.id = :supplier
         ORDER BY products.created_at DESC;";
