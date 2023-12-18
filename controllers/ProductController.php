@@ -58,12 +58,11 @@ function handle_inputs_validation($name, $description, $purchase_price, $quantit
         // send back the error messages and the old input
 
         $_SESSION["old"] = $OLD;
+        $_SESSION["errors"] = $ERRORS;
         if (isset($_POST["supplierOrderId"])) {
-            $_SESSION["errors1"] = $ERRORS;
-            header("Location: ../resources/views/pages/suppOrderedProducts.php");
+            header("Location: ../resources/views/components/addProduct.php");
             die();
         }
-        $_SESSION["errors"] = $ERRORS;
 
         goback();
     }
@@ -75,10 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['info'])) // if it a get
     header("Location: ../resources/views/pages/productsInfo.php");
     die();
 }
-if ($_SERVER["REQUEST_METHOD"] === "POST") 
-{
-    if (isset($_POST["supplierOrderId"])) 
-    {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["supplierOrderId"])) {
         $name = trim($_POST["name"]);
         $description = trim($_POST["description"]);
         $purchase_price = $_POST["purchase_price"];
@@ -113,13 +110,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         Product::create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
 
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } 
-    else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
+    } else if (!isset($_POST["name"]) && $_POST["product_id"] != "") // delete a product:
     {
         $result = Product::delete($_POST["product_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } 
-    else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
+    } else if (isset($_POST["name"]) && $_POST["product_id"] != "") // updating a product
     {
         $product_id = $_POST["product_id"];
         $name = trim($_POST["name"]);

@@ -10,7 +10,6 @@ if ($current_view === "products") {
 } else {
     $controller = "SuppOrderedProdsController";
 }
-
 $last_element = end($items); // getting the last element in the array;
 $description_index = array_search("Description", $table_header); // get the position (index) of the description
 ?>
@@ -21,7 +20,8 @@ $description_index = array_search("Description", $table_header); // get the posi
             <img src="../../img/plus-svgrepo-com.svg" alt="plus icon"> Add
         </button>
 
-        <?php if (count($items) > 0): ?>
+
+        <?php if (count($items) > 0) : ?>
             <div>
                 Show
                 <select name="limit" id="limit">
@@ -39,7 +39,7 @@ $description_index = array_search("Description", $table_header); // get the posi
         <table id="table">
             <thead>
                 <tr>
-                    <?php foreach ($table_header as $value): ?>
+                    <?php foreach ($table_header as $value) : ?>
                         <th class="py-20">
                             <?= $value ?>
                         </th>
@@ -47,8 +47,8 @@ $description_index = array_search("Description", $table_header); // get the posi
                 </tr>
             </thead>
             <tbody>
-                <?php if (count($items) > 0): ?>
-                    <?php foreach ($items as $item): ?>
+                <?php if (count($items) > 0) : ?>
+                    <?php foreach ($items as $item) : ?>
                         <!-- if the current element in the loop is the last item in the array then add the last class; because we want each td to have a border-bottom except for the td in the last tr of the table -->
                         <?php $class = $last_element === $item ? "last" : ""; ?>
                         <tr>
@@ -56,15 +56,15 @@ $description_index = array_search("Description", $table_header); // get the posi
                             $indexed_item = array_values($item); // turn the assoc array into the indexed  array
                             array_shift($indexed_item); // removing the first element which is the id, we are not going to show the id of each record in the table;
                             ?>
-                            <?php for ($i = 0; $i < count($indexed_item); $i++): ?>
+                            <?php for ($i = 0; $i < count($indexed_item); $i++) : ?>
                                 <!-- if the current iteration is showing the description then put the description in a hidden <td> to use it later and skip the currenct iteration -->
-                                <?php if (!empty($description_index) && ($i === $description_index)): ?>
+                                <?php if (!empty($description_index) && ($i === $description_index)) : ?>
                                     <td class="<?= $class ?>" style="display:none">
                                         <p>
                                             <?= htmlspecialchars($indexed_item[$i]) ?>
                                         </p>
                                     </td>
-                                    <?php continue;
+                                <?php continue;
                                 endif; ?>
 
                                 <td class="<?= $class ?>">
@@ -76,9 +76,8 @@ $description_index = array_search("Description", $table_header); // get the posi
                             <?php endfor; ?>
                             <td class="<?= $class ?> actions-btns">
                                 <!-- info button -->
-                                <?php if (in_array($current_view, ["products", "orders", "supplierOrders"])): ?>
-                                    <a href="../../../controllers/<?= $controller ?>.php?info=<?= $item['id'] ?>"
-                                        class="info-btn info" id="info-btn" title="info">
+                                <?php if (in_array($current_view, ["products", "orders", "supplierOrders"])) : ?>
+                                    <a href="../../../controllers/<?= $controller ?>.php?info=<?= $item['id'] ?>" class="info-btn info" id="info-btn" title="info">
                                         <img src="../../img/info.svg" alt="info icon">
                                     </a>
                                 <?php endif; ?>
@@ -93,7 +92,7 @@ $description_index = array_search("Description", $table_header); // get the posi
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                <?php else: ?>
+                <?php else : ?>
                     <tr>
                         <td class="last" colspan="<?= count($table_header) ?>">
                             <p class="table-empty-td">No Data To Show!</p>
@@ -105,7 +104,7 @@ $description_index = array_search("Description", $table_header); // get the posi
     </div>
 
     <!-- pagination -->
-    <?php if (count($items) > 0): ?>
+    <?php if (count($items) > 0) : ?>
         <div class="pagination">
             <button class="pagination-btn previous" id="previous">
                 <img src="../../img/less-than.svg" alt="previous icon">

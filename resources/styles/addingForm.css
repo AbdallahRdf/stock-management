@@ -1,178 +1,190 @@
 :root {
-    --blue-dark: #13232f;
-    /* --body-bg: #c1bdba; */
-    --white: #ffffff;
+  --blue-dark: #13232f;
+  /* --body-bg: #c1bdba; */
+  --white: #ffffff;
 
-    --main: #1ab188;
-    --main-light: #1ab189f2;
-    --main-dark: #179b78;
+  --main: #1ab188;
+  --main-light: #1ab189f2;
+  --main-dark: #179b78;
 
-    --gray: #ddd;
-    --gray-light: #a0b3b0;
-    --gray-dark: #435259;
+  --gray: #ddd;
+  --gray-light: #a0b3b0;
+  --gray-dark: #435259;
 
-    --red: #f44336;
-    --red-pale: #f4433643;
+  --red: #f44336;
+  --red-pale: #f4433643;
 }
 
 .form {
-    width: 400px;
-    background-color: var(--blue-dark);
-    color: var(--white);
-    border-radius: 6px;
-    padding: 40px 20px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    z-index: 801;
-    transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: var(--blue-dark);
+  color: var(--white);
+  border-radius: 6px;
+  padding: 40px 20px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 801;
+  transform: translate(-50%, -50%);
 }
 
 .inside-form-container {
-    max-height: 80vh;
-    overflow: scroll;
+  max-height: 80vh;
+  overflow: scroll;
 }
 
 .form h3 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: 200;
-    font-size: 1.5rem
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 200;
+  font-size: 1.5rem;
 }
 
 .form .input-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .input-group small {
-    color: var(--red)
+  color: var(--red);
 }
 
-.form label{
-    display: block;
-    margin-bottom: 6px;
-    color: var(--gray);
+.form label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gray);
 }
-
+.input-group .add-product-btn {
+  display: block;
+  color: #429b8d;
+  margin-top: 10px;
+}
 .form input,
 .form textarea,
 .form select {
-    background-color: transparent;
-    border: 1px solid var(--gray-light);
-    color: var(--white);
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 1.2rem;
+  background-color: transparent;
+  border: 1px solid var(--gray-light);
+  color: var(--white);
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 1.2rem;
 }
 
 .form textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 .custom-select {
-    position: relative;
-    /* display: inline-block; */
+  position: relative;
+  /* display: inline-block; */
 }
 
 .form select {
-    appearance: none;
-    cursor: pointer;
+  appearance: none;
+  cursor: pointer;
 }
 
 .custom-select::after {
-    content: '\25BC';
-    /* Unicode character for down arrow */
-    font-size: 16px;
-    color: var(--white);
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+  content: "\25BC";
+  /* Unicode character for down arrow */
+  font-size: 16px;
+  color: var(--white);
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
 }
 
 .form input::placeholder {
-    color: var(--gray-light);
-    font-size: 1.2rem;
+  color: var(--gray-light);
+  font-size: 1.2rem;
 }
-
+.form .input-group {
+  margin-bottom: 20px;
+}
 .form input:focus {
-    border-color: var(--main);
-    outline: none;
+  border-color: var(--main);
+  outline: none;
 }
 
 .form .btns {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .submit-btn,
-.cancel-btn {
-    outline: none;
-    border: none;
-    padding: 8px 20px;
-    width: 49%;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all .3s;
+.cancel-btn,
+.cancel-btn-prod {
+  outline: none;
+  border: none;
+  padding: 8px 20px;
+  width: 49%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
 }
 
 .submit-btn {
-    background-color: var(--main);
-    color: var(--white)
+  background-color: var(--main);
+  color: var(--white);
 }
 
-.cancel-btn {
-    background-color: var(--gray-dark);
-    color: var(--gray-light)
+.cancel-btn,
+.cancel-btn-prod {
+  background-color: var(--gray-dark);
+  color: var(--gray-light);
 }
-
+.cancel-btn-prod {
+  text-decoration: none;
+  text-align: center;
+}
 .submit-btn:hover,
-.cancel-btn:hover {
-    background-color: var(--main-dark);
-    color: var(--white)
+.cancel-btn:hover,
+.cancel-btn-prod:hover {
+  background-color: var(--main-dark);
+  color: var(--white);
 }
 
 /* animatin classes to show or hide the form */
 .form-desappear {
-    animation: form-desappear .2s ease-out;
+  animation: form-desappear 0.2s ease-out;
 }
 
 .form-appear {
-    animation: form-appear .2s ease-out;
+  animation: form-appear 0.2s ease-out;
 }
 
 @keyframes form-appear {
-    0% {
-        opacity: 0;
-        top: 100%;
-        display: none;
-    }
+  0% {
+    opacity: 0;
+    top: 100%;
+    display: none;
+  }
 
-    100% {
-        opacity: 1;
-        top: 50%;
-        display: block;
-    }
+  100% {
+    opacity: 1;
+    top: 50%;
+    display: block;
+  }
 }
 
 @keyframes form-desappear {
-    0% {
-        opacity: 1;
-        top: 40%;
-        display: block;
-    }
+  0% {
+    opacity: 1;
+    top: 40%;
+    display: block;
+  }
 
-    100% {
-        opacity: 0;
-        top: 100%;
-        display: none;
-    }
+  100% {
+    opacity: 0;
+    top: 100%;
+    display: none;
+  }
 }
 
 .d-none {
-    display: none;
+  display: none;
 }
 
 .d-block {
-    display: block;
+  display: block;
 }

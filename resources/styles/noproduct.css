@@ -24,8 +24,7 @@
   text-align: center;
   color: #1f9777f2;
 }
-.noproduct-container button {
-  width: 50%;
+.noproduct-container .add-product {
   text-decoration: none;
   border: none;
   font-size: 1rem;
@@ -40,7 +39,7 @@
   border: 1px solid #1ab189f2;
 }
 
-.noproduct-container button:hover {
+.noproduct-container .add-product:hover {
   background-color: #1ab189f2;
   color: var(--white);
 }
