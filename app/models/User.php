@@ -29,7 +29,7 @@ class User
             ":email" => $email
         ];
 
-        return (new Database)->query($sql, $params);
+        return (new Database)->query($sql, $params, false);
     }
 
     // update the user

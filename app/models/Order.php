@@ -89,16 +89,9 @@ class Order
     }
 
     // returns an array containing all the years of supplier clientOrders
-    public static function getAllYears()
+    public static function get_oldest_year()
     {
-        return (new Database)->query("SELECT distinct(year(date)) AS years FROM " . static::$table_name . " ORDER BY year(date) DESC");
-    }
-
-    // gets the last inserted item
-    public static function getLast()
-    {
-        $sql = "SELECT MAX(id) FROM " . static::$table_name;
-
-        return (new Database)->query($sql);
+        $sql = "SELECT MIN(year(date)) AS min_year FROM " . static::$table_name . ";";
+        return (new Database)->query($sql, null, false);
     }
 }

@@ -20,6 +20,6 @@ class SupplierOrder extends Order
 
         $params = [':SupplierOrder_id' => $supplierOrder_id];
 
-        return (new Database)->query($sql, $params);
+        return (new Database)->query($sql, $params, false);
     }
 }

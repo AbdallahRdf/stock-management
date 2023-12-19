@@ -22,8 +22,10 @@ class Client extends Person
     }
 
     // returns an array containing all the years in clients
-    public static function getAllYears()
+    public static function get_oldest_year()
     {
-        return (new Database)->query("SELECT distinct(year(registration_date)) AS years FROM clients ORDER BY year(registration_date) DESC");
+        $sql = "SELECT MIN(year(registration_date)) AS min_year FROM clients;";
+
+        return (new Database)->query($sql, null, false);
     }
 }

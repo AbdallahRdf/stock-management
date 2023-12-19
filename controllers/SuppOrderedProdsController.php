@@ -80,6 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $_SESSION["supplier"]  = SupplierOrder::get_supplier($_SESSION["supplierOrderId"]); //get the supplier id from the supplierOrders where supplierOrder_id == $_SESSION["supplierOrderId"]
-$_SESSION["products"] = Product::getProdsBySupp($_SESSION["supplier"][0]["id"]); // get the products where prodcuts.supplier_id == $supplier[0]["supplier_id"]
+$_SESSION["products"] = Product::getProdsBySupp($_SESSION["supplier"]["id"]); // get the products where prodcuts.supplier_id == $supplier[0]["supplier_id"]
 $_SESSION["supplierOrderedProducts"] = SupplierOrderedProduct::paginate($_SESSION["supplierOrderId"]); // gets all the ordered ;
 goback();
