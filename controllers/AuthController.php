@@ -14,8 +14,8 @@ require_once "../app/util/functions.php";
  */
 function signup($first_name, $last_name, $email, $password)
 {
-    // check if there is already a user with with that email, then return false; 
-    if (empty(User::get($email))){
+    // check if there is already a user with that email, then return false; 
+    if (User::get($email)){
         return false;
     }
     // create a new user
@@ -34,12 +34,11 @@ function login($email, $password)
     $user = User::get($email);
 
     //* if there is a user and the password is correct return the user data, else false;
-    if (empty($user) > 0 && password_verify($password, $user["password"])) {
+    if ($user && password_verify($password, $user["password"])) {
         return $user;
     }
     return false;
 }
-
 
 // function send you back to login page
 function go_back_to_login()
