@@ -161,7 +161,7 @@ $cards_data = [
                                 <?php foreach($_SESSION["orders_data"] as $row): ?>
                                     <tr>
                                         <td><?= htmlspecialchars($row["date"]) ?></td>
-                                        <td><?= htmlspecialchars($row["client_name"]) ?></td>
+                                        <td><?= htmlspecialchars($row["name"]) ?></td>
                                         <td>
                                             <a href="../../../controllers/OrderedProdsController.php?info=<?= $row["id"] ?>" class="info-btn">
                                                 Details

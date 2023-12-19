@@ -19,7 +19,7 @@ class Order
             " . static::$joined_table . ".full_name as name 
         FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
         WHERE " . static::$table_name . "." . static::$trade_partner_id . " = " . static::$joined_table . ".id 
-        ORDER BY " . static::$table_name . ".created_at DESC;";
+        ORDER BY " . static::$table_name . ".date DESC;";
 
         return (new Database)->query($sql);
     }
@@ -33,7 +33,7 @@ class Order
             " . static::$joined_table . ".full_name as name 
         FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
         WHERE " . static::$table_name . "." . static::$trade_partner_id . " = " . static::$joined_table . ".id 
-        ORDER BY " . static::$table_name . ".created_at DESC
+        ORDER BY " . static::$table_name . ".date DESC
         LIMIT $limit OFFSET $offset;";
 
         return (new Database)->query($sql);
