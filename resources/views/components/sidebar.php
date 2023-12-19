@@ -27,7 +27,7 @@ $current_page = get_current_view();  // getting the name of the current view
         </a>
         <a href="../../../controllers/OrderController.php" class="select-btn icon-btn toggled <?= in_array($current_page, ["orders", "orderedProducts"]) ? 'selected' : '' ?>">
             <img src="../../img/order.svg" alt="client icon" title="Orders">
-            Orders
+            Clients Orders
         </a>
         <a href="../../../controllers/SupplierController.php" class="select-btn icon-btn toggled <?= $current_page === "suppliers" ? 'selected' : '' ?>">
             <img src="../../img/supplier.svg" alt="supplier icon" title="Suppliers">

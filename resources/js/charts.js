@@ -52,7 +52,7 @@ const ordersData = {
   ],
   datasets: [
     {
-      label: "Orders",
+      label: "Clients Orders",
       data: [],
       borderWidth: 1,
       borderColor: "#36A2EB",
