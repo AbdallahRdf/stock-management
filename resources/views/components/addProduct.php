@@ -109,7 +109,7 @@ $current_page = get_current_view();
                     <div class="custom-select">
                         <select name="supplier" class="form-input" id="supplier" required>
                             <option value="" disabled selected>--Select an option--</option>
-                            <option value="<?= $supplier[0]["id"] ?>" selected><?= $supplier[0]["full_name"] ?></option>
+                            <option value="<?= $supplier["id"] ?>" selected><?= $supplier["full_name"] ?></option>
                         </select>
                     </div>
                 </div>
