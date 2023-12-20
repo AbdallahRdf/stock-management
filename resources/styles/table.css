@@ -176,12 +176,12 @@ td:not(.last) {
 }
 
 .disabled {
-  cursor: default;
+  cursor: not-allowed;
 }
 
 .disabled:hover {
-  background-color: #fbfbfb;
-  cursor: default;
+  background-color: #fff;
+  cursor: not-allowed;
 }
 
 .table-empty-td {
