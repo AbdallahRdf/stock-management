@@ -42,7 +42,6 @@ $cards_data = [
     <link rel="stylesheet" href="../../styles/overlay.css">
     <link rel="stylesheet" href="../../styles/dropdown.css">
     <link rel="stylesheet" href="../../styles/dashboard.css">
-    <script src="../../js/dashboard.js"></script>
 </head>
 
 <body>
