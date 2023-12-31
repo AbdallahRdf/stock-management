@@ -10,13 +10,15 @@ class Product
     use CRUDTrait;
 
     const TABLE_NAME = "products";
-    // const ID = "id";
-    // const NAME = "name";
-    // const DESCRIPTION = "description";
-    // const EXCERPT = "excerpt";
-    // const PURCHASE_PRICE = "purchase_price";
-    // const SELLING_PRICE = "selling_price";
-    // const STOCK_QUANTITY = "stock_quantity";
+
+    const NAME = "name";
+    const DESCRIPTION = "description";
+    const EXCERPT = "excerpt";
+    const PURCHASE_PRICE = "purchase_price";
+    const SELLING_PRICE = "selling_price";
+    const STOCK_QUANTITY = "stock_quantity";
+    const CATEGORY_ID = "category_id";
+    const SUPPLIER_ID = "supplier_id";
     // const COLUMNS_TO_SHOW = [
     //     static::ID,
     //     static::NAME,
@@ -94,24 +96,24 @@ class Product
         return (new Database)->query($sql, $params);
     }
     // create a product
-    public static function create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price)
-    {
-        $sql = "INSERT INTO products (name, excerpt, description, purchase_price, stock_quantity, category_id,supplier_id,selling_price) 
-            VALUES (:name, :excerpt, :description, :purchase_price, :quantity, :category,:supplier,:selling_price);";
+    // public static function create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price)
+    // {
+    //     $sql = "INSERT INTO products (name, excerpt, description, purchase_price, stock_quantity, category_id,supplier_id,selling_price) 
+    //         VALUES (:name, :excerpt, :description, :purchase_price, :quantity, :category,:supplier,:selling_price);";
 
-        $params = [
-            ":name" => $name,
-            ":excerpt" => $excerpt,
-            ":description" => $description,
-            ":purchase_price" => $purchase_price,
-            ":quantity" => $quantity,
-            ":category" => $category,
-            ":supplier" => $supplier,
-            ":selling_price" => $selling_price
-        ];
+    //     $params = [
+    //         ":name" => $name,
+    //         ":excerpt" => $excerpt,
+    //         ":description" => $description,
+    //         ":purchase_price" => $purchase_price,
+    //         ":quantity" => $quantity,
+    //         ":category" => $category,
+    //         ":supplier" => $supplier,
+    //         ":selling_price" => $selling_price
+    //     ];
 
-        return (new Database)->query($sql, $params);
-    }
+    //     return (new Database)->query($sql, $params);
+    // }
 
     // update a product
     public static function update($id, $name, $excerpt, $description, $purchase_price, $quantity, $category_id, $supplier_id, $selling_price)

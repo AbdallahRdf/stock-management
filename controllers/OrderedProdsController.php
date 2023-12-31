@@ -50,22 +50,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
         $order_id = $_SESSION["orderId"];
-        //dd(['quantity' => $quantity, 'ordered_id' => $order_id, "product_id" => $product]);
 
         handle_inputs_validation($product, $quantity);
-
-        ClientOrderedProduct::create($product, $quantity, $order_id);
+        ClientOrderedProduct::create([
+            ClientOrderedProduct::PRODUCT_ID => $product,
+            ClientOrderedProduct::QUANTITY => $quantity,
+            ClientOrderedProduct::ORDER_ID => $order_id
+        ]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
+    } 
+    else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
     {
         $result = ClientOrderedProduct::delete($_POST["ordered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
+    } 
+    else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
     {
         $ordered_p_id = $_POST["ordered_p_id"];
         $product_id = $_POST["product_id"];
         $quantity = $_POST["quantity"];
-        //dd(['quantity' => $quantity, 'ordered_p_id' => $ordered_p_id, "product_id" => $product_id]);
 
         handle_inputs_validation($product_id, $quantity, $ordered_p_id);
 

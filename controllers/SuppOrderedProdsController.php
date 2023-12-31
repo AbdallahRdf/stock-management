@@ -58,7 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         handle_inputs_validation($product, $quantity);
 
-        SupplierOrderedProduct::create($product, $quantity, $supplierOrder_id);
+        SupplierOrderedProduct::create([
+            SupplierOrderedProduct::PRODUCT_ID => $product,
+            SupplierOrderedProduct::QUANTITY => $quantity,
+            SupplierOrderedProduct::ORDER_ID => $supplierOrder_id
+        ]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
     {

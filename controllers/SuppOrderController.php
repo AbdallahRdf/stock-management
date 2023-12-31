@@ -45,7 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $date = $_POST["date"];
         $supplier = $_POST["supplier_id"];
         handle_inputs_validation($date, $supplier);
-        SupplierOrder::create($date, $supplier);
+        SupplierOrder::create([
+            SupplierOrder::DATE => $date, 
+            SupplierOrder::TRADE_PARTNER_ID => $supplier
+        ]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["date"]) && $_POST["supplierOrder_id"] != "") // delete an SupplierOrder:
     {

@@ -10,7 +10,6 @@ class Category
     use CRUDTrait;
 
     const TABLE_NAME = "categories";
-    const ID = "id";
     const NAME = "name";
     const COLUMNS_TO_SHOW = ["id", "name"];
 
@@ -31,14 +30,14 @@ class Category
     // }
 
     // creates new category;
-    public static function create($name)
-    {
-        $sql = "INSERT INTO categories(name) VALUES (:name);";
+    // public static function create($name)
+    // {
+    //     $sql = "INSERT INTO categories(name) VALUES (:name);";
 
-        $params = [":name" => $name];
+    //     $params = [":name" => $name];
 
-        return (new Database)->query($sql, $params);
-    }
+    //     return (new Database)->query($sql, $params);
+    // }
 
     // creates new category;
     public static function update($id, $name)

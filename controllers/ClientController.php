@@ -21,7 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // did we get to this page through a 
 
         PersonController::handle_inputs_validation($name, $email, $phone_number, $date, "clients");
 
-        $result = Client::create($name, $email, $phone_number, $date);
+        $result = Client::create([
+            Client::FULL_NAME => $name,
+            Client::EMAIL => $email,
+            Client::PHONE_NUM => $phone_number,
+            Client::REGISTRATION_DATE => $date
+        ]);
+
 
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!");
     }

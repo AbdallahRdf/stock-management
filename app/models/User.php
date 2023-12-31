@@ -3,22 +3,30 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Traits\CRUDTrait;
 
 class User
 {
-    //* create a new user
-    public static function create($first_name, $last_name, $email, $password)
-    {
-        $sql = "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)";
+    use CRUDTrait;
 
-        $params = [
-            ":firstName" => $first_name,
-            ":lastName" => $last_name,
-            ":email" => $email,
-            ":password" => $password
-        ];
-        return (new Database)->query($sql, $params);
-    }
+    const TABLE_NAME = "users";
+    const FIRST_NAME = "firstName";
+    const LAST_NAME = "lastName";
+    const EMAIL = "email";
+    const PASSWORD = "password";
+    //* create a new user
+    // public static function create($first_name, $last_name, $email, $password)
+    // {
+    //     $sql = "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)";
+
+    //     $params = [
+    //         ":firstName" => $first_name,
+    //         ":lastName" => $last_name,
+    //         ":email" => $email,
+    //         ":password" => $password
+    //     ];
+    //     return (new Database)->query($sql, $params);
+    // }
 
     // get a user using email
     public static function get($email)
