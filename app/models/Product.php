@@ -3,56 +3,73 @@
 namespace App\Models;
 
 use App\Core\Database;
-use App\Traits\DeleteTrait;
+use App\Traits\CRUDTrait;
 
 class Product
 {
-    use DeleteTrait;
+    use CRUDTrait;
 
     const TABLE_NAME = "products";
+    // const ID = "id";
+    // const NAME = "name";
+    // const DESCRIPTION = "description";
+    // const EXCERPT = "excerpt";
+    // const PURCHASE_PRICE = "purchase_price";
+    // const SELLING_PRICE = "selling_price";
+    // const STOCK_QUANTITY = "stock_quantity";
+    // const COLUMNS_TO_SHOW = [
+    //     static::ID,
+    //     static::NAME,
+    //     static::DESCRIPTION,
+    //     static::EXCERPT,
+    //     static::PURCHASE_PRICE,
+    //     static::SELLING_PRICE,
+    //     static::STOCK_QUANTITY
+    // ];
+    // const COLUMNS_FROM_JOINED_TABLE = ["full_name as name"];
 
     // returns all the categories in the db;
-    public static function all()
-    {
-        $sql = "SELECT 
-            products.id, 
-            products.name, 
-            products.description,
-            products.excerpt, 
-            products.purchase_price, 
-            products.selling_price,
-            products.stock_quantity,
-            suppliers.full_name as supplier_name,
-            categories.name as category_name 
-        FROM products 
-        JOIN categories ON products.category_id = categories.id 
-        JOIN suppliers ON products.supplier_id = suppliers.id  
-        ORDER BY products.created_at DESC;";
+    // public static function all()
+    // {
+    //     $sql = "SELECT 
+    //         products.id, 
+    //         products.name, 
+    //         products.description,
+    //         products.excerpt, 
+    //         products.purchase_price, 
+    //         products.selling_price,
+    //         products.stock_quantity,
+    //         suppliers.full_name as supplier_name,
+    //         categories.name as category_name 
+    //     FROM products 
+    //     JOIN categories ON products.category_id = categories.id 
+    //     JOIN suppliers ON products.supplier_id = suppliers.id  
+    //     ORDER BY products.created_at DESC;";
 
-        return (new Database)->query($sql);
-    }
+    //     return (new Database)->query($sql);
+    // }
 
     // Retrieves a paginated set of results from the database table.
-    public static function paginate($offset = 0, $limit = 10)
-    {
-        $sql = "SELECT 
-            products.id, 
-            products.name, 
-            products.description,
-            products.excerpt,  
-            products.purchase_price, 
-            products.selling_price,
-            products.stock_quantity,
-            suppliers.full_name as supplier_name,
-            categories.name as category_name 
-        FROM products 
-        JOIN categories ON products.category_id = categories.id 
-        JOIN suppliers ON products.supplier_id = suppliers.id 
-        ORDER BY products.created_at DESC
-        LIMIT {$limit} OFFSET {$offset};";
+    // public static function paginate($offset = 0, $limit = 10)
+    // {
+    //     $sql = "SELECT 
+    //         products.id, 
+    //         products.name, 
+    //         products.description,
+    //         products.excerpt,  
+    //         products.purchase_price, 
+    //         products.selling_price,
+    //         products.stck_quantity,
+    //         suppliers.full_name as supplier_name,
+    //         categories.name as category_name 
+    //     FROM products 
+    //     JOIN categories ON products.category_id = categories.id 
+    //     JOIN suppliers ON products.supplier_id = suppliers.id 
+    //     ORDER BY products.created_at DESC
+    //     LIMIT {$limit} OFFSET {$offset};";
 
-        return ((new Database)->query($sql));
-    }
+    //     return ((new Database)->query($sql));
+    // }
 
     // get One Product by its id :
     public static function get_product($id)

@@ -3,29 +3,32 @@
 namespace App\Models;
 
 use App\Core\Database;
-use App\Traits\DeleteTrait;
+use App\Traits\CRUDTrait;
 
 class Category
 {
-    use DeleteTrait;
+    use CRUDTrait;
 
     const TABLE_NAME = "categories";
+    const ID = "id";
+    const NAME = "name";
+    const COLUMNS_TO_SHOW = ["id", "name"];
 
     // returns all the categories in the db;
-    public static function all()
-    {
-        $sql = "SELECT id, name FROM categories ORDER BY created_at DESC;";
+    // public static function all()
+    // {
+    //     $sql = "SELECT id, name FROM categories ORDER BY created_at DESC;";
 
-        return (new Database)->query($sql);
-    }
+    //     return (new Database)->query($sql);
+    // }
 
     // Retrieves a paginated set of results from the database table.
-    public static function paginate($offset = 0, $limit = 10)
-    {
-        $sql = "SELECT id, name FROM categories ORDER BY created_at DESC LIMIT {$limit} OFFSET {$offset};";
+    // public static function paginate($offset = 0, $limit = 10)
+    // {
+    //     $sql = "SELECT id, name FROM categories ORDER BY created_at DESC LIMIT {$limit} OFFSET {$offset};";
 
-        return ((new Database)->query($sql));
-    }
+    //     return ((new Database)->query($sql));
+    // }
 
     // creates new category;
     public static function create($name)

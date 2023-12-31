@@ -3,44 +3,50 @@
 namespace App\Models;
 
 use App\Core\Database;
-use App\Traits\DeleteTrait;
+use App\Traits\CRUDTrait;
 
 class OrderedProduct
 {
-    use DeleteTrait;
-    
+    use CRUDTrait;
+
+    // const ID = "id";
+    // const QUANTITY = "quantity";
+    // const COLUMNS_TO_SHOW = [static::ID, static::QUANTITY];
+    // const COLUMNS_FROM_JOINED_TABLE = ["name as product_name"];
+
+
     // get all the ordered products in the supplier order;
-    public static function all($order_id)
-    {
-        $sql = "SELECT 
-            ". static::TABLE_NAME .".id, 
-            products.name as product_name,
-            ". static::TABLE_NAME .".quantity
-        FROM ". static::TABLE_NAME ." JOIN products 
-        WHERE ". static::TABLE_NAME .".product_id = products.id and ". static::TABLE_NAME .".order_id=:order_id
-        Order BY ". static::TABLE_NAME .".created_at DESC;";
+    // public static function all($order_id)
+    // {
+    //     $sql = "SELECT 
+    //         ". static::TABLE_NAME .".id, 
+    //         products.name as product_name,
+    //         ". static::TABLE_NAME .".quantity
+    //     FROM ". static::TABLE_NAME ." JOIN products 
+    //     WHERE ". static::TABLE_NAME .".product_id = products.id and ". static::TABLE_NAME .".order_id=:order_id
+    //     Order BY ". static::TABLE_NAME .".created_at DESC;";
 
-        $params = [':order_id' => $order_id];
+    //     $params = [':order_id' => $order_id];
 
-        return (new Database)->query($sql, $params);
-    }
+    //     return (new Database)->query($sql, $params);
+    // }
 
     // Retrieves a paginated set of results from the database table.
-    public static function paginate($order_id, $offset = 0, $limit = 10)
-    {
-        $sql = "SELECT 
-            " . static::TABLE_NAME . ".id, 
-            products.name as product_name,
-            " . static::TABLE_NAME . ".quantity
-        FROM " . static::TABLE_NAME . " JOIN products 
-        WHERE " . static::TABLE_NAME . ".product_id = products.id and " . static::TABLE_NAME . ".order_id=:order_id
-        Order BY " . static::TABLE_NAME . ".created_at DESC
-        LIMIT {$limit} OFFSET {$offset};";
+    // public static function paginate($order_id, $offset = 0, $limit = 10)
+    // {
+    //     $sql = "SELECT 
+    //         " . static::TABLE_NAME . ".id, 
+    //         products.name as product_name,
+    //         " . static::TABLE_NAME . ".quantity
+    //     FROM " . static::TABLE_NAME . " JOIN products 
+    //     WHERE " . static::TABLE_NAME . ".product_id = products.id and " . static::TABLE_NAME . ".order_id=:order_id
+    //     Order BY " . static::TABLE_NAME . ".created_at DESC
+    //     LIMIT {$limit} OFFSET {$offset};";
 
-        $params = [':order_id' => $order_id];
+    //     $params = [':order_id' => $order_id];
 
-        return (new Database)->query($sql, $params);
-    }
+    //     return (new Database)->query($sql, $params);
+    // }
 
     //create an Supplier Ordered product
     public static function create($product_id, $quantity, $order_id)

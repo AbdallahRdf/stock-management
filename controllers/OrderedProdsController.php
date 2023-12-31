@@ -75,5 +75,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 }
 
 $_SESSION["products"] = Product::all(); // get all the products
-$_SESSION["orderedProducts"] = ClientOrderedProduct::paginate($_SESSION["orderId"]); // gets all the ordered ;
+$_SESSION["orderedProducts"] = ClientOrderedProduct::paginate(0, 10, $_SESSION["orderId"]); // gets all the ordered ;
 goback();

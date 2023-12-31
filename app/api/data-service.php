@@ -59,9 +59,9 @@ else
         "clients" => fn() => count(Client::all()),
         "suppliers" => fn() => count(Supplier::all()),
         "orders" => fn() => count(ClientOrder::all()),
-        "orderedProducts" => fn() => count(ClientOrderedProduct::all($id)),
+        "orderedProducts" => fn() => count(ClientOrderedProduct::all(0, 10, $id)),
         "supplierOrders" => fn() => count(SupplierOrder::all()),
-        "suppOrderedProducts" => fn() => count(SupplierOrderedProduct::all($id)),
+        "suppOrderedProducts" => fn() => count(SupplierOrderedProduct::all(0, 10, $id)),
     ];
 }
 echo json_encode($view_model[$view_name]());
