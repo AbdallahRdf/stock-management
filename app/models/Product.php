@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Traits\DeleteTrait;
 
 class Product
 {
+    use DeleteTrait;
+
+    const TABLE_NAME = "products";
+
     // returns all the categories in the db;
     public static function all()
     {
@@ -74,7 +79,8 @@ class Product
     // create a product
     public static function create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price)
     {
-        $sql = "INSERT INTO products (name, excerpt, description, purchase_price, stock_quantity, category_id,supplier_id,selling_price) VALUES (:name, :excerpt, :description, :purchase_price, :quantity, :category,:supplier,:selling_price);";
+        $sql = "INSERT INTO products (name, excerpt, description, purchase_price, stock_quantity, category_id,supplier_id,selling_price) 
+            VALUES (:name, :excerpt, :description, :purchase_price, :quantity, :category,:supplier,:selling_price);";
 
         $params = [
             ":name" => $name,
@@ -86,16 +92,6 @@ class Product
             ":supplier" => $supplier,
             ":selling_price" => $selling_price
         ];
-
-        return (new Database)->query($sql, $params);
-    }
-
-    // delete a product
-    public static function delete($id)
-    {
-        $sql = "DELETE FROM products WHERE id=:id";
-
-        $params = [":id" => $id];
 
         return (new Database)->query($sql, $params);
     }

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Traits\DeleteTrait;
 
 class Person
 {
+    use DeleteTrait;
+
     // returns all the table records;
     public static function all()
     {
@@ -33,16 +36,6 @@ class Person
             ":phone" => $phone_number,
             ":date" => $date
         ];
-
-        return (new Database)->query($sql, $params);
-    }
-
-    // delete a supplier
-    public static function delete($id)
-    {
-        $sql = "DELETE FROM ". static::TABLE_NAME ." WHERE id=:id";
-
-        $params = [":id" => $id];
 
         return (new Database)->query($sql, $params);
     }

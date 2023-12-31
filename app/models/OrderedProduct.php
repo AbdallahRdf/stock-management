@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Traits\DeleteTrait;
 
 class OrderedProduct
 {
+    use DeleteTrait;
+    
     // get all the ordered products in the supplier order;
     public static function all($order_id)
     {
@@ -49,16 +52,6 @@ class OrderedProduct
             ":product_id" => $product_id,
             ":quantity" => $quantity,
         ];
-
-        return (new Database)->query($sql, $params);
-    }
-
-    // delete an Supplier Ordered product
-    public static function delete($id)
-    {
-        $sql = "DELETE FROM ". static::TABLE_NAME ." WHERE id=:id";
-
-        $params = [":id" => $id];
 
         return (new Database)->query($sql, $params);
     }

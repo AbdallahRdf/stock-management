@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Traits\DeleteTrait;
 
 class Category
 {
+    use DeleteTrait;
+
+    const TABLE_NAME = "categories";
+
     // returns all the categories in the db;
     public static function all()
     {
@@ -41,16 +46,6 @@ class Category
             ":name" => $name,
             ":id" => $id
         ];
-
-        return (new Database)->query($sql, $params);
-    }
-
-    // deletes a category from db;
-    public static function delete($id)
-    {
-        $sql = "DELETE FROM categories WHERE categories.id = :id";
-
-        $params = [":id" => $id];
 
         return (new Database)->query($sql, $params);
     }

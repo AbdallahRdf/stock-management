@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Traits\DeleteTrait;
 
 class Order
 {
+    use DeleteTrait;
+
     // returns all the orders in the db;
     public static function all()
     {
@@ -38,22 +41,12 @@ class Order
     // create an order
     public static function create($date, $person_id)
     {
-        $sql = "INSERT INTO " . static::TABLE_NAME . " (date, " . static::TRADE_PARTNER_ID . ") VALUES (:date, :client_id);";
+        $sql = "INSERT INTO " . static::TABLE_NAME . " (date, " . static::TRADE_PARTNER_ID . ") VALUES (:date, :trade_parter_id);";
 
         $params = [
             ":date" => $date,
-            ":client_id" => $person_id,
+            ":trade_parter_id" => $person_id,
         ];
-        return (new Database)->query($sql, $params);
-    }
-
-    // delete an order
-    public static function delete($id)
-    {
-        $sql = "DELETE FROM " . static::TABLE_NAME . " WHERE id=:id";
-
-        $params = [":id" => $id];
-
         return (new Database)->query($sql, $params);
     }
 
