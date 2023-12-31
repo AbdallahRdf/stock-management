@@ -6,7 +6,7 @@ use App\Core\Database;
 
 class ClientOrderedProduct extends OrderedProduct
 {
-    protected static $table_name = "clientOrderedProducts";
+    const TABLE_NAME = "clientOrderedProducts";
 
     // Retrieves the top-selling products by summing their quantities from all orders.
     public static function get_top_selling_products($limit = 5)

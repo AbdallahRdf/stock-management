@@ -4,7 +4,7 @@ namespace App\Models;
 
 class ClientOrder extends Order
 {
-    protected static $table_name = "clientOrders";
-    protected static $joined_table = "clients";
-    protected static $trade_partner_id = "client_id";
+    const TABLE_NAME = "clientOrders";
+    const TABLE_TO_JOIN = "clients";
+    const TRADE_PARTNER_ID = "client_id";
 }

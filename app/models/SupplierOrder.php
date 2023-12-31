@@ -6,9 +6,9 @@ use App\Core\Database;
 
 class SupplierOrder extends Order
 {
-    protected static $table_name = "supplierOrders";
-    protected static $joined_table = "suppliers";
-    protected static $trade_partner_id = "supplier_id";
+    const TABLE_NAME = "supplierOrders";
+    const TABLE_TO_JOIN = "suppliers";
+    const TRADE_PARTNER_ID = "supplier_id";
 
     // get the supplier of the order
     public static function get_supplier($supplierOrder_id)

@@ -6,20 +6,16 @@ use App\Core\Database;
 
 class Order
 {
-    protected static $table_name; // table name (clientOrders or supplierOrder)
-    protected static $joined_table; // table to join with (clients or suppliers)
-    protected static $trade_partner_id; // either client_id or supplier_id
-
-    // returns all the clientOrders in the db;
+    // returns all the orders in the db;
     public static function all()
     {
         $sql = "SELECT 
-            " . static::$table_name . ".id, 
-            " . static::$table_name . ".date, 
-            " . static::$joined_table . ".full_name as name 
-        FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
-        WHERE " . static::$table_name . "." . static::$trade_partner_id . " = " . static::$joined_table . ".id 
-        ORDER BY " . static::$table_name . ".date DESC;";
+            " . static::TABLE_NAME . ".id, 
+            " . static::TABLE_NAME . ".date, 
+            " . static::TABLE_TO_JOIN . ".full_name as name 
+        FROM " . static::TABLE_NAME . " JOIN " . static::TABLE_TO_JOIN . " 
+        WHERE " . static::TABLE_NAME . "." . static::TRADE_PARTNER_ID . " = " . static::TABLE_TO_JOIN . ".id 
+        ORDER BY " . static::TABLE_NAME . ".date DESC;";
 
         return (new Database)->query($sql);
     }
@@ -28,12 +24,12 @@ class Order
     public static function paginate($offset = 0, $limit = 10)
     {
         $sql = "SELECT 
-            " . static::$table_name . ".id, 
-            " . static::$table_name . ".date, 
-            " . static::$joined_table . ".full_name as name 
-        FROM " . static::$table_name . " JOIN " . static::$joined_table . " 
-        WHERE " . static::$table_name . "." . static::$trade_partner_id . " = " . static::$joined_table . ".id 
-        ORDER BY " . static::$table_name . ".date DESC
+            " . static::TABLE_NAME . ".id, 
+            " . static::TABLE_NAME . ".date, 
+            " . static::TABLE_TO_JOIN . ".full_name as name 
+        FROM " . static::TABLE_NAME . " JOIN " . static::TABLE_TO_JOIN . " 
+        WHERE " . static::TABLE_NAME . "." . static::TRADE_PARTNER_ID . " = " . static::TABLE_TO_JOIN . ".id 
+        ORDER BY " . static::TABLE_NAME . ".date DESC
         LIMIT $limit OFFSET $offset;";
 
         return (new Database)->query($sql);
@@ -42,7 +38,7 @@ class Order
     // create an order
     public static function create($date, $person_id)
     {
-        $sql = "INSERT INTO " . static::$table_name . " (date, " . static::$trade_partner_id . ") VALUES (:date, :client_id);";
+        $sql = "INSERT INTO " . static::TABLE_NAME . " (date, " . static::TRADE_PARTNER_ID . ") VALUES (:date, :client_id);";
 
         $params = [
             ":date" => $date,
@@ -54,7 +50,7 @@ class Order
     // delete an order
     public static function delete($id)
     {
-        $sql = "DELETE FROM " . static::$table_name . " WHERE id=:id";
+        $sql = "DELETE FROM " . static::TABLE_NAME . " WHERE id=:id";
 
         $params = [":id" => $id];
 
@@ -64,7 +60,7 @@ class Order
     // update an order
     public static function update($id, $date, $person_id)
     {
-        $sql = "UPDATE " . static::$table_name . " SET date=:date, " . static::$trade_partner_id . "=:person_id  WHERE id=:id";
+        $sql = "UPDATE " . static::TABLE_NAME . " SET date=:date, " . static::TRADE_PARTNER_ID . "=:person_id  WHERE id=:id";
 
         $params = [
             ":date" => $date,
@@ -75,10 +71,10 @@ class Order
     }
 
 
-    // get the quantity of clientOrders in each month
+    // get the quantity of orders in each month
     public static function allGroupByMonth($year)
     {
-        $sql = "SELECT month(date) AS months, count(id) FROM " . static::$table_name . " 
+        $sql = "SELECT month(date) AS months, count(id) FROM " . static::TABLE_NAME . " 
             WHERE year(date) = :year 
             GROUP BY month(date) 
             ORDER BY month(date) ASC;";
@@ -88,10 +84,10 @@ class Order
         return (new Database)->query($sql, $params);
     }
 
-    // returns an array containing all the years of supplier clientOrders
+    // returns an array containing all the years of supplier orders
     public static function get_oldest_year()
     {
-        $sql = "SELECT MIN(year(date)) AS min_year FROM " . static::$table_name . ";";
+        $sql = "SELECT MIN(year(date)) AS min_year FROM " . static::TABLE_NAME . ";";
         return (new Database)->query($sql, null, false);
     }
 }

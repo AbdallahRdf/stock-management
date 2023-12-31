@@ -6,7 +6,7 @@ use App\Core\Database;
 
 class Client extends Person
 {
-    protected static $table_name = "clients";
+    const TABLE_NAME = "clients";
 
     // get the clients growth in each month
     public static function allGroupByMonth($year)
