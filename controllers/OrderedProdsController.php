@@ -44,16 +44,17 @@ function handle_inputs_validation($product, $quantity, $id = null)
 if ($_SERVER["REQUEST_METHOD"] == "GET") { // checks if the request method is GET ."when the user click on the info button in orders.php view
     $_SESSION["orderId"] = $_GET['info']; //stores the value of the id sent into the session.
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["ordered_p_id"] == "") { //create an ordered product
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
         $order_id = $_SESSION["orderId"];
         //dd(['quantity' => $quantity, 'ordered_id' => $order_id, "product_id" => $product]);
+        $pro = Product::get_product($product);
+        dd($pro["stock_quantity"] - $quantity);
+        Product::updateQuantity($product_id, $pro["stock_quantity"] - $quantity);
 
         handle_inputs_validation($product, $quantity);
-
         ClientOrderedProduct::create($product, $quantity, $order_id);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
@@ -66,7 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $product_id = $_POST["product_id"];
         $quantity = $_POST["quantity"];
         //dd(['quantity' => $quantity, 'ordered_p_id' => $ordered_p_id, "product_id" => $product_id]);
-
         handle_inputs_validation($product_id, $quantity, $ordered_p_id);
 
         ClientOrderedProduct::update($ordered_p_id, $product_id, $quantity);

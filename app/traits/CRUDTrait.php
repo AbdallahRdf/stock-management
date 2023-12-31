@@ -8,14 +8,11 @@ trait CRUDTrait
 {
     public static function all($id = null)
     {
-        if(in_array(static::TABLE_NAME, ["categories", "clients", "suppliers"]))
-        {
-            $sql = "SELECT " 
+        if (in_array(static::TABLE_NAME, ["categories", "clients", "suppliers"])) {
+            $sql = "SELECT "
                 . implode(", ", static::COLUMNS_TO_SHOW)
-                . " FROM " .static::TABLE_NAME. " ORDER BY created_at DESC;";
-        }
-        else if(static::TABLE_NAME === "products")
-        {
+                . " FROM " . static::TABLE_NAME . " ORDER BY created_at DESC;";
+        } else if (static::TABLE_NAME === "products") {
             $sql = "SELECT 
                 products.id, 
                 products.name, 
@@ -30,9 +27,7 @@ trait CRUDTrait
             JOIN categories ON products.category_id = categories.id 
             JOIN suppliers ON products.supplier_id = suppliers.id  
             ORDER BY products.created_at DESC;";
-        }
-        else if(in_array(static::TABLE_NAME, ["clientOrders", "supplierOrders"]))
-        {
+        } else if (in_array(static::TABLE_NAME, ["clientOrders", "supplierOrders"])) {
             $sql = "SELECT 
                 " . static::TABLE_NAME . ".id, 
                 " . static::TABLE_NAME . ".date, 
@@ -40,9 +35,7 @@ trait CRUDTrait
             FROM " . static::TABLE_NAME . " JOIN " . static::TABLE_TO_JOIN . " 
             WHERE " . static::TABLE_NAME . "." . static::TRADE_PARTNER_ID . " = " . static::TABLE_TO_JOIN . ".id 
             ORDER BY " . static::TABLE_NAME . ".date DESC;";
-        }
-        else if(in_array(static::TABLE_NAME, ["clientOrderedProducts", "supplierOrderedProducts"]))
-        {
+        } else if (in_array(static::TABLE_NAME, ["clientOrderedProducts", "supplierOrderedProducts"])) {
             $sql = "SELECT 
                 " . static::TABLE_NAME . ".id, 
                 products.name as product_name,
@@ -63,9 +56,7 @@ trait CRUDTrait
             $sql = "SELECT "
                 . implode(", ", static::COLUMNS_TO_SHOW)
                 . " FROM " . static::TABLE_NAME . " ORDER BY created_at DESC LIMIT $limit OFFSET $offset;";
-        } 
-        else if (static::TABLE_NAME === "products") 
-        {
+        } else if (static::TABLE_NAME === "products") {
             $sql = "SELECT 
                 products.id, 
                 products.name, 
@@ -80,9 +71,7 @@ trait CRUDTrait
             JOIN categories ON products.category_id = categories.id 
             JOIN suppliers ON products.supplier_id = suppliers.id  
             ORDER BY products.created_at DESC LIMIT $limit OFFSET $offset;";
-        } 
-        else if (in_array(static::TABLE_NAME, ["clientOrders", "supplierOrders"])) 
-        {
+        } else if (in_array(static::TABLE_NAME, ["clientOrders", "supplierOrders"])) {
             $sql = "SELECT 
                 " . static::TABLE_NAME . ".id, 
                 " . static::TABLE_NAME . ".date, 
@@ -90,9 +79,7 @@ trait CRUDTrait
             FROM " . static::TABLE_NAME . " JOIN " . static::TABLE_TO_JOIN . " 
             WHERE " . static::TABLE_NAME . "." . static::TRADE_PARTNER_ID . " = " . static::TABLE_TO_JOIN . ".id 
             ORDER BY " . static::TABLE_NAME . ".date DESC LIMIT $limit OFFSET $offset;";
-        } 
-        else if (in_array(static::TABLE_NAME, ["clientOrderedProducts", "supplierOrderedProducts"])) 
-        {
+        } else if (in_array(static::TABLE_NAME, ["clientOrderedProducts", "supplierOrderedProducts"])) {
             $sql = "SELECT 
                 " . static::TABLE_NAME . ".id, 
                 products.name as product_name,

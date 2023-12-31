@@ -91,7 +91,7 @@ class Product
         ORDER BY products.created_at DESC;";
         $params = [':id' => $id];
 
-        return (new Database)->query($sql, $params);
+        return (new Database)->query($sql, $params, false);
     }
     // create a product
     public static function create($name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price)
@@ -132,7 +132,17 @@ class Product
 
         return (new Database)->query($sql, $params);
     }
+    public static function updateQuantity($id, $quantity)
+    {
+        $sql = "UPDATE products SET stock_quantity=:quantity WHERE id=:id";
 
+        $params = [
+            ":quantity" => $quantity,
+            ":id" => $id
+        ];
+
+        return (new Database)->query($sql, $params);
+    }
     //get products we got from a specific supplier
     public static function getProdsBySupp($supplier_id)
     {
@@ -150,7 +160,7 @@ class Product
         JOIN suppliers ON products.supplier_id = suppliers.id 
         WHERE suppliers.id = :supplier
         ORDER BY products.created_at DESC;";
-        
+
         $params = [':supplier' => $supplier_id];
 
         return (new Database)->query($sql, $params);
