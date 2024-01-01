@@ -65,7 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $client_id = $_POST["client_id"];
         handle_inputs_validation($date, $client, $id);
 
-        ClientOrder::update($id, $date, $client_id);
+        ClientOrder::update($id, [
+            ClientOrder::DATE => $date, 
+            ClientOrder::TRADE_PARTNER_ID => $client_id
+        ]);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }

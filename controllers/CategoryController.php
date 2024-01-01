@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
         if (!Validator::isAlphaNum($category_name)) {
             handle_form_errors($category_name, "Invalid Category Name", $category_id);
         }
-        $result = Category::update($category_id, $category_name);
+        $result = Category::update($category_id, [Category::NAME => $category_name]);
 
         // if the category already exists in db;
         if ($result === null) {

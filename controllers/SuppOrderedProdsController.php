@@ -78,7 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //dd(['quantity' => $quantity, 'supplierOrdered_p_id' => $supplierOrdered_p_id, "product_id" => $product_id]);
 
         handle_inputs_validation($product_id, $quantity, $supplierOrdered_p_id);
-        SupplierOrderedProduct::update($supplierOrdered_p_id, $product_id, $quantity);
+        SupplierOrderedProduct::update($supplierOrdered_p_id, [
+            SupplierOrderedProduct::PRODUCT_ID => $product_id, 
+            SupplierOrderedProduct::QUANTITY => $quantity
+        ]);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }

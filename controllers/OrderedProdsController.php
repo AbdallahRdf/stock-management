@@ -72,7 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         handle_inputs_validation($product_id, $quantity, $ordered_p_id);
 
-        ClientOrderedProduct::update($ordered_p_id, $product_id, $quantity);
+        ClientOrderedProduct::update($ordered_p_id, [
+            ClientOrderedProduct::PRODUCT_ID => $product_id, 
+            ClientOrderedProduct::QUANTITY => $quantity
+        ]);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }

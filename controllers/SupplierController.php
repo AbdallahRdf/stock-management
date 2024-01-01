@@ -45,7 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") // did we get to this page through a 
 
         PersonController::handle_inputs_validation($name, $email, $phone_number, $date, "suppliers", $supplier_id);
 
-        $result = Supplier::update($supplier_id, $name, $email, $phone_number, $date);
+        $result = Supplier::update($supplier_id, [
+            Supplier::FULL_NAME => $name,
+            Supplier::EMAIL => $email,
+            Supplier::PHONE_NUM => $phone_number,
+            Supplier::REGISTRATION_DATE => $date
+        ]);
 
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
