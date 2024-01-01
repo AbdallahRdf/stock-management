@@ -28,6 +28,11 @@ function handle_inputs_validation($product, $quantity, $id = null)
         $ERRORS["quantity_error"] = "Invalid Product Quantity";
     }
 
+    // checks if the quantity of product isnerted is more than the quantity in the stock then an error message will be showed to the user
+    if (Product::get_product($product)["stock_quantity"] < $quantity) {
+        $ERRORS["quantity_error"] = "Insufficient stock available for the requested quantity";
+    }
+
     if (!empty($ERRORS)) // if there is errors
     {
         $OLD["old_product"] = $product;
