@@ -17,9 +17,9 @@ function goback()
     header("Location: ../resources/views/pages/orderedProducts.php");
     die();
 }
-
 // this function checks if the inputs are valid if not then send back an error message
-function handle_inputs_validation($product, $quantity, $id = null)
+
+function handle_inputs_validation($product, $quantity, $stock_quantity, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -29,7 +29,7 @@ function handle_inputs_validation($product, $quantity, $id = null)
     }
 
     // checks if the quantity of product isnerted is more than the quantity in the stock then an error message will be showed to the user
-    if (Product::get_product($product)["stock_quantity"] < $quantity) {
+    if ($stock_quantity < $quantity) {
         $ERRORS["quantity_error"] = "Insufficient stock available for the requested quantity";
     }
 
@@ -46,6 +46,7 @@ function handle_inputs_validation($product, $quantity, $id = null)
     }
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") { // checks if the request method is GET ."when the user click on the info button in orders.php view
     $_SESSION["orderId"] = $_GET['info']; //stores the value of the id sent into the session.
 }
@@ -54,17 +55,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
         $order_id = $_SESSION["orderId"];
-
-        handle_inputs_validation($product, $quantity);
+        $stock_quantity = Product::get_product($product)["stock_quantity"];
+        $_SESSION["old_stock"] = $stock_quantity;
+        handle_inputs_validation($product, $quantity, $stock_quantity);
         ClientOrderedProduct::create([
             ClientOrderedProduct::PRODUCT_ID => $product,
             ClientOrderedProduct::QUANTITY => $quantity,
             ClientOrderedProduct::ORDER_ID => $order_id
         ]);
+        $remaining_qte = $stock_quantity - $quantity;
+        Product::update($product, [Product::STOCK_QUANTITY => $remaining_qte]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
     {
-        $result = ClientOrderedProduct::delete($_POST["ordered_p_id"]);
+        ClientOrderedProduct::delete($_POST["ordered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
     } else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
     {
@@ -74,9 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         handle_inputs_validation($product_id, $quantity, $ordered_p_id);
 
         ClientOrderedProduct::update($ordered_p_id, [
-            ClientOrderedProduct::PRODUCT_ID => $product_id, 
+            ClientOrderedProduct::PRODUCT_ID => $product_id,
             ClientOrderedProduct::QUANTITY => $quantity
         ]);
+        $remaining_qte = $_SESSION["old_stock"] - $quantity;
+        Product::update($product_id, [Product::STOCK_QUANTITY => $remaining_qte]);
+
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }
