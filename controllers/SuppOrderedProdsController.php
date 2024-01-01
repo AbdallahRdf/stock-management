@@ -21,7 +21,7 @@ function goback()
 
 // this function checks if the inputs are valid if not then send back an error message
 
-function handle_inputs_validation($product, $quantity, $stock_quantity, $id = null)
+function handle_inputs_validation($product, $quantity, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
