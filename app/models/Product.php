@@ -40,9 +40,9 @@ class Product
         ORDER BY products.created_at DESC;";
         $params = [':id' => $id];
 
-        return (new Database)->query($sql, $params);
+        return (new Database)->query($sql, $params, false);
     }
-
+   
     //get products we got from a specific supplier
     public static function getProdsBySupp($supplier_id)
     {
@@ -60,7 +60,7 @@ class Product
         JOIN suppliers ON products.supplier_id = suppliers.id 
         WHERE suppliers.id = :supplier
         ORDER BY products.created_at DESC;";
-        
+
         $params = [':supplier' => $supplier_id];
 
         return (new Database)->query($sql, $params);

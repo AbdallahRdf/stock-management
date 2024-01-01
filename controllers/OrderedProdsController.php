@@ -44,8 +44,7 @@ function handle_inputs_validation($product, $quantity, $id = null)
 if ($_SERVER["REQUEST_METHOD"] == "GET") { // checks if the request method is GET ."when the user click on the info button in orders.php view
     $_SESSION["orderId"] = $_GET['info']; //stores the value of the id sent into the session.
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["ordered_p_id"] == "") { //create an ordered product
         $product = $_POST["product_id"];
         $quantity = $_POST["quantity"];
@@ -58,18 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             ClientOrderedProduct::ORDER_ID => $order_id
         ]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
-    } 
-    else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
+    } else if (!isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // delete an ordered product:
     {
         $result = ClientOrderedProduct::delete($_POST["ordered_p_id"]);
         create_alert_session_variable("deleting_successfully_alert", "Record deleted successfully!");
-    } 
-    else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
+    } else if (isset($_POST["quantity"]) && $_POST["ordered_p_id"] != "") // updating an ordered product
     {
         $ordered_p_id = $_POST["ordered_p_id"];
         $product_id = $_POST["product_id"];
         $quantity = $_POST["quantity"];
-
         handle_inputs_validation($product_id, $quantity, $ordered_p_id);
 
         ClientOrderedProduct::update($ordered_p_id, [
