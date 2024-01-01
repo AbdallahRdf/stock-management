@@ -21,7 +21,7 @@ function goback()
 
 // this function checks if the inputs are valid if not then send back an error message
 
-function handle_inputs_validation($product, $quantity, $id = null)
+function handle_inputs_validation($product, $quantity, $stock_quantity, $id = null)
 {
     $ERRORS = []; // will hold error messages
     $OLD = []; // will hold old inputs data when there is an error;
@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $quantity = $_POST["quantity"];
         $supplierOrder_id = $_SESSION["supplierOrderId"];
         //dd(['quantity' => $quantity, 'ordered_id' => $order_id, "product_id" => $product]);
+        $stock_quantity = Product::get_product($product)["stock_quantity"];
 
         handle_inputs_validation($product, $quantity);
 
@@ -63,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             SupplierOrderedProduct::QUANTITY => $quantity,
             SupplierOrderedProduct::ORDER_ID => $supplierOrder_id
         ]);
+        $supp_qte = $stock_quantity + $quantity;
+        Product::update($product, [Product::STOCK_QUANTITY => $supp_qte]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:
     {
@@ -79,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         handle_inputs_validation($product_id, $quantity, $supplierOrdered_p_id);
         SupplierOrderedProduct::update($supplierOrdered_p_id, [
-            SupplierOrderedProduct::PRODUCT_ID => $product_id, 
+            SupplierOrderedProduct::PRODUCT_ID => $product_id,
             SupplierOrderedProduct::QUANTITY => $quantity
         ]);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
