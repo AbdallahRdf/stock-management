@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $supplierOrder_id = $_SESSION["supplierOrderId"];
         //dd(['quantity' => $quantity, 'ordered_id' => $order_id, "product_id" => $product]);
         $stock_quantity = Product::get_product($product)["stock_quantity"];
-
+        $_SESSION["old_stock"] = $stock_quantity;
         handle_inputs_validation($product, $quantity);
 
         SupplierOrderedProduct::create([
@@ -85,6 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             SupplierOrderedProduct::PRODUCT_ID => $product_id,
             SupplierOrderedProduct::QUANTITY => $quantity
         ]);
+        $supp_qte = $_SESSION["old_stock"] + $quantity;
+        Product::update($product_id, [Product::STOCK_QUANTITY => $supp_qte]);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }

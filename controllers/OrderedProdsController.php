@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ordered_p_id = $_POST["ordered_p_id"];
         $product_id = $_POST["product_id"];
         $quantity = $_POST["quantity"];
-        handle_inputs_validation($product_id, $quantity, $ordered_p_id);
+        handle_inputs_validation($product_id, $quantity, $_SESSION["old_stock"], $ordered_p_id);
 
         ClientOrderedProduct::update($ordered_p_id, [
             ClientOrderedProduct::PRODUCT_ID => $product_id,
