@@ -147,7 +147,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // creating an excerpt of the description to show it in the table;
         $excerpt = substr($description, 0, 14) . "...";
 
-        Product::update($product_id, $name, $excerpt, $description, $purchase_price, $quantity, $category, $supplier, $selling_price);
+        Product::update($product_id, [
+            Product::NAME => $name,
+            Product::EXCERPT => $excerpt,
+            Product::DESCRIPTION => $description,
+            Product::PURCHASE_PRICE => $purchase_price,
+            Product::STOCK_QUANTITY => $quantity,
+            Product::CATEGORY_ID => $category,
+            Product::SUPPLIER_ID => $supplier,
+            Product::SELLING_PRICE => $selling_price
+        ]);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }

@@ -112,6 +112,25 @@ trait CRUDTrait
         return (new Database)->query($sql, $params);
     }
 
+    public static function update($id, $assoc_array)
+    {
+        $sql = "UPDATE "
+            . static::TABLE_NAME
+            . " SET "
+            . implode(", ", array_map(fn($col) => "$col = :$col", array_keys($assoc_array)))
+            . " WHERE id = :id";
+
+        $params = array_merge(
+            [":id" => $id],
+            array_combine(
+                array_map(fn($col) => ":$col", array_keys($assoc_array)), 
+                array_values($assoc_array)
+            )
+        );
+
+        return (new Database)->query($sql, $params);
+    }
+
     public static function delete($id)
     {
         $sql = "DELETE FROM " . static::TABLE_NAME . " WHERE id=:id";

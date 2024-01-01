@@ -61,7 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $supplier_id = $_POST["supplier_id"];
         handle_inputs_validation($date, $supplier_id, $id);
 
-        SupplierOrder::update($id, $date, $supplier_id);
+        SupplierOrder::update($id, [
+            SupplierOrder::DATE => $date,
+            SupplierOrder::TRADE_PARTNER_ID => $supplier_id
+        ]);
         create_alert_session_variable("updated_successfully_alert", "Record Updated successfully!");
     }
 }

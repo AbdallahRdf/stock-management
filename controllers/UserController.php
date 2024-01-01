@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
             die();
         }
         $hash = password_hash($new_password, PASSWORD_DEFAULT); // hash the password
-        User::update_password($_SESSION["user"]["id"], $hash); // update the password
+        User::update($_SESSION["user"]["id"], [User::PASSWORD => $hash]); // update the password
         $_SESSION["user"]["password"] = $hash;
         create_alert_session_variable("updated_successfully_alert", "Password Updated successfully!");
     }
@@ -72,7 +72,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
             header("location: ../resources/views/pages/updateSettings.php");
             die();
         }
-        User::update($_SESSION["user"]["id"], $first_name, $last_name);
+        User::update($_SESSION["user"]["id"], [
+            User::FIRST_NAME => $first_name, 
+            User::LAST_NAME => $last_name
+        ]);
         $_SESSION["user"]["firstName"] = $first_name;
         $_SESSION["user"]["lastName"] = $last_name;
         create_alert_session_variable("updated_successfully_alert", "Information Updated successfully!");
