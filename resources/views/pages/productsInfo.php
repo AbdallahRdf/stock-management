@@ -2,7 +2,7 @@
 require "../../../app/util/functions.php";
 require_once "../components/session_start.php"; // if not logged in redirect back to login page;
 
-$product = $_SESSION["product"][0];
+$product = $_SESSION["product"];
 ?>
 
 <!DOCTYPE html>
