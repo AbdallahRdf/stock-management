@@ -9,7 +9,6 @@ class Person
 {
     use CRUDTrait;
 
-    const ID = "id";
     const FULL_NAME = "full_name";
     const EMAIL = "email";
     const PHONE_NUM = "phone_num";
@@ -39,19 +38,19 @@ class Person
     // }
 
     // creates new supplier
-    public static function create($name, $email, $phone_number, $date)
-    {
-        $sql = "INSERT INTO ". static::TABLE_NAME ." (full_name, email, phone_num, registration_date) VALUES (:name, :email, :phone, :date)";
+    // public static function create($name, $email, $phone_number, $date)
+    // {
+    //     $sql = "INSERT INTO ". static::TABLE_NAME ." (full_name, email, phone_num, registration_date) VALUES (:name, :email, :phone, :date)";
 
-        $params = [
-            ":name" => $name,
-            ":email" => $email,
-            ":phone" => $phone_number,
-            ":date" => $date
-        ];
+    //     $params = [
+    //         ":name" => $name,
+    //         ":email" => $email,
+    //         ":phone" => $phone_number,
+    //         ":date" => $date
+    //     ];
 
-        return (new Database)->query($sql, $params);
-    }
+    //     return (new Database)->query($sql, $params);
+    // }
 
     // update a supplier 
     public static function update($id, $name, $email, $phone_number, $date)

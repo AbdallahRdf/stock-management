@@ -19,7 +19,12 @@ function signup($first_name, $last_name, $email, $password)
         return false;
     }
     // create a new user
-    User::create($first_name, $last_name, $email, $password);
+    User::create([
+        User::FIRST_NAME => $first_name,
+        User::LAST_NAME => $last_name, 
+        User::EMAIL => $email, 
+        User::PASSWORD => $password
+    ]);
 
     // return the new user data
     return User::get($email);

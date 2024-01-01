@@ -9,8 +9,7 @@ class Order
 {
     use CRUDTrait;
 
-    // const ID = "id";
-    // const DATE = "date";
+    const DATE = "date";
     // const COLUMNS_TO_SHOW = [static::ID, static::DATE];
     // const COLUMNS_FROM_JOINED_TABLE = ["full_name as name"];
 
@@ -44,16 +43,16 @@ class Order
     // }
 
     // create an order
-    public static function create($date, $person_id)
-    {
-        $sql = "INSERT INTO " . static::TABLE_NAME . " (date, " . static::TRADE_PARTNER_ID . ") VALUES (:date, :trade_parter_id);";
+    // public static function create($date, $person_id)
+    // {
+    //     $sql = "INSERT INTO " . static::TABLE_NAME . " (date, " . static::TRADE_PARTNER_ID . ") VALUES (:date, :trade_parter_id);";
 
-        $params = [
-            ":date" => $date,
-            ":trade_parter_id" => $person_id,
-        ];
-        return (new Database)->query($sql, $params);
-    }
+    //     $params = [
+    //         ":date" => $date,
+    //         ":trade_parter_id" => $person_id,
+    //     ];
+    //     return (new Database)->query($sql, $params);
+    // }
 
     // update an order
     public static function update($id, $date, $person_id)

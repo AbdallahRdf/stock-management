@@ -94,6 +94,24 @@ trait CRUDTrait
         return (new Database)->query($sql, $params ?? null);
     }
 
+    public static function create($assoc_array)
+    {
+        // turn the keys of the assoc_array to named parameters for the sql query
+        $named_params_array = array_map(fn($col) => ":$col", array_keys($assoc_array));
+
+        $sql = "INSERT INTO " 
+                .static::TABLE_NAME
+                ."("
+                .implode(", ", array_keys($assoc_array))
+                .") VALUES ("
+                .implode(", ", $named_params_array)
+                .");";
+        
+        $params = array_combine($named_params_array, array_values($assoc_array));
+
+        return (new Database)->query($sql, $params);
+    }
+
     public static function delete($id)
     {
         $sql = "DELETE FROM " . static::TABLE_NAME . " WHERE id=:id";

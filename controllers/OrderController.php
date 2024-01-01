@@ -49,7 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $date = $_POST["date"];
         $client = $_POST["client_id"];
         handle_inputs_validation($date, $client);
-        ClientOrder::create($date, $client);
+        ClientOrder::create([
+            ClientOrder::DATE => $date,
+            ClientOrder::TRADE_PARTNER_ID => $client
+        ]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["date"]) && $_POST["order_id"] != "") // delete an order:
     {

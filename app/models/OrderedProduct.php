@@ -10,7 +10,9 @@ class OrderedProduct
     use CRUDTrait;
 
     // const ID = "id";
-    // const QUANTITY = "quantity";
+    const ORDER_ID = "order_id";
+    const PRODUCT_ID = "product_id";
+    const QUANTITY = "quantity";
     // const COLUMNS_TO_SHOW = [static::ID, static::QUANTITY];
     // const COLUMNS_FROM_JOINED_TABLE = ["name as product_name"];
 
@@ -49,18 +51,18 @@ class OrderedProduct
     // }
 
     //create an Supplier Ordered product
-    public static function create($product_id, $quantity, $order_id)
-    {
-        $sql = "INSERT INTO ". static::TABLE_NAME ." (order_id, product_id, quantity) values (:order_id, :product_id, :quantity);";
+    // public static function create($product_id, $quantity, $order_id)
+    // {
+    //     $sql = "INSERT INTO ". static::TABLE_NAME ." (order_id, product_id, quantity) values (:order_id, :product_id, :quantity);";
 
-        $params = [
-            ":order_id" => $order_id,
-            ":product_id" => $product_id,
-            ":quantity" => $quantity,
-        ];
+    //     $params = [
+    //         ":order_id" => $order_id,
+    //         ":product_id" => $product_id,
+    //         ":quantity" => $quantity,
+    //     ];
 
-        return (new Database)->query($sql, $params);
-    }
+    //     return (new Database)->query($sql, $params);
+    // }
 
     // update an Supplier Ordered product
     public static function update($id, $product_id, $quantity)

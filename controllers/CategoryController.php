@@ -35,8 +35,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
             handle_form_errors($category_name, "Invalid Category Name");
         }
         // create the new category
-        $result = Category::create($category_name);
-    
+        $result = Category::create([Category::NAME => $category_name]);
+
         // if the category already exists in db;
         if($result === null)
         {
