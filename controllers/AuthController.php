@@ -15,14 +15,14 @@ require_once "../app/util/functions.php";
 function signup($first_name, $last_name, $email, $password)
 {
     // check if there is already a user with that email, then return false; 
-    if (User::get($email)){
+    if (User::get($email)) {
         return false;
     }
     // create a new user
     User::create([
         User::FIRST_NAME => $first_name,
-        User::LAST_NAME => $last_name, 
-        User::EMAIL => $email, 
+        User::LAST_NAME => $last_name,
+        User::EMAIL => $email,
         User::PASSWORD => $password
     ]);
 
