@@ -55,8 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $quantity = $_POST["quantity"];
         $supplierOrder_id = $_SESSION["supplierOrderId"];
         //dd(['quantity' => $quantity, 'ordered_id' => $order_id, "product_id" => $product]);
-        $stock_quantity = Product::get_product($product)["stock_quantity"];
-        $_SESSION["old_stock"] = $stock_quantity;
+        $_SESSION["old_stock"] = Product::get_product($product)["stock_quantity"];
         handle_inputs_validation($product, $quantity);
 
         SupplierOrderedProduct::create([
@@ -64,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             SupplierOrderedProduct::QUANTITY => $quantity,
             SupplierOrderedProduct::ORDER_ID => $supplierOrder_id
         ]);
-        $supp_qte = $stock_quantity + $quantity;
+        $supp_qte = $_SESSION["old_stock"] + $quantity;
         Product::update($product, [Product::STOCK_QUANTITY => $supp_qte]);
         create_alert_session_variable("created_successfully_alert", "Record Created successfully!"); // create an alert
     } else if (!isset($_POST["quantity"]) && $_POST["supplierOrdered_p_id"] != "") // delete an SupplierOrdered product:

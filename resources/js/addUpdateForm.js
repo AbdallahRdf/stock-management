@@ -85,13 +85,13 @@ const handleClick = (e) => {
 
     for (let i = 1; i < inputs.length; i++) {
       if (inputs[i].tagName === "SELECT") {
-
         // if it is a <select> then add selected attribute to the relevant <option>
         const options = inputs[i].children; // getting the option tags inside the select tag
         for (let j = 0; j < options.length; j++) {
 
           console.log(inputsValue[i - 1]);
-          console.log("option " + j + " " + options[j].textContent);
+          console.log("option " + j + " " + options[j].textContent.trim());
+          console.log(options[j].textContent.trim() === inputsValue[i - 1]);
           if (options[j].textContent.trim() === inputsValue[i - 1]) {
             options[j].selected = true;
             break;
